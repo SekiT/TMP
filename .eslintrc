@@ -2,5 +2,11 @@
   extends: 'eslint-config-airbnb-base',
   env: {
     browser: true,
-  }
+  },
+  rules: {
+    'no-unused-expressions': [
+      'error',
+      { allowTaggedTemplates: true },
+    ],
+  },
 }

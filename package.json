@@ -26,5 +26,8 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.1.2",
     "tape": "^4.11.0"
+  },
+  "dependencies": {
+    "hyperhtml": "^2.31.0"
   }
 }
