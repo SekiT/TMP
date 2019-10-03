@@ -20,8 +20,8 @@ The situation can be described as a table:
 | order | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
 | -     | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| head  | ↑ |
-| state | 0 |
+| head  | ↑ |   |   |   |   |   |   |   |   |   |
+| state | 0 |   |   |   |   |   |   |   |   |   |
 
 ## Command
 
@@ -32,8 +32,8 @@ For example, if the situation is:
 | order | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
 | -     | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| head |   |   |   | ↑ |   |   |   |   |   |   |
-| state | 2 |
+| head  |   |   |   | ↑ |   |   |   |   |   |   |
+| state |   |   |   | 2 |   |   |   |   |   |   |
 
 then the command starting with `<2, 0,` is executed.
 
@@ -43,7 +43,7 @@ If the command is `<2, 0, 1, R, 3>`, the next situation will be:
 | -     | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
 | head  |   |   |   |   | ↑ |   |   |   |   |   |
-| state | 3 |
+| state |   |   |   |   | 3 |   |   |   |   |   |
 
 ## Program
 
@@ -81,9 +81,11 @@ Infinite loops are not accepted or detected. `Reset` button will rescue us in th
 | order | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | -     | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| head  | ↑ |   |   |   |   |   |   |   |   |   |
+| state | 0 |   |   |   |   |   |   |   |   |   |
 ```
 
-```
+```md
 <0, 0, 0, R, 0> <0, 1, 1, R, 0>
 <1, 0, 0, R, 1> <1, 1, 1, R, 1>
 <2, 0, 0, R, 2> <2, 1, 1, R, 2>
