@@ -1,4 +1,4 @@
-import { bind } from './node_modules/hyperhtml/esm';
+import { bind } from 'hyperhtml/esm';
 
 import tape from './view/tape';
 

@@ -1,4 +1,4 @@
-import { wire } from '../node_modules/hyperhtml/esm';
+import { wire } from 'hyperhtml/esm';
 import view from '../lib/view';
 
 const defaultState = {
