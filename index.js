@@ -1,15 +1,14 @@
 import { bind } from './node_modules/hyperhtml/esm';
-import view from './lib/view';
 
-const foo = view(0, (render) => (count) => render`
-  <ul>
-    <li>This is content</li>
-    <li>The count is ${count}</li>
-  </ul>
-`);
+import tape from './view/tape';
 
-const countUp = () => foo.update((count) => (count + 1));
+const shuffle = () => tape.update(({ position }) => ({
+  tape: [...Array(10)].map(() => Math.round(Math.random())),
+  position,
+}));
 
-bind(document.getElementById('root'))`${foo.render()}`;
+bind(document.getElementById('root'))`
+${tape.render()}
+`;
 
-setInterval(countUp, 1000);
+setInterval(shuffle, 1000);
