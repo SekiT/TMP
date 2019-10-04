@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "rollup -c --watch",
     "build": "rollup -c --environment MINIFY",
+    "lint": "eslint . --fix",
     "test": "rollup -c rollup.config.test.js | node"
   },
   "repository": {
