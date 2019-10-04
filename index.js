@@ -1,5 +1,4 @@
 import { bind } from 'hyperhtml/esm';
-
 import tape from './view/tape';
 
 const shuffle = () => tape.update(({ position }) => ({
