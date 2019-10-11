@@ -8,5 +8,9 @@
       'error',
       { allowTaggedTemplates: true },
     ],
+    'no-bitwise': [
+      'error',
+      { allow: ['&', '|', '>>', '<<'] },
+    ]
   },
 }
