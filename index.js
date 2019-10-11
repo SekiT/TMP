@@ -6,12 +6,9 @@ bind(document.getElementById('root'))`
 ${tapeView.render()}
 `;
 
-const dummyPhase = (time = 0) => () => {
+const dummyPhase = (time) => () => {
   const tape = [...Array(10)].map((_, index) => (time & (1 << index) ? 1 : 0));
-  tapeView.update((state) => ({
-    ...state,
-    tape,
-  }));
+  tapeView.update((state) => ({ ...state, tape }));
   return dummyPhase(time + 1);
 };
 
