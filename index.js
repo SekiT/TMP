@@ -1,13 +1,18 @@
 import { bind } from 'hyperhtml/esm';
-import tape from './view/tape';
-
-const shuffle = () => tape.update(({ position }) => ({
-  tape: [...Array(10)].map(() => Math.round(Math.random())),
-  position,
-}));
+import runPhase from './lib/runPhase';
+import tapeView from './view/tape';
 
 bind(document.getElementById('root'))`
-${tape.render()}
+${tapeView.render()}
 `;
 
-setInterval(shuffle, 1000);
+const dummyPhase = (time = 0) => () => {
+  const tape = [...Array(10)].map((_, index) => (time & (1 << index) ? 1 : 0));
+  tapeView.update((state) => ({
+    ...state,
+    tape,
+  }));
+  return dummyPhase(time + 1);
+};
+
+runPhase(dummyPhase(0));
