@@ -1,6 +1,6 @@
 import { wire } from 'hyperhtml/esm';
-import view from '../lib/view';
-import windowSize from '../subject/windowSize';
+import view from '../../lib/view';
+import windowSize from '../../subject/windowSize';
 
 const defaultState = {
   tape: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,15 +24,13 @@ const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
     'font-size': `${width * 0.8}px`,
     'text-align': 'center',
   };
-  return render`
-  <div style=${containerStyle}>
-  ${cellDivs.map((div, index) => {
-    const character = tape[index];
-    const className = `cell${character}`;
-    return div`<div class=${className} style=${cellStyle}>${character}</div>`;
-  })}
-  </div>
-  `;
+  return render`<div style=${containerStyle}>${
+    cellDivs.map((div, index) => {
+      const character = tape[index];
+      const className = `cell${character}`;
+      return div`<div class=${className} style=${cellStyle}>${character}</div>`;
+    })
+  }</div>`;
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
