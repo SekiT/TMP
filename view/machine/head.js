@@ -7,6 +7,10 @@ const initialState = {
 };
 
 const headView = view(initialState, (render) => ({ state, cellWidth }) => {
+  const containerStyle = {
+    position: 'absolute',
+    top: `${cellWidth}px`,
+  };
   const commonStyle = {
     position: 'absolute',
     height: `${cellWidth}px`,
@@ -30,14 +34,16 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
     'text-align': 'center',
   };
   return render`
-    <div style=${{ ...armStyle, left: `${cellWidth * 5.1875}px` }}></div>
-    <div style=${{ ...armStyle, left: `${cellWidth * 6.1875}px` }}></div>
-    <div style=${headStyle}>${state}</div>
+    <div style=${containerStyle}>
+      <div style=${{ ...armStyle, left: `${cellWidth * 5.1875}px` }}></div>
+      <div style=${{ ...armStyle, left: `${cellWidth * 6.1875}px` }}></div>
+      <div style=${headStyle}>${state}</div>
+    </div>
   `;
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const cellWidth = Math.min(windowWidth * 0.08, windowHeight);
+  const cellWidth = Math.min(windowWidth * 0.08, windowHeight / 3);
   headView.update((state) => ({ ...state, cellWidth }));
 });
 

@@ -13,6 +13,7 @@ const cellDivs = defaultState.tape.map(() => wire({}));
 const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
   const containerStyle = {
     position: 'absolute',
+    top: `${width}px`,
     left: `${width * (5.25 - position)}px`,
     width: `${width * 10}px`,
     height: `${width}px`,
@@ -34,7 +35,7 @@ const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const tapeWidth = Math.min(windowWidth * 0.08, windowHeight);
+  const tapeWidth = Math.min(windowWidth * 0.08, windowHeight / 3);
   tapeView.update((state) => ({ ...state, width: tapeWidth }));
 });
 
