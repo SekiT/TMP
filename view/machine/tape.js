@@ -19,10 +19,11 @@ const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
     height: `${width}px`,
   };
   const cellStyle = {
-    display: 'table-cell',
+    display: 'inline-block',
     width: `${width}px`,
     height: `${width}px`,
     'font-size': `${width * 0.8}px`,
+    'line-height': `${width}px`,
     'text-align': 'center',
   };
   return render`<div style=${containerStyle}>${
