@@ -15,7 +15,7 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   const commonStyle = {
     position: 'absolute',
     height: `${cellWidth}px`,
-    background: 'radial-gradient(#AAAAAA, #666666)',
+    background: 'radial-gradient(#aaa, #666)',
   };
   const w16 = cellWidth * 0.0625;
   const armStyle = {

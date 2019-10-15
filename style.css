@@ -1,13 +1,16 @@
-body{
-  background-color: #334455;
+body {
   margin: 0;
   padding: 0;
+  background-color: #345;
+  font-family: serif;
 }
-.cell0{
+
+.cell0 {
   background-color: black;
   color: white;
 }
-.cell1{
+
+.cell1 {
   background-color: white;
   color: black;
 }
