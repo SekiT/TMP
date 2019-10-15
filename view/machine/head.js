@@ -34,13 +34,11 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
     'text-align': 'center',
     color: 'white',
   };
-  return render`
-    <div style=${containerStyle}>
-      <div style=${armStyle}></div>
-      <div style=${{ ...armStyle, left: `${cellWidth}px` }}></div>
-      <div style=${headStyle}>${state}</div>
-    </div>
-  `;
+  return render`<div style=${containerStyle}>
+    <div style=${armStyle}></div>
+    <div style=${{ ...armStyle, left: `${cellWidth}px` }}></div>
+    <div style=${headStyle}>${state}</div>
+  </div>`;
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
