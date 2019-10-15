@@ -10,20 +10,20 @@ const defaultState = {
 
 const cellDivs = defaultState.tape.map(() => wire({}));
 
-const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
+const tapeView = view(defaultState, (render) => ({ tape, position, cellWidth }) => {
   const containerStyle = {
     position: 'absolute',
-    top: `${width}px`,
-    left: `${width * (5.25 - position)}px`,
-    width: `${width * 10}px`,
-    height: `${width}px`,
+    top: `${cellWidth}px`,
+    left: `${cellWidth * (5.25 - position)}px`,
+    width: `${cellWidth * 10}px`,
+    height: `${cellWidth}px`,
   };
   const cellStyle = {
     display: 'inline-block',
-    width: `${width}px`,
-    height: `${width}px`,
-    'font-size': `${width * 0.8}px`,
-    'line-height': `${width}px`,
+    width: `${cellWidth}px`,
+    height: `${cellWidth}px`,
+    'font-size': `${cellWidth * 0.8}px`,
+    'line-height': `${cellWidth}px`,
     'text-align': 'center',
   };
   return render`<div style=${containerStyle}>${
@@ -36,8 +36,8 @@ const tapeView = view(defaultState, (render) => ({ tape, position, width }) => {
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const tapeWidth = Math.min(windowWidth * 0.08, windowHeight / 3);
-  tapeView.update((state) => ({ ...state, width: tapeWidth }));
+  const cellWidth = Math.min(windowWidth * 0.08, windowHeight / 3);
+  tapeView.update((state) => ({ ...state, cellWidth }));
 });
 
 export default tapeView;
