@@ -10,7 +10,7 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   const containerStyle = {
     position: 'absolute',
     top: `${cellWidth}px`,
-    left: `${cellWidth * 5.1875}px`,
+    left: `${cellWidth * 5.6875}px`,
   };
   const commonStyle = {
     position: 'absolute',

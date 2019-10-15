@@ -14,7 +14,7 @@ const tapeView = view(defaultState, (render) => ({ tape, position, cellWidth }) 
   const containerStyle = {
     position: 'absolute',
     top: `${cellWidth}px`,
-    left: `${cellWidth * (5.25 - position)}px`,
+    left: `${cellWidth * (5.75 - position)}px`,
     width: `${cellWidth * 10}px`,
     height: `${cellWidth}px`,
   };
