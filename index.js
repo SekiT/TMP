@@ -2,10 +2,12 @@ import { bind } from 'hyperhtml/esm';
 import runPhase from './lib/runPhase';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
+import programWindowView from './view/program/window';
 
 bind(document.getElementById('root'))`
 ${tapeView.render()}
 ${headView.render()}
+${programWindowView.render()}
 `;
 
 const dummyPhase = (time) => () => {
