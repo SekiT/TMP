@@ -10,7 +10,7 @@ commandViews.forEach((v, index) => v.update((state) => ({
   char0: index & 1,
   direction: 'R',
   char1: index & 1,
-  state1: [1, 2, 3, 4, 'A'][(index / 2 | 0)],
+  state1: index / 2 | 0,
 })));
 
 const containerStyle = (fontSize) => ({
