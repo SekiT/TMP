@@ -22,6 +22,12 @@ const containerStyle = {
   'background-color': 'rgba(51, 51, 153, 0.8)',
 };
 
+const commandsListStyle = {
+  width: '90%',
+  margin: '3% 5% 3% 5%',
+  'text-align': 'center',
+};
+
 const titleStyle = {
   padding: '0 0 10px 10px',
   'font-size': '150%',
@@ -29,19 +35,12 @@ const titleStyle = {
   color: 'white',
 };
 
-export default view(null, (render) => () => {
-  const commandsListStyle = {
-    width: '90%',
-    margin: '0 5% 3% 5%',
-    'text-align': 'center',
-  };
-  return render`<div style=${containerStyle}>
-    <span style=${titleStyle}>Program</span>
-    <div style=${commandsListStyle}>
-      ${commandViews.map((v) => v.render())}
-    </div>
-  </div>`;
-});
+export default view(null, (render) => () => render`<div style=${containerStyle}>
+  <span style=${titleStyle}>Program</span>
+  <div style=${commandsListStyle}>
+    ${commandViews.map((v) => v.render())}
+  </div>
+</div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const fontSize = Math.min(windowWidth * 0.0225, windowHeight * 0.05);
