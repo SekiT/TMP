@@ -7,7 +7,7 @@ const commonPlugins = [
   resolve(),
 ];
 
-const envDependentPlugins = process.env.MINIFY ? [
+const envDependentPlugins = process.env.PRODUCTION ? [
   terser(),
 ] : [
   serve(),
