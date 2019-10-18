@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SekiT/tmp.git"
+    "url": "git+https://github.com/SekiT/TMP.git"
   },
   "author": "https://github.com/SekiT",
   "license": "WTFPL",
   "bugs": {
-    "url": "https://github.com/SekiT/tmp/issues"
+    "url": "https://github.com/SekiT/TMP/issues"
   },
-  "homepage": "https://sekit.github.io/tmp/",
+  "homepage": "https://sekit.github.io/TMP/",
   "devDependencies": {
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
