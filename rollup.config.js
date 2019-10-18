@@ -17,6 +17,8 @@ const envDependentPlugins = process.env.PRODUCTION ? [
 export default {
   input: 'index.js',
   plugins: [...commonPlugins, ...envDependentPlugins],
+  context: 'null',
+  moduleContext: 'null',
   output: {
     file: 'bundle.js',
     format: 'iife',
