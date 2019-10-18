@@ -1,20 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
   background-color: #345;
   font-family: serif;
-}
-
-.cell0 {
-  display: inline-block;
-  text-align: center;
-  background-color: black;
-  color: white;
-}
-
-.cell1 {
-  display: inline-block;
-  text-align: center;
-  background-color: white;
-  color: black;
 }
