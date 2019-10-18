@@ -2,7 +2,7 @@ import view from '../../lib/view';
 import windowSize from '../../subject/windowSize';
 import commandView from './command';
 
-const commandViews = [...Array(10)].map((_, index) => commandView(index % 2));
+const commandViews = [...Array(10)].map(() => commandView());
 
 commandViews.forEach((v, index) => v.update((state) => ({
   ...state,
@@ -13,36 +13,34 @@ commandViews.forEach((v, index) => v.update((state) => ({
   state1: [1, 2, 3, 4, 'A'][(index / 2 | 0)],
 })));
 
-const containerStyle = {
+const containerStyle = (fontSize) => ({
   position: 'absolute',
-  top: '30%',
+  top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
+  width: `${fontSize * 23}px`,
+  padding: '5px 0 10px 0',
+  'text-align': 'center',
+  'font-size': `${fontSize}px`,
+  'line-height': `${fontSize}px`,
   border: '1px solid #999',
   'background-color': 'rgba(51, 51, 153, 0.8)',
-};
-
-const commandsListStyle = {
-  width: '90%',
-  margin: '3% 5% 3% 5%',
-  'text-align': 'center',
-};
+  color: 'white',
+  'font-family': 'Courier New',
+});
 
 const titleStyle = {
-  padding: '0 0 10px 10px',
-  'font-size': '150%',
-  'font-family': 'Courier New',
-  color: 'white',
+  'margin-bottom': '10px',
 };
 
-export default view(null, (render) => () => render`<div style=${containerStyle}>
+const windowView = view({ fontSize: 0 }, (render) => ({ fontSize }) => render`<div style=${containerStyle(fontSize)}>
   <span style=${titleStyle}>Program</span>
-  <div style=${commandsListStyle}>
-    ${commandViews.map((v) => v.render())}
-  </div>
+  <div>${commandViews.map((v) => v.render())}</div>
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const fontSize = Math.min(windowWidth * 0.0225, windowHeight * 0.05);
-  commandViews.forEach((v) => v.update((state) => ({ ...state, fontSize })));
+  const fontSize = Math.min(windowWidth * 0.03, windowHeight * 0.1);
+  windowView.update((state) => ({ ...state, fontSize }));
 });
+
+export default windowView;

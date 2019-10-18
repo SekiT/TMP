@@ -6,23 +6,15 @@ const initialState = {
   direction: 'R',
   char1: 1,
   state1: 1,
-  fontSize: 18,
+};
+
+const containerStyle = {
+  display: 'inline-block',
+  margin: '0.5% 3%',
+  'text-align': 'center',
+  'white-space': 'nowrap',
 };
 
 export default () => view(initialState, (render) => ({
-  state0, char0, direction, char1, state1, fontSize,
-}) => {
-  const containerStyle = {
-    display: 'inline-block',
-    width: '46%',
-    margin: `${fontSize * 0.1}px 2%`,
-    'text-align': 'center',
-    'font-size': `${fontSize}px`,
-    'line-height': `${fontSize}px`,
-    color: 'white',
-    'font-family': 'Courier New',
-  };
-  return render`<div style=${containerStyle}>
-    &lt;${state0}, ${char0}, ${direction}, ${char1}, ${state1}&gt;
-  </div>`;
-});
+  state0, char0, direction, char1, state1,
+}) => render`<div style=${containerStyle}>&lt;${state0}, ${char0}, ${direction}, ${char1}, ${state1}&gt;</div>`);
