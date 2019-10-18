@@ -6,11 +6,15 @@ body {
 }
 
 .cell0 {
+  display: inline-block;
+  text-align: center;
   background-color: black;
   color: white;
 }
 
 .cell1 {
+  display: inline-block;
+  text-align: center;
   background-color: white;
   color: black;
 }

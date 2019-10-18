@@ -15,16 +15,12 @@ const tapeView = view(defaultState, (render) => ({ tape, position, cellWidth }) 
     position: 'absolute',
     top: `${cellWidth}px`,
     left: `${cellWidth * (5.75 - position)}px`,
-    width: `${cellWidth * 10}px`,
-    height: `${cellWidth}px`,
   };
   const cellStyle = {
-    display: 'inline-block',
     width: `${cellWidth}px`,
     height: `${cellWidth}px`,
     'font-size': `${cellWidth * 0.8}px`,
     'line-height': `${cellWidth}px`,
-    'text-align': 'center',
   };
   return render`<div style=${containerStyle}>${
     cellDivs.map((div, index) => {
