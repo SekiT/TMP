@@ -10,7 +10,7 @@ const containerStyle = (fontSize) => ({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: `${fontSize * 23}px`,
+  width: `${fontSize * 20}px`,
   padding: '5px 0 10px 0',
   'text-align': 'center',
   'font-size': `${fontSize}px`,
