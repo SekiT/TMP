@@ -1,17 +1,9 @@
 import view from '../../lib/view';
 import windowSize from '../../subject/windowSize';
+import { programSubject } from '../../subject/program';
 import commandView from './command';
 
-const commandViews = [...Array(10)].map(() => commandView());
-
-commandViews.forEach((v, index) => v.update((state) => ({
-  ...state,
-  state0: index / 2 | 0,
-  char0: index & 1,
-  direction: 'R',
-  char1: index & 1,
-  state1: index / 2 | 0,
-})));
+const commandViews = [...Array(10)].map((_, index) => commandView(index));
 
 const containerStyle = (fontSize) => ({
   position: 'absolute',
@@ -41,6 +33,16 @@ const windowView = view({ fontSize: 0 }, (render) => ({ fontSize }) => render`<d
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const fontSize = Math.min(windowWidth * 0.03, windowHeight * 0.08);
   windowView.update((state) => ({ ...state, fontSize }));
+});
+
+programSubject.subscribe((program) => {
+  program.forEach(({ direction, nextChar, nextState }, index) => commandViews[index].update(() => ({
+    state0: index / 2 | 0,
+    char0: index & 1,
+    direction,
+    char1: nextChar,
+    state1: nextState,
+  })));
 });
 
 export default windowView;
