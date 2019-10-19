@@ -7,8 +7,6 @@ const getSize = () => ({
 
 const windowSize = subject(getSize());
 
-window.addEventListener('resize', () => {
-  windowSize.next(getSize());
-});
+window.addEventListener('resize', () => windowSize.next(getSize));
 
 export default windowSize;

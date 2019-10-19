@@ -16,12 +16,15 @@ test('subject.subscribe triggers subscriber function', (t) => {
 });
 
 test('subject.next triggers subscriber function', (t) => {
-  t.plan(4);
+  t.plan(5);
   const [value1, value2] = ['foo', 'bar'];
   const testSubject = subject(value1);
   testSubject.subscribe(mutableSubscriber(t, value1, value2));
   testSubject.subscribe(mutableSubscriber(t, value1, value2));
-  testSubject.next(value2);
+  testSubject.next((value) => {
+    t.equal(value, value1);
+    return value2;
+  });
 });
 
 test('subject.unsubscribe deregisters subscriber', (t) => {
@@ -31,5 +34,5 @@ test('subject.unsubscribe deregisters subscriber', (t) => {
   testSubject.subscribe(mutableSubscriber(t, value1, value2));
   const key = testSubject.subscribe((v) => t.equal(v, value1));
   testSubject.unsubscribe(key);
-  testSubject.next(value2);
+  testSubject.next(() => value2);
 });
