@@ -8,10 +8,11 @@ body {
 
 button {
   height: 1em;
+  line-height: 1em;
   margin: 0;
+  padding: 0 0.2em;
   border-radius: 15%;
-  font-size: inherit;
-  line-height: inherit;
+  font-size: 1em;
   text-align: center;
   background: radial-gradient(#666, #000);
   color: white;

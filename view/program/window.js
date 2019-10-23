@@ -25,9 +25,22 @@ const titleStyle = {
   'margin-bottom': '10px',
 };
 
+const runButonStyle = (fontSize) => {
+  const height = `${fontSize * 1.3}px`;
+  return {
+    height,
+    'margin-top': '0.1em',
+    padding: '0 1em',
+    'font-size': height,
+    'line-height': height,
+    'border-radius': `${fontSize * 0.15}px`,
+  };
+};
+
 const windowView = view({ fontSize: 0 }, (render) => ({ fontSize }) => render`<div style=${containerStyle(fontSize)}>
   <span style=${titleStyle}>Program</span>
   <div>${commandViews.map((v) => v.render())}</div>
+  <button style=${runButonStyle(fontSize)}>RUN</button>
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
