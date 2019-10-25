@@ -3,11 +3,13 @@ import runPhase from './lib/runPhase';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
 import programWindowView from './view/program/window';
+import controlView from './view/control/control';
 
 bind(document.getElementById('root'))`
 ${tapeView.render()}
 ${headView.render()}
 ${programWindowView.render()}
+${controlView.render()}
 `;
 
 const dummyPhase = (time) => () => {

@@ -23,3 +23,7 @@ button {
 button:hover {
   opacity: 1;
 }
+
+button:disabled {
+  opacity: 0.4;
+}
