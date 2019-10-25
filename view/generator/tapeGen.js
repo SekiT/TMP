@@ -4,7 +4,7 @@ import view from '../../lib/view';
 const colors = ['black', 'white'];
 
 export default () => {
-  const initialState = { tape: Array(10).fill(0), style: {} };
+  const initialState = { tape: Array(10).fill(0), style: {}, cellWidth: 0 };
   const cellDivs = [...Array(10)].map(() => wire({}));
   return view(initialState, (render) => ({ tape, style, cellWidth }) => {
     const tapeStyle = {
