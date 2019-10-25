@@ -6,13 +6,15 @@ import caseView from './view/case/case';
 import programWindowView from './view/program/window';
 import controlView from './view/control/control';
 
-bind(document.getElementById('root'))`
-${tapeView.render()}
-${headView.render()}
-${caseView.render()}
-${programWindowView.render()}
-${controlView.render()}
-`;
+bind(document.getElementById('root'))`${
+  [
+    tapeView,
+    headView,
+    caseView,
+    programWindowView,
+    controlView,
+  ].map((view) => view.render())
+}`;
 
 const dummyPhase = (time) => () => {
   const tape = [...Array(10)].map((_, index) => (time & (1 << index) ? 1 : 0));
