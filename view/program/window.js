@@ -7,7 +7,7 @@ const commandViews = [...Array(10)].map((_, index) => commandView(index));
 
 const containerStyle = (fontSize) => ({
   position: 'absolute',
-  top: '30%',
+  top: '29%',
   left: '50%',
   transform: 'translate(-50%, 0)',
   width: `${fontSize * 20}px`,
