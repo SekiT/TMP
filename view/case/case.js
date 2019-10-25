@@ -6,8 +6,6 @@ const orderView = tapeGen();
 const tapeView = tapeGen();
 
 const initialState = {
-  order: [...Array(10)].map(() => Math.round(Math.random())),
-  tape: [...Array(10)].map(() => Math.round(Math.random())),
   fontSize: 10,
 };
 
@@ -32,10 +30,6 @@ const caseView = view(initialState, (render) => ({ fontSize }) => render`<div st
   </table>
 </div>`);
 
-// FIXME
-orderView.update(() => ({ tape: initialState.order, style: {}, cellWidth: 20 }));
-tapeView.update(() => ({ tape: initialState.tape, style: {}, cellWidth: 20 }));
-
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const cellWidth = Math.min(windowWidth * 0.07, windowHeight * 0.07);
   caseView.update(() => ({ fontSize: cellWidth * 0.6 }));
@@ -44,3 +38,13 @@ windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
 });
 
 export default caseView;
+
+// TODO: remove followings
+orderView.update((state) => ({
+  ...state,
+  tape: [...Array(10)].map(() => Math.round(Math.random())),
+}));
+tapeView.update((state) => ({
+  ...state,
+  tape: [...Array(10)].map(() => Math.round(Math.random())),
+}));
