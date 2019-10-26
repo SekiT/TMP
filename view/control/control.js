@@ -11,7 +11,7 @@ const initialState = {
 const containerStyle = (show) => ({
   display: show ? 'table-cell' : 'none',
   position: 'absolute',
-  top: '20%',
+  top: '19%',
   width: '100%',
   height: '10%',
   'text-align': 'center',
@@ -35,7 +35,7 @@ const controlView = view(initialState, (render) => ({
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const fontSize = Math.min(windowWidth * 0.03, windowHeight * 0.08);
+  const fontSize = Math.min(windowWidth * 0.05, windowHeight * 0.065);
   const height = windowHeight * 0.1;
   controlView.update((state) => ({ ...state, fontSize, height }));
 });

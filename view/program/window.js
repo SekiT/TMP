@@ -44,7 +44,7 @@ const windowView = view({ fontSize: 0 }, (render) => ({ fontSize }) => render`<d
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const fontSize = Math.min(windowWidth * 0.03, windowHeight * 0.08);
+  const fontSize = Math.min(windowWidth * 0.04, windowHeight * 0.06);
   windowView.update((state) => ({ ...state, fontSize }));
 });
 

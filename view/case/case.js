@@ -11,7 +11,7 @@ const initialState = {
 
 const containerStyle = {
   position: 'absolute',
-  top: '5%',
+  top: '3%',
   width: '100%',
   'font-family': 'serif',
   color: 'white',
@@ -31,7 +31,7 @@ const caseView = view(initialState, (render) => ({ fontSize }) => render`<div st
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const cellWidth = Math.min(windowWidth * 0.07, windowHeight * 0.07);
+  const cellWidth = Math.min(windowWidth * 0.05, windowHeight * 0.07);
   caseView.update(() => ({ fontSize: cellWidth * 0.6 }));
   orderView.update((state) => ({ ...state, cellWidth }));
   tapeView.update((state) => ({ ...state, cellWidth }));
