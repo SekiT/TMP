@@ -2,7 +2,7 @@ import { bind } from 'hyperhtml/esm';
 import runPhase from './lib/runPhase';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
-import caseView from './view/case/case';
+import caseTapesView from './view/case/tapes';
 import programWindowView from './view/program/window';
 import controlView from './view/control/control';
 
@@ -10,7 +10,7 @@ bind(document.getElementById('root'))`${
   [
     tapeView,
     headView,
-    caseView,
+    caseTapesView,
     programWindowView,
     controlView,
   ].map((view) => view.render())

@@ -23,7 +23,7 @@ const tableStyle = (fontSize) => ({
   'line-height': `${fontSize}px`,
 });
 
-const caseView = view(initialState, (render) => ({ fontSize }) => render`<div style=${containerStyle}>
+const tapesView = view(initialState, (render) => ({ fontSize }) => render`<div style=${containerStyle}>
   <table style=${tableStyle(fontSize)}>
     <tr><td>ORDER:</td><td>${orderView.render()}</td></tr>
     <tr><td>TAPE:</td><td>${tapeView.render()}</td></tr>
@@ -32,12 +32,12 @@ const caseView = view(initialState, (render) => ({ fontSize }) => render`<div st
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const cellWidth = Math.min(windowWidth * 0.05, windowHeight * 0.07);
-  caseView.update(() => ({ fontSize: cellWidth * 0.6 }));
+  tapesView.update(() => ({ fontSize: cellWidth * 0.6 }));
   orderView.update((state) => ({ ...state, cellWidth }));
   tapeView.update((state) => ({ ...state, cellWidth }));
 });
 
-export default caseView;
+export default tapesView;
 
 // TODO: remove followings
 orderView.update((state) => ({
