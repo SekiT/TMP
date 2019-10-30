@@ -11,7 +11,7 @@ windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
     left: '50%',
     transform: `translate(-${cellWidth / 2}px, 0)`,
   };
-  tapeView.update((state) => ({ ...state, style, cellWidth }));
+  tapeView.update(() => ({ style, cellWidth }));
 });
 
 export default tapeView;

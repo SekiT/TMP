@@ -33,8 +33,8 @@ const tapesView = view(initialState, (render) => ({ fontSize }) => render`<div s
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const cellWidth = Math.min(windowWidth * 0.05, windowHeight * 0.07);
   tapesView.update(() => ({ fontSize: cellWidth * 0.6 }));
-  orderView.update((state) => ({ ...state, cellWidth }));
-  tapeView.update((state) => ({ ...state, cellWidth }));
+  orderView.update(() => ({ cellWidth }));
+  tapeView.update(() => ({ cellWidth }));
 });
 
 export default tapesView;
