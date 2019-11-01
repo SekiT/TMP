@@ -1,8 +1,6 @@
 import { bind, wire } from 'hyperhtml/esm';
-import { buildDiContainer } from './lib/di';
+import { shadow } from './lib/shadow';
 
-const deps = {
-  hyperhtml: { bind, wire },
+export default {
+  hyperhtml: process.env.TEST ? shadow({ bind, wire }) : { bind, wire },
 };
-
-export default process.env.TEST ? buildDiContainer(deps) : deps;
