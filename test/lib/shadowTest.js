@@ -54,22 +54,19 @@ test('mockFunctionSequence replaces implementation n times', (t) => {
 });
 
 test('mockConstructor replaces constructor', (t) => {
-  t.plan(8);
+  t.plan(2);
   const originalArgument = {};
   const originalProperty = {};
   const shade = shadow({
     Constructor: function (x) {
-      t.equal(x, originalArgument);
-      this.value = originalProperty;
+      this.value = x === originalArgument && originalProperty;
     },
   });
   const mockedArgument = {};
   const mockedProperty = {};
   const mock = (OriginalConstructor) => function MockedConstructor(x) {
-    t.equal(x, mockedArgument);
     const { value } = new OriginalConstructor(originalArgument);
-    t.equal(value, originalProperty);
-    this.value = mockedProperty;
+    this.value = x === mockedArgument && value === originalProperty && mockedProperty;
   };
   mockConstructor(shade, 'Constructor', mock);
   t.equal(new shade.Constructor(mockedArgument).value, mockedProperty);
@@ -77,45 +74,69 @@ test('mockConstructor replaces constructor', (t) => {
 });
 
 test('resetMock clears single mock', (t) => {
-  t.plan(4);
+  t.plan(9);
   const originalArgument = {};
   const originalReturned = {};
   const shade = shadow({
     fun1: (x) => x === originalArgument && originalReturned,
     fun2: (x) => x === originalArgument && originalReturned,
+    Con: function (x) {
+      this.value = x === originalArgument && originalReturned;
+    },
   });
   const mockedArgument = {};
   const mockedReturned = {};
-  const mock = (originalFun) => (x) => (
+  const mockFun = (originalFun) => (x) => (
     x === mockedArgument && originalFun(originalArgument) === originalReturned && mockedReturned
   );
-  mockFunction(shade, 'fun1', mock);
-  mockFunction(shade, 'fun2', mock);
+  const mockCon = (OriginalConstructor) => function MockedConstructor(x) {
+    const { value } = new OriginalConstructor(originalArgument);
+    this.value = x === mockedArgument && value === originalReturned && mockedReturned;
+  };
+  mockFunction(shade, 'fun1', mockFun);
+  mockFunction(shade, 'fun2', mockFun);
+  mockConstructor(shade, 'Con', mockCon);
   t.equal(shade.fun1(mockedArgument), mockedReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
+  t.equal(new shade.Con(mockedArgument).value, mockedReturned);
   resetMock(shade, 'fun1');
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
+  t.equal(new shade.Con(mockedArgument).value, mockedReturned);
+  resetMock(shade, 'Con');
+  t.equal(shade.fun1(originalArgument), originalReturned);
+  t.equal(shade.fun2(mockedArgument), mockedReturned);
+  t.equal(new shade.Con(originalArgument).value, originalReturned);
 });
 
 test('resetAllMocks clears all the mocks', (t) => {
-  t.plan(4);
+  t.plan(6);
   const originalArgument = {};
   const originalReturned = {};
   const shade = shadow({
     fun1: (x) => x === originalArgument && originalReturned,
     fun2: (x) => x === originalArgument && originalReturned,
+    Con: function (x) {
+      this.value = x === originalArgument && originalReturned;
+    },
   });
   const mockedArgument = {};
   const mockedReturned = {};
-  const mock = (originalFun) => (x) => (
+  const mockFun = (originalFun) => (x) => (
     x === mockedArgument && originalFun(originalArgument) === originalReturned && mockedReturned
   );
-  mockFunction(shade, 'fun1', mock);
-  mockFunction(shade, 'fun2', mock);
+  const mockCon = (OriginalConstructor) => function MockedConstructor(x) {
+    const { value } = new OriginalConstructor(originalArgument);
+    this.value = x === mockedArgument && value === originalReturned && mockedReturned;
+  };
+  mockFunction(shade, 'fun1', mockFun);
+  mockFunction(shade, 'fun2', mockFun);
+  mockConstructor(shade, 'Con', mockCon);
   t.equal(shade.fun1(mockedArgument), mockedReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
+  t.equal(new shade.Con(mockedArgument).value, mockedReturned);
   resetAllMocks(shade);
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(originalArgument), originalReturned);
+  t.equal(new shade.Con(originalArgument).value, originalReturned);
 });
