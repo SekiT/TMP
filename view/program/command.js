@@ -17,7 +17,7 @@ const containerStyle = {
   'white-space': 'nowrap',
 };
 
-const directionToString = (direction) => (direction > 0 ? 'R' : 'L');
+const directionToString = (direction) => (direction < 0 ? 'L' : 'R');
 const stateStrings = ['0', '1', '2', '3', '4', 'A'];
 
 const updateDirection = (index, direction) => () => {
