@@ -1,6 +1,6 @@
 import { test } from 'tape';
 import {
-  shadow, mockFunction, mockFunctionSequence, resetMock, resetAllMocks,
+  shadow, mockFunction, mockFunctionSequence, mockConstructor, resetMock, resetAllMocks,
 } from '../../lib/shadow';
 
 test('shadow proxies functions', (t) => {
@@ -51,6 +51,29 @@ test('mockFunctionSequence replaces implementation n times', (t) => {
   t.equal(shade.fun(mockedArgument1), mockedReturned1);
   t.equal(shade.fun(mockedArgument2), mockedReturned2);
   t.throws(() => shade.fun(mockedArgument2), /RangeError.+2/);
+});
+
+test('mockConstructor replaces constructor', (t) => {
+  t.plan(8);
+  const originalArgument = {};
+  const originalProperty = {};
+  const shade = shadow({
+    Constructor: function (x) {
+      t.equal(x, originalArgument);
+      this.value = originalProperty;
+    },
+  });
+  const mockedArgument = {};
+  const mockedProperty = {};
+  const mock = (OriginalConstructor) => function MockedConstructor(x) {
+    t.equal(x, mockedArgument);
+    const { value } = new OriginalConstructor(originalArgument);
+    t.equal(value, originalProperty);
+    this.value = mockedProperty;
+  };
+  mockConstructor(shade, 'Constructor', mock);
+  t.equal(new shade.Constructor(mockedArgument).value, mockedProperty);
+  t.equal(new shade.Constructor(mockedArgument).value, mockedProperty);
 });
 
 test('resetMock clears single mock', (t) => {
