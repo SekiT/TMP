@@ -13,8 +13,7 @@ const originalObject = (originalArgument, originalReturned) => ({
 
 test('shadow initially proxies functions', (t) => {
   t.plan(3);
-  const originalArgument = {};
-  const originalReturned = {};
+  const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow(originalObject(originalArgument, originalReturned));
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(originalArgument), originalReturned);
@@ -23,13 +22,11 @@ test('shadow initially proxies functions', (t) => {
 
 test('mockFunction replaces implementation', (t) => {
   t.plan(2);
-  const originalArgument = {};
-  const originalReturned = {};
+  const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow({
     fun: (x) => x === originalArgument && originalReturned,
   });
-  const mockedArgument = {};
-  const mockedReturned = {};
+  const [mockedArgument, mockedReturned] = [{}, {}];
   const mock = (originalFun) => (x) => (
     x === mockedArgument && originalFun(originalArgument) === originalReturned && mockedReturned
   );
@@ -40,18 +37,15 @@ test('mockFunction replaces implementation', (t) => {
 
 test('mockFunctionSequence replaces implementation n times', (t) => {
   t.plan(3);
-  const originalArgument = {};
-  const originalReturned = {};
+  const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow({
     fun: (x) => x === originalArgument && originalReturned,
   });
-  const mockedArgument1 = {};
-  const mockedReturned1 = {};
+  const [mockedArgument1, mockedReturned1] = [{}, {}];
   const mock1 = (originalFun) => (x) => (
     x === mockedArgument1 && originalFun(originalArgument) === originalReturned && mockedReturned1
   );
-  const mockedArgument2 = {};
-  const mockedReturned2 = {};
+  const [mockedArgument2, mockedReturned2] = [{}, {}];
   const mock2 = (originalFun) => (x) => (
     x === mockedArgument2 && originalFun(originalArgument) === originalReturned && mockedReturned2
   );
@@ -63,27 +57,23 @@ test('mockFunctionSequence replaces implementation n times', (t) => {
 
 test('mockConstructor replaces constructor', (t) => {
   t.plan(2);
-  const originalArgument = {};
-  const originalProperty = {};
-  const shade = shadow(originalObject(originalArgument, originalProperty));
-  const mockedArgument = {};
-  const mockedProperty = {};
+  const [originalArgument, originalReturned] = [{}, {}];
+  const shade = shadow(originalObject(originalArgument, originalReturned));
+  const [mockedArgument, mockedReturned] = [{}, {}];
   const mock = (OriginalConstructor) => function MockedConstructor(x) {
     const { value } = new OriginalConstructor(originalArgument);
-    this.value = x === mockedArgument && value === originalProperty && mockedProperty;
+    this.value = x === mockedArgument && value === originalReturned && mockedReturned;
   };
   mockConstructor(shade, 'Con', mock);
-  t.equal(new shade.Con(mockedArgument).value, mockedProperty);
-  t.equal(new shade.Con(mockedArgument).value, mockedProperty);
+  t.equal(new shade.Con(mockedArgument).value, mockedReturned);
+  t.equal(new shade.Con(mockedArgument).value, mockedReturned);
 });
 
 test('resetMock clears single mock', (t) => {
   t.plan(9);
-  const originalArgument = {};
-  const originalReturned = {};
+  const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow(originalObject(originalArgument, originalReturned));
-  const mockedArgument = {};
-  const mockedReturned = {};
+  const [mockedArgument, mockedReturned] = [{}, {}];
   const mockFun = (originalFun) => (x) => (
     x === mockedArgument && originalFun(originalArgument) === originalReturned && mockedReturned
   );
@@ -109,11 +99,9 @@ test('resetMock clears single mock', (t) => {
 
 test('resetAllMocks clears all the mocks', (t) => {
   t.plan(6);
-  const originalArgument = {};
-  const originalReturned = {};
+  const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow(originalObject(originalArgument, originalReturned));
-  const mockedArgument = {};
-  const mockedReturned = {};
+  const [mockedArgument, mockedReturned] = [{}, {}];
   const mockFun = (originalFun) => (x) => (
     x === mockedArgument && originalFun(originalArgument) === originalReturned && mockedReturned
   );
