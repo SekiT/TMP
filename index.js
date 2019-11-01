@@ -1,4 +1,4 @@
-import { bind } from 'hyperhtml/esm';
+import dependencies from './dependencies';
 import runPhase from './lib/runPhase';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
@@ -6,6 +6,8 @@ import caseTapesView from './view/case/tapes';
 import caseNumbersView from './view/case/numbers';
 import programWindowView from './view/program/window';
 import controlView from './view/control/control';
+
+const { bind } = dependencies.hyperhtml;
 
 bind(document.getElementById('root'))`${
   [
