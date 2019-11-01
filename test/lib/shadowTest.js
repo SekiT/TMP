@@ -3,14 +3,22 @@ import {
   shadow, mockFunction, mockFunctionSequence, mockConstructor, resetMock, resetAllMocks,
 } from '../../lib/shadow';
 
-test('shadow proxies functions', (t) => {
-  t.plan(1);
-  const expectedArgument = {};
-  const expectedReturned = {};
-  const shade = shadow({
-    fun: (x) => x === expectedArgument && expectedReturned,
-  });
-  t.equal(shade.fun(expectedArgument), expectedReturned);
+const originalObject = (originalArgument, originalReturned) => ({
+  fun1: (x) => x === originalArgument && originalReturned,
+  fun2: (x) => x === originalArgument && originalReturned,
+  Con: function (x) {
+    this.value = x === originalArgument && originalReturned;
+  },
+});
+
+test('shadow initially proxies functions', (t) => {
+  t.plan(3);
+  const originalArgument = {};
+  const originalReturned = {};
+  const shade = shadow(originalObject(originalArgument, originalReturned));
+  t.equal(shade.fun1(originalArgument), originalReturned);
+  t.equal(shade.fun2(originalArgument), originalReturned);
+  t.equal(new shade.Con(originalArgument).value, originalReturned);
 });
 
 test('mockFunction replaces implementation', (t) => {
@@ -57,33 +65,23 @@ test('mockConstructor replaces constructor', (t) => {
   t.plan(2);
   const originalArgument = {};
   const originalProperty = {};
-  const shade = shadow({
-    Constructor: function (x) {
-      this.value = x === originalArgument && originalProperty;
-    },
-  });
+  const shade = shadow(originalObject(originalArgument, originalProperty));
   const mockedArgument = {};
   const mockedProperty = {};
   const mock = (OriginalConstructor) => function MockedConstructor(x) {
     const { value } = new OriginalConstructor(originalArgument);
     this.value = x === mockedArgument && value === originalProperty && mockedProperty;
   };
-  mockConstructor(shade, 'Constructor', mock);
-  t.equal(new shade.Constructor(mockedArgument).value, mockedProperty);
-  t.equal(new shade.Constructor(mockedArgument).value, mockedProperty);
+  mockConstructor(shade, 'Con', mock);
+  t.equal(new shade.Con(mockedArgument).value, mockedProperty);
+  t.equal(new shade.Con(mockedArgument).value, mockedProperty);
 });
 
 test('resetMock clears single mock', (t) => {
   t.plan(9);
   const originalArgument = {};
   const originalReturned = {};
-  const shade = shadow({
-    fun1: (x) => x === originalArgument && originalReturned,
-    fun2: (x) => x === originalArgument && originalReturned,
-    Con: function (x) {
-      this.value = x === originalArgument && originalReturned;
-    },
-  });
+  const shade = shadow(originalObject(originalArgument, originalReturned));
   const mockedArgument = {};
   const mockedReturned = {};
   const mockFun = (originalFun) => (x) => (
@@ -113,13 +111,7 @@ test('resetAllMocks clears all the mocks', (t) => {
   t.plan(6);
   const originalArgument = {};
   const originalReturned = {};
-  const shade = shadow({
-    fun1: (x) => x === originalArgument && originalReturned,
-    fun2: (x) => x === originalArgument && originalReturned,
-    Con: function (x) {
-      this.value = x === originalArgument && originalReturned;
-    },
-  });
+  const shade = shadow(originalObject(originalArgument, originalReturned));
   const mockedArgument = {};
   const mockedReturned = {};
   const mockFun = (originalFun) => (x) => (
