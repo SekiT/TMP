@@ -1,5 +1,5 @@
-import view from '../../lib/view';
-import { updateCommand } from '../../subject/program';
+import view from 'lib/view';
+import { updateCommand } from 'subject/program';
 
 const initialState = (state0, char0) => ({
   state0,

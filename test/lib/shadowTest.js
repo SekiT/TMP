@@ -1,7 +1,7 @@
 import { test } from 'tape';
 import {
   shadow, mockFunction, mockFunctionSequence, mockConstructor, resetMock, resetAllMocks,
-} from '../../lib/shadow';
+} from 'lib/shadow';
 
 const originalObject = (originalArgument, originalReturned) => ({
   fun1: (x) => x === originalArgument && originalReturned,

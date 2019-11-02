@@ -1,6 +1,6 @@
-import view from '../../lib/view';
-import windowSize from '../../subject/windowSize';
-import { programSubject } from '../../subject/program';
+import view from 'lib/view';
+import windowSize from 'subject/windowSize';
+import { programSubject } from 'subject/program';
 import commandView from './command';
 
 const commandViews = [...Array(10)].map((_, index) => commandView(index));

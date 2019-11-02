@@ -1,5 +1,5 @@
-import windowSize from '../../subject/windowSize';
-import tapeGen from '../generator/tapeGen';
+import windowSize from 'subject/windowSize';
+import tapeGen from 'view/generator/tapeGen';
 
 const tapeView = tapeGen();
 

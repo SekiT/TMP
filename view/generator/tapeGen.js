@@ -1,5 +1,5 @@
-import dependencies from '../../dependencies';
-import view from '../../lib/view';
+import dependencies from 'dependencies';
+import view from 'lib/view';
 
 const { wire } = dependencies.hyperhtml;
 

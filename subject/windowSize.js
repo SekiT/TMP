@@ -1,4 +1,4 @@
-import subject from '../lib/subject';
+import subject from 'lib/subject';
 
 const getSize = () => ({
   width: window.innerWidth,

@@ -1,4 +1,4 @@
-{
+module.exports = {
   extends: 'eslint-config-airbnb-base',
   env: {
     browser: true,
@@ -13,5 +13,11 @@
     // Defining constructor function requires { Name: function() { ... }}
     'object-shorthand': ['error', 'properties'],
     'func-names': ['error', 'as-needed'],
+
+    // We need eslint-plugin-resolve-rollup...
+    'import/no-unresolved': [
+      'error',
+      { ignore: ['^dependencies$', '^lib', '^subject', '^view'] },
+    ]
   },
 }

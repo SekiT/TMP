@@ -1,5 +1,5 @@
 import { test } from 'tape';
-import subject from '../../lib/subject';
+import subject from 'lib/subject';
 
 const mutableSubscriber = (t, value1, value2) => {
   let expected = value1;
