@@ -10,6 +10,6 @@ export default alias({
     lib: path.join(cwd, 'lib'),
     subject: path.join(cwd, 'subject'),
     view: path.join(cwd, 'view'),
-    dependencies: path.join(cwd, process.env.TEST ? 'dependencies.test' : 'dependencies'),
+    dependencies: path.join(cwd, 'dependencies', process.env.TEST ? 'test' : 'index'),
   },
 });

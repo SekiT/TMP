@@ -1,4 +1,4 @@
-import { shadow } from './lib/shadow';
+import { shadow } from 'lib/shadow';
 
 export default {
   hyperhtml: shadow({
