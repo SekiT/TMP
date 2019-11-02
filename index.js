@@ -1,5 +1,5 @@
 import dependencies from './dependencies';
-import runPhase from './lib/runPhase';
+import { runPhase, idealTimeout } from './lib/runPhase';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
 import caseTapesView from './view/case/tapes';
@@ -26,4 +26,4 @@ const dummyPhase = (time) => () => {
   return dummyPhase(time + 1);
 };
 
-runPhase(dummyPhase(0));
+runPhase(dummyPhase(0), idealTimeout);
