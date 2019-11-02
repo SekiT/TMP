@@ -4,10 +4,10 @@
   "description": "Turing Machine Programming/Puzzle",
   "main": "index.js",
   "scripts": {
-    "watch": "rollup -c --watch",
-    "build": "rollup -c --environment PRODUCTION",
+    "watch": "rollup -c ./rollup-config/index.js --watch",
+    "build": "rollup -c ./rollup-config/index.js --environment PRODUCTION",
     "lint": "eslint . --fix",
-    "test": "rollup -c rollup.config.test.js | node"
+    "test": "rollup --environment TEST -c ./rollup-config/test.js | node"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://sekit.github.io/TMP/",
   "devDependencies": {
-    "@rollup/plugin-replace": "^2.2.0",
+    "@rollup/plugin-alias": "^2.2.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

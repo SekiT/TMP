@@ -1,11 +1,14 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import multiEntry from 'rollup-plugin-multi-entry';
-import replace from '@rollup/plugin-replace';
+import resolve from 'rollup-plugin-node-resolve';
+import alias from './alias';
 
 export default {
   input: 'test/**/*.js',
   plugins: [
     multiEntry(),
-    replace({ 'process.env.TEST': true }),
+    resolve(),
+    alias,
   ],
   output: { format: 'cjs' },
   external: ['tape'],

@@ -1,12 +1,13 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
-import replace from '@rollup/plugin-replace';
+import alias from './alias';
 
 const commonPlugins = [
   resolve(),
-  replace({ 'process.env.TEST': false }),
+  alias,
 ];
 
 const envDependentPlugins = process.env.PRODUCTION ? [
