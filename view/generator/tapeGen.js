@@ -3,8 +3,6 @@ import view from 'lib/view';
 
 const { wire } = dependencies.hyperhtml;
 
-const colors = ['black', 'white'];
-
 export default () => {
   const initialState = { tape: Array(10).fill(0), style: {}, cellWidth: 0 };
   const cellDivs = [...Array(10)].map(() => wire({}));
@@ -16,6 +14,8 @@ export default () => {
     };
     return render`<div style=${tapeStyle}>${
       tape.map((bit, index) => {
+        const background = 255 * bit;
+        const foreground = 255 - background;
         const cellStyle = {
           display: 'inline-block',
           width: `${cellWidth}px`,
@@ -23,10 +23,10 @@ export default () => {
           'line-height': `${cellWidth}px`,
           'font-size': `${cellWidth}px`,
           'text-align': 'center',
-          'background-color': colors[bit],
-          color: colors[1 - bit],
+          'background-color': `rgb(${background},${background},${background})`,
+          color: `rgb(${foreground},${foreground},${foreground})`,
         };
-        return cellDivs[index]`<div style=${cellStyle}>${bit}</div>`;
+        return cellDivs[index]`<div style=${cellStyle}>${bit < 0.5 ? 0 : 1}</div>`;
       })
     }</div>`;
   });

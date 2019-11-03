@@ -21,8 +21,9 @@ bind(document.getElementById('root'))`${
 }`;
 
 const dummyPhase = (time) => () => {
-  const tape = [...Array(10)].map((_, index) => (time & (1 << index) ? 1 : 0));
-  tapeView.update(() => ({ tape }));
+  tapeView.update(({ tape }) => ({
+    tape: tape.map((bit, index) => (Math.sin(time / (index + 1)) / 2 + 0.5)),
+  }));
   return dummyPhase(time + 1);
 };
 
