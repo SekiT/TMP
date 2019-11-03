@@ -1,6 +1,8 @@
 import { test } from 'tape';
 import {
-  shadow, mockFunction, mockFunctionSequence, mockConstructor, resetMock, resetAllMocks,
+  shadow,
+  mockFunction, mockFunctionSequence, mockConstructor, mockPropertyGetter,
+  resetMock, resetAllMocks,
 } from 'lib/shadow';
 
 const originalObject = (originalArgument, originalReturned) => ({
@@ -8,6 +10,10 @@ const originalObject = (originalArgument, originalReturned) => ({
   fun2: (x) => x === originalArgument && originalReturned,
   Con: function (x) {
     this.value = x === originalArgument && originalReturned;
+  },
+  obj: {
+    child: originalReturned,
+    fun: (x) => x === originalArgument && originalReturned,
   },
 });
 
@@ -17,6 +23,8 @@ test('shadow initially proxies functions', (t) => {
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(originalArgument), originalReturned);
   t.equal(new shade.Con(originalArgument).value, originalReturned);
+  t.equal(shade.obj.child, originalReturned);
+  t.equal(shade.obj.fun(originalArgument), originalReturned);
   t.end();
 });
 
@@ -69,6 +77,26 @@ test('mockConstructor replaces constructor', (t) => {
   t.end();
 });
 
+test('mockPropertyGetter replaces getter of the object', (t) => {
+  const [originalArgument, originalReturned] = [{}, {}];
+  const shade = shadow(originalObject(originalArgument, originalReturned));
+  const [mockedArgument, mockedReturned] = [{}, {}];
+  mockPropertyGetter(shade, 'obj', (originalObj, key) => {
+    if (key === 'child') {
+      t.equal(originalObj[key], originalReturned);
+      return mockedReturned;
+    }
+    if (key === 'fun') {
+      t.equal(originalObj[key](originalArgument), originalReturned);
+      return (x) => x === mockedArgument && mockedReturned;
+    }
+    return t.fail(`Unknown property accessed: ${key}`);
+  });
+  t.equal(shade.obj.child, mockedReturned);
+  t.equal(shade.obj.fun(mockedArgument), mockedReturned);
+  t.end();
+});
+
 test('resetMock clears single mock', (t) => {
   const [originalArgument, originalReturned] = [{}, {}];
   const shade = shadow(originalObject(originalArgument, originalReturned));
@@ -80,20 +108,43 @@ test('resetMock clears single mock', (t) => {
     const { value } = new OriginalConstructor(originalArgument);
     this.value = x === mockedArgument && value === originalReturned && mockedReturned;
   };
+  const mockObjGetter = (originalObj, key) => {
+    if (key === 'child') {
+      return originalObj[key] === originalReturned && mockedReturned;
+    }
+    if (key === 'fun') {
+      return originalObj[key](originalArgument) === originalReturned
+        && ((x) => x === mockedArgument && mockedReturned);
+    }
+    return t.fail(`Unknown property access: ${key}`);
+  };
   mockFunction(shade, 'fun1', mockFun);
   mockFunction(shade, 'fun2', mockFun);
   mockConstructor(shade, 'Con', mockCon);
+  mockPropertyGetter(shade, 'obj', mockObjGetter);
   t.equal(shade.fun1(mockedArgument), mockedReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
   t.equal(new shade.Con(mockedArgument).value, mockedReturned);
+  t.equal(shade.obj.child, mockedReturned);
+  t.equal(shade.obj.fun(mockedArgument), mockedReturned);
   resetMock(shade, 'fun1');
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
   t.equal(new shade.Con(mockedArgument).value, mockedReturned);
+  t.equal(shade.obj.child, mockedReturned);
+  t.equal(shade.obj.fun(mockedArgument), mockedReturned);
   resetMock(shade, 'Con');
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
   t.equal(new shade.Con(originalArgument).value, originalReturned);
+  t.equal(shade.obj.child, mockedReturned);
+  t.equal(shade.obj.fun(mockedArgument), mockedReturned);
+  resetMock(shade, 'obj');
+  t.equal(shade.fun1(originalArgument), originalReturned);
+  t.equal(shade.fun2(mockedArgument), mockedReturned);
+  t.equal(new shade.Con(originalArgument).value, originalReturned);
+  t.equal(shade.obj.child, originalReturned);
+  t.equal(shade.obj.fun(originalArgument), originalReturned);
   t.end();
 });
 
@@ -108,15 +159,30 @@ test('resetAllMocks clears all the mocks', (t) => {
     const { value } = new OriginalConstructor(originalArgument);
     this.value = x === mockedArgument && value === originalReturned && mockedReturned;
   };
+  const mockObjGetter = (originalObj, key) => {
+    if (key === 'child') {
+      return originalObj[key] === originalReturned && mockedReturned;
+    }
+    if (key === 'fun') {
+      return originalObj[key](originalArgument) === originalReturned
+        && ((x) => x === mockedArgument && mockedReturned);
+    }
+    return t.fail(`Unknown property access: ${key}`);
+  };
   mockFunction(shade, 'fun1', mockFun);
   mockFunction(shade, 'fun2', mockFun);
   mockConstructor(shade, 'Con', mockCon);
+  mockPropertyGetter(shade, 'obj', mockObjGetter);
   t.equal(shade.fun1(mockedArgument), mockedReturned);
   t.equal(shade.fun2(mockedArgument), mockedReturned);
   t.equal(new shade.Con(mockedArgument).value, mockedReturned);
+  t.equal(shade.obj.child, mockedReturned);
+  t.equal(shade.obj.fun(mockedArgument), mockedReturned);
   resetAllMocks(shade);
   t.equal(shade.fun1(originalArgument), originalReturned);
   t.equal(shade.fun2(originalArgument), originalReturned);
   t.equal(new shade.Con(originalArgument).value, originalReturned);
+  t.equal(shade.obj.child, originalReturned);
+  t.equal(shade.obj.fun(originalArgument), originalReturned);
   t.end();
 });
