@@ -8,5 +8,10 @@ export default {
   globals: shadow({
     Date,
     setTimeout,
+    window: {
+      innerWidth: 0,
+      innerHeight: 0,
+      addEventListener: () => {},
+    },
   }),
 };

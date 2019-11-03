@@ -3,7 +3,7 @@ import windowSize from 'subject/windowSize';
 
 const initialState = {
   state: 0,
-  cellWidth: window.innerWidth * 0.08,
+  cellWidth: 0,
 };
 
 const headView = view(initialState, (render) => ({ state, cellWidth }) => {

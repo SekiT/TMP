@@ -4,6 +4,7 @@ export default {
   hyperhtml: { bind, wire },
   globals: {
     Date,
+    window,
     setTimeout,
   },
 };
