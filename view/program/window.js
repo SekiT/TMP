@@ -50,7 +50,7 @@ windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
 
 programSubject.subscribe((program) => {
   program.forEach(({ direction, nextChar, nextState }, index) => commandViews[index].update(() => ({
-    state0: index / 2 | 0,
+    state0: index >> 1,
     char0: index & 1,
     direction,
     char1: nextChar,

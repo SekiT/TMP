@@ -30,7 +30,7 @@ const updateState1 = (index, state1) => () => {
   updateCommand(index, (command) => ({ ...command, nextState: (state1 + 1) % 6 }));
 };
 
-export default (index) => view(initialState(index / 2 | 0, index & 0), (render) => ({
+export default (index) => view(initialState(index >> 1, index & 0), (render) => ({
   state0, char0, direction, char1, state1, disabled,
 }) => render`<div style=${containerStyle}>${
   `<${state0},${char0},`
