@@ -14,10 +14,10 @@ module.exports = {
     'object-shorthand': ['error', 'properties'],
     'func-names': ['error', 'as-needed'],
 
-    // We need eslint-plugin-resolve-rollup...
+    // We need sopmething like eslint-plugin-resolve-rollup to resolve aliases...
     'import/no-unresolved': [
       'error',
-      { ignore: ['^dependencies$', '^lib', '^subject', '^view'] },
+      { ignore: ['^dependencies$', '^lib/', '^subject/', '^view/'] },
     ]
   },
 }
