@@ -6,7 +6,7 @@ import alias from './alias';
 
 const commonPlugins = [
   resolve(),
-  alias,
+  alias('index'),
 ];
 
 const envDependentPlugins = process.env.PRODUCTION ? [

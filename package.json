@@ -7,7 +7,7 @@
     "watch": "rollup -c ./rollup-config/index.js --watch",
     "build": "rollup -c ./rollup-config/index.js --environment PRODUCTION",
     "lint": "eslint . --fix",
-    "test": "rollup --environment TEST -c ./rollup-config/test.js | node"
+    "test": "rollup -c ./rollup-config/test.js | node"
   },
   "repository": {
     "type": "git",

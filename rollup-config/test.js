@@ -7,7 +7,7 @@ export default {
   plugins: [
     multiEntry(),
     resolve(),
-    alias,
+    alias('test'),
   ],
   output: { format: 'cjs' },
   external: ['tape'],
