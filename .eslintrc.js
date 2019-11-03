@@ -14,6 +14,12 @@ module.exports = {
     'object-shorthand': ['error', 'properties'],
     'func-names': ['error', 'as-needed'],
 
+    // We use devDependencies in rollup-config, which is not included in eslint-config-airbnb-base
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: ['test/**', 'rollup-config/**'],
+      optionalDependencies: false,
+    }],
+
     // We need sopmething like eslint-plugin-resolve-rollup to resolve aliases...
     'import/no-unresolved': [
       'error',

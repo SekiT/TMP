@@ -1,4 +1,3 @@
-/* eslint import/no-extraneous-dependencies: 0 */
 import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';

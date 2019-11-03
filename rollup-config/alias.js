@@ -1,4 +1,3 @@
-/* eslint import/no-extraneous-dependencies: 0 */
 import alias from '@rollup/plugin-alias';
 
 const path = require('path');
