@@ -3,9 +3,15 @@ import windowSize from 'subject/windowSize';
 import { programSubject } from 'subject/program';
 import commandView from './command';
 
+const initialState = {
+  fontSize: 0,
+  style: {},
+  disabled: true,
+};
+
 const commandViews = [...Array(10)].map((_, index) => commandView(index));
 
-const containerStyle = (fontSize) => ({
+const containerStyle = (fontSize, style) => ({
   position: 'absolute',
   top: '29%',
   left: '50%',
@@ -19,6 +25,7 @@ const containerStyle = (fontSize) => ({
   'background-color': 'rgba(51, 51, 153, 0.8)',
   color: 'white',
   'font-family': 'Courier New',
+  ...style,
 });
 
 const titleStyle = {
@@ -37,11 +44,13 @@ const runButonStyle = (fontSize) => {
   };
 };
 
-const windowView = view({ fontSize: 0 }, (render) => ({ fontSize }) => render`<div style=${containerStyle(fontSize)}>
-  <span style=${titleStyle}>Program</span>
-  <div>${commandViews.map((v) => v.render())}</div>
-  <button style=${runButonStyle(fontSize)}>RUN</button>
-</div>`);
+const windowView = view(initialState, (render) => ({ fontSize, style, disabled }) => (
+  render`<div style=${containerStyle(fontSize, style)}>
+    <span style=${titleStyle}>Program</span>
+    <div>${commandViews.map((v) => v.render())}</div>
+    <button style=${runButonStyle(fontSize)} disabled=${disabled}>RUN</button>
+  </div>`
+));
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const fontSize = Math.min(windowWidth * 0.04, windowHeight * 0.06);
@@ -59,3 +68,8 @@ programSubject.subscribe((program) => {
 });
 
 export default windowView;
+
+export const setDisabled = (disabled) => {
+  windowView.update(() => ({ disabled }));
+  commandViews.forEach((v) => v.update(() => ({ disabled })));
+};

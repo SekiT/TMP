@@ -22,7 +22,7 @@ module.exports = {
 
     // We need sopmething like eslint-plugin-resolve-rollup to resolve aliases...
     'import/no-unresolved': ['error', {
-      ignore: ['^dependencies$', '^lib/', '^subject/', '^view/'],
+      ignore: ['^dependencies$', '^lib/', '^subject/', '^view/', '^phase/'],
     }],
   },
 }

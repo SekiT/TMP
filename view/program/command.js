@@ -34,10 +34,10 @@ export default (index) => view(initialState(index >> 1, index & 0), (render) => 
   state0, char0, direction, char1, state1, disabled,
 }) => render`<div style=${containerStyle}>${
   `<${state0},${char0},`
-}<button onclick=${disabled || updateDirection(index, direction)}>${directionToString(direction)}</button>${
+}<button onclick=${updateDirection(index, direction)} disabled=${disabled}>${directionToString(direction)}</button>${
   ','
-}<button onclick=${disabled || updateChar1(index, char1)}>${char1}</button>${
+}<button onclick=${updateChar1(index, char1)} disabled=${disabled}>${char1}</button>${
   ','
-}<button onclick=${disabled || updateState1(index, state1)}>${stateStrings[state1]}</button>${
+}<button onclick=${updateState1(index, state1)} disabled=${disabled}>${stateStrings[state1]}</button>${
   '>'
 }</div>`);
