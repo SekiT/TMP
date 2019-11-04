@@ -11,7 +11,9 @@ test('runPhase runs phase with balancing timeout', (t) => {
   const cases = [
     { timeTaken: timeoutSup - 1, timeoutBefore: 16, timeoutAfter: 17 },
     { timeTaken: timeoutSup + 0, timeoutBefore: 17, timeoutAfter: 16 },
+    { timeTaken: timeoutSup + 1, timeoutBefore: 17, timeoutAfter: 16 },
     { timeTaken: timeoutSup - 1, timeoutBefore: 1, timeoutAfter: 2 },
+    { timeTaken: timeoutSup + 0, timeoutBefore: 1, timeoutAfter: 1 },
     { timeTaken: timeoutSup + 1, timeoutBefore: 1, timeoutAfter: 1 },
   ];
   t.plan(cases.length * 4);
