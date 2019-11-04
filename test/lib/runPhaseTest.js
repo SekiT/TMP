@@ -9,13 +9,13 @@ const timeoutSup = Math.ceil(idealTimeout);
 
 test('runPhase runs phase with balancing timeout', (t) => {
   const cases = [
-    [timeoutSup - 1, 16, 17],
-    [timeoutSup, 17, 16],
-    [timeoutSup - 1, 1, 2],
-    [timeoutSup + 1, 1, 1],
+    { timeTaken: timeoutSup - 1, timeoutBefore: 16, timeoutAfter: 17 },
+    { timeTaken: timeoutSup + 0, timeoutBefore: 17, timeoutAfter: 16 },
+    { timeTaken: timeoutSup - 1, timeoutBefore: 1, timeoutAfter: 2 },
+    { timeTaken: timeoutSup + 1, timeoutBefore: 1, timeoutAfter: 1 },
   ];
   t.plan(cases.length * 4);
-  cases.forEach(([timeTaken, timeoutBefore, timeoutAfter]) => {
+  cases.forEach(({ timeTaken, timeoutBefore, timeoutAfter }) => {
     let getTimeCount = 0;
     mockPropertyGetter(globals, 'Date', (original, key) => {
       if (key !== 'now') return t.fail(`Unknown access to Date.${key}`);
