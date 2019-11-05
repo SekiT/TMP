@@ -42,7 +42,7 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const cellWidth = Math.min(windowWidth * 0.15, windowHeight / 3);
+  const cellWidth = Math.min(windowWidth * 0.15, windowHeight * 0.3);
   headView.update(() => ({ cellWidth }));
 });
 

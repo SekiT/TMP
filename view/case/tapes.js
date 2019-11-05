@@ -5,6 +5,9 @@ import tapeGen from 'view/generator/tapeGen';
 const orderView = tapeGen();
 const tapeView = tapeGen();
 
+export const updateOrder = (tape) => orderView.update(() => ({ tape }));
+export const updateTape = (tape) => tapeView.update(() => ({ tape }));
+
 const initialState = {
   fontSize: 10,
 };
@@ -38,13 +41,3 @@ windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
 });
 
 export default tapesView;
-
-// TODO: remove followings
-orderView.update((state) => ({
-  ...state,
-  tape: [...Array(10)].map(() => Math.round(Math.random())),
-}));
-tapeView.update((state) => ({
-  ...state,
-  tape: [...Array(10)].map(() => Math.round(Math.random())),
-}));
