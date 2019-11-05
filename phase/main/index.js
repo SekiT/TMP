@@ -2,7 +2,7 @@ import dependencies from 'dependencies';
 import numbersView from 'view/case/numbers';
 import { updateOrder, updateTape } from 'view/case/tapes';
 import machineTapeView from 'view/machine/tape';
-import programWindowAppearing from './programWindowAppearing';
+import programWindowOpening from './programWindowOpening';
 
 const { Date } = dependencies.globals;
 
@@ -10,12 +10,12 @@ const TIME_LIMIT = 32;
 const FRAMES_TO_CHANGE_CELL = 15;
 
 export const initialState = (order, originalTape) => ({
-  subPhase: programWindowAppearing(0),
+  subPhase: programWindowOpening(0),
   startedAt: Date.now(),
   order,
   originalTape,
   currentTape: [...originalTape],
-  displayedTape: [...Array(10)].map(() => Math.round(Math.random())),
+  displayedTape: [1 - originalTape[0], ...originalTape.slice(1)],
 });
 
 const updateDisplayedTape = (displayedTape, currentTape) => (

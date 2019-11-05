@@ -8,14 +8,14 @@ const clipPath = (time) => {
   return `polygon(${left}% 0, ${right}% 0, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
 };
 
-const programWindowAppearing = (time = 0) => () => {
+const programWindowOpening = (time = 0) => () => {
   windowView.update(() => ({
     style: {
       'clip-path': clipPath(time),
     },
   }));
   setDisabled(time < 45);
-  return time >= 45 ? programmingSubPhase() : programWindowAppearing(time + 1);
+  return time >= 45 ? programmingSubPhase() : programWindowOpening(time + 1);
 };
 
-export default programWindowAppearing;
+export default programWindowOpening;
