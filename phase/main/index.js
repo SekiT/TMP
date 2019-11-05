@@ -2,7 +2,7 @@ import dependencies from 'dependencies';
 import numbersView from 'view/case/numbers';
 import { updateOrder, updateTape } from 'view/case/tapes';
 import machineTapeView from 'view/machine/tape';
-import programWindowOpening from './programWindowOpening';
+import { programWindowOpening } from './programWindowSwitching';
 
 const { Date } = dependencies.globals;
 

@@ -8,14 +8,14 @@ const clipPath = (time) => {
   return `polygon(${left}% 0, ${right}% 0, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
 };
 
-const programWindowOpening = (time = 0) => () => {
-  windowView.update(() => ({
-    style: {
-      'clip-path': clipPath(time),
-    },
-  }));
+export const programWindowOpening = (time = 0) => () => {
+  windowView.update(() => ({ style: { 'clip-path': clipPath(time) } }));
   setDisabled(time < 45);
   return time >= 45 ? programmingSubPhase() : programWindowOpening(time + 1);
 };
 
-export default programWindowOpening;
+export const programWindowClosing = (time = 45) => () => {
+  windowView.update(() => ({ style: { 'clip-path': clipPath(time) } }));
+  setDisabled(true);
+  return time === 0 ? programmingSubPhase() : programWindowClosing(time - 1);
+};
