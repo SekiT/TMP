@@ -10,7 +10,7 @@ const TIME_LIMIT = 32;
 const FRAMES_TO_CHANGE_CELL = 15;
 
 export const initialState = (order, originalTape) => ({
-  subPhase: programWindowOpening(0),
+  subPhase: programWindowOpening(),
   startedAt: Date.now(),
   order,
   originalTape,
