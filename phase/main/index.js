@@ -18,21 +18,24 @@ export const initialState = (order, originalTape) => ({
   displayedTape: [...Array(10)].map(() => Math.round(Math.random())),
 });
 
-const mainPhase = ({
-  subPhase, startedAt, order, originalTape, currentTape, displayedTape,
-}) => () => {
-  numbersView.update(() => ({
-    timeLeft: Math.max(TIME_LIMIT - (Date.now() - startedAt) / 1000, 0),
-  }));
-  updateOrder(order);
-  const newDisplayedTape = displayedTape.map((c, index) => {
+const updateDisplayedTape = (displayedTape, currentTape) => (
+  displayedTape.map((c, index) => {
     const goal = currentTape[index];
     if (c === goal) return c;
     if (c < goal) return Math.min(c + 1 / FRAMES_TO_CHANGE_CELL, goal);
     return Math.max(c - 1 / FRAMES_TO_CHANGE_CELL, goal);
-  });
+  })
+);
+
+const mainPhase = ({
+  subPhase, startedAt, order, originalTape, currentTape, displayedTape,
+}) => () => {
+  updateOrder(order);
+  const newDisplayedTape = updateDisplayedTape(displayedTape, currentTape);
   updateTape(newDisplayedTape);
   machineTapeView.update(() => ({ tape: newDisplayedTape }));
+  const timeLeft = Math.max(TIME_LIMIT - (Date.now() - startedAt) / 1000, 0);
+  numbersView.update(() => ({ timeLeft }));
   return mainPhase({
     subPhase: subPhase(),
     startedAt,
