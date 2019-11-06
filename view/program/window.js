@@ -1,6 +1,7 @@
 import view from 'lib/view';
 import windowSize from 'subject/windowSize';
 import { programSubject } from 'subject/program';
+import { enqueue, signals } from 'subject/inputSignal';
 import commandView from './command';
 
 const initialState = {
@@ -44,13 +45,25 @@ const runButonStyle = (fontSize) => {
   };
 };
 
-const windowView = view(initialState, (render) => ({ fontSize, style, disabled }) => (
-  render`<div style=${containerStyle(fontSize, style)}>
+// Taking onClickRunButton as argument to go around `no-use-before-defined`
+const windowView = view(initialState, (({ onClickRunButton }) => (render) => ({
+  fontSize, style, disabled,
+}) => {
+  commandViews.forEach((v) => v.update(() => ({ disabled })));
+  return render`<div style=${containerStyle(fontSize, style)}>
     <span style=${titleStyle}>Program</span>
     <div>${commandViews.map((v) => v.render())}</div>
-    <button style=${runButonStyle(fontSize)} disabled=${disabled}>RUN</button>
-  </div>`
-));
+    <button
+      style=${runButonStyle(fontSize)}
+      disabled=${disabled}
+      onclick=${onClickRunButton}>RUN</button>
+  </div>`;
+})({
+  onClickRunButton: () => {
+    enqueue(signals.run);
+    windowView.update(() => ({ disabled: true }));
+  },
+}));
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const fontSize = Math.min(windowWidth * 0.04, windowHeight * 0.06);
@@ -68,8 +81,3 @@ programSubject.subscribe((program) => {
 });
 
 export default windowView;
-
-export const setDisabled = (disabled) => {
-  windowView.update(() => ({ disabled }));
-  commandViews.forEach((v) => v.update(() => ({ disabled })));
-};

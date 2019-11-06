@@ -1,4 +1,4 @@
-import windowView, { setDisabled } from 'view/program/window';
+import windowView from 'view/program/window';
 import programmingSubPhase from './programming';
 
 const clipPath = (time) => {
@@ -9,13 +9,17 @@ const clipPath = (time) => {
 };
 
 export const programWindowOpening = (time = 0) => () => {
-  windowView.update(() => ({ style: { 'clip-path': clipPath(time) } }));
-  setDisabled(time < 45);
+  windowView.update(() => ({
+    style: { 'clip-path': clipPath(time) },
+    disabled: time < 45,
+  }));
   return time >= 45 ? programmingSubPhase() : programWindowOpening(time + 1);
 };
 
 export const programWindowClosing = (time = 45) => () => {
-  windowView.update(() => ({ style: { 'clip-path': clipPath(time) } }));
-  setDisabled(true);
+  windowView.update(() => ({
+    style: { 'clip-path': clipPath(time) },
+    disabled: true,
+  }));
   return time === 0 ? programmingSubPhase() : programWindowClosing(time - 1);
 };
