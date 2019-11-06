@@ -1,15 +1,15 @@
 import view from 'lib/view';
 import windowSize from 'subject/windowSize';
+import { enqueue, signals } from 'subject/inputSignal';
 
 const initialState = {
-  show: true,
   disabled: true,
   fontSize: 0,
   height: 0,
 };
 
-const containerStyle = (show) => ({
-  display: show ? 'table-cell' : 'none',
+const containerStyle = {
+  display: 'table-cell',
   position: 'absolute',
   top: '19%',
   width: '100%',
@@ -17,7 +17,7 @@ const containerStyle = (show) => ({
   'text-align': 'center',
   'vertical-align': 'middle',
   'font-family': 'Courier New',
-});
+};
 
 const buttonStyle = (fontSize, height) => ({
   margin: `${(height - fontSize) / 2}px 0.5em`,
@@ -27,11 +27,20 @@ const buttonStyle = (fontSize, height) => ({
   'border-radius': `${fontSize * 0.15}px`,
 });
 
+const onClickResetButton = () => enqueue(signals.reset);
+const onClickPassButton = () => enqueue(signals.pass);
+
 const controlView = view(initialState, (render) => ({
-  show, disabled, fontSize, height,
-}) => render`<div style=${containerStyle(show)}>
-  <button style=${buttonStyle(fontSize, height)} disabled=${disabled}>RESET</button>
-  <button style=${buttonStyle(fontSize, height)} disabled=${disabled}>PASS</button>
+  disabled, fontSize, height,
+}) => render`<div style=${containerStyle}>
+  <button
+    style=${buttonStyle(fontSize, height)}
+    onclick=${onClickResetButton}
+    disabled=${disabled}>RESET</button>
+  <button
+    style=${buttonStyle(fontSize, height)}
+    onclick=${onClickPassButton}
+    disabled=${disabled}>PASS</button>
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {

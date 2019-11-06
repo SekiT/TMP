@@ -16,6 +16,6 @@ export const dequeue = () => {
 
 export const signals = {
   reset: {},
-  skip: {},
+  pass: {},
   run: {},
 };
