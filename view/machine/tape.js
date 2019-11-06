@@ -14,9 +14,7 @@ const containerView = view({ position: 0 }, (render) => ({
     transform: `translate(${cellWidth * (-0.5 - position)}px, 0)`,
   };
   tapeView.update(() => ({ ...tapeProps, cellWidth }));
-  return render`<div style=${containerStyle}>
-    ${tapeView.render()}
-  </div>`;
+  return render`<div style=${containerStyle}>${tapeView.render()}</div>`;
 });
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
