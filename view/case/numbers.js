@@ -26,20 +26,22 @@ const leftDownConatinerStyle = (fontSize) => ({
   'font-family': 'serif',
 });
 
+const showScore = (score) => (
+  [...score.toString()].reduceRight(
+    ([chunk, acc], char) => (chunk.length === 3 ? [char, `,${chunk}${acc}`] : [`${char}${chunk}`, acc]),
+    ['', ''],
+  ).join``
+);
+
 const numbersView = view(initialState, (render) => ({
   number, timeLeft, score, fontSize,
 }) => {
   const timeShown = timeLeft.toPrecision(timeLeft < 10 ? 3 : 4).padStart(5, '0');
-  const scoreShown = score.toString().split``.reduceRight(
-    ([chunk, acc], char) => (chunk.length === 3 ? [char, `,${chunk}${acc}`] : [`${char}${chunk}`, acc]),
-    ['', ''],
-  ).join``;
-
   return render`<div style=${leftUpContainerStyle(fontSize)}>
     No.${number}<br>
     ${timeShown}
   </div><div style=${leftDownConatinerStyle(fontSize)}>
-    Score: ${scoreShown}
+    Score: ${showScore(score)}
   </div>`;
 });
 
