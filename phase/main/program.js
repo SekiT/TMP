@@ -1,40 +1,55 @@
 import { dequeue, signals } from 'subject/inputSignal';
 import { programSubject, initialState } from 'subject/program';
-import windowView from 'view/program/window';
+import { updateOrder } from 'view/case/tapes';
 import controlView from 'view/control/control';
+import ids from '../ids';
+import { FRAMES_TO_SWITCH_WINDOW, animateProgramWindow, animateTape } from './animations';
 
-const FRAMES_TO_SWITCH_WINDOW = 45;
-
-const clipPath = (time) => {
-  const left = Math.max((1 - time / 20) * 50, 0);
-  const right = Math.min((1 + time / 20) * 50, 100);
-  const bottom = Math.min(Math.max((time - 30) / 10, 0) * 87 + 13, 100);
-  return `polygon(${left}% 0, ${right}% 0, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
-};
-
-export const programWindowClosing = (time = FRAMES_TO_SWITCH_WINDOW) => () => {
-  windowView.update(() => ({
-    style: { 'clip-path': clipPath(time) },
-    disabled: true,
-  }));
+export const programWindowClosing = (time) => ({ currentTape, displayedTape }) => {
+  animateProgramWindow(time, true);
+  animateTape(currentTape, displayedTape);
   controlView.update(() => ({ disabled: time > 0 }));
-  return time === 0 ? programWindowClosing(0) : programWindowClosing(time - 1);
+  return time === 0 ? {
+    nextId: ids.main.programWindowClosing,
+    nextArgs: [0],
+  } : {
+    nextId: ids.main.programWindowClosing,
+    nextArgs: [time - 1],
+  };
 };
 
-const programming = () => {
+export const programming = () => ({ currentTape, displayedTape }) => {
+  animateTape(currentTape, displayedTape);
   const signal = dequeue();
-  if (signal === signals.run) return programWindowClosing();
+  if (signal === signals.run) {
+    return {
+      nextId: ids.main.programWindowClosing,
+      nextArgs: [FRAMES_TO_SWITCH_WINDOW],
+    };
+  }
   if (signal === signals.reset) {
     programSubject.next(() => initialState);
   }
-  return programming;
+  return {
+    nextId: ids.main.programming,
+    nextArgs: [],
+  };
 };
 
-export const programWindowOpening = (time = 0) => () => {
-  windowView.update(() => ({
-    style: { 'clip-path': clipPath(time) },
-    disabled: time < FRAMES_TO_SWITCH_WINDOW,
-  }));
-  controlView.update(() => ({ disabled: time < FRAMES_TO_SWITCH_WINDOW }));
-  return time >= FRAMES_TO_SWITCH_WINDOW ? programming : programWindowOpening(time + 1);
+export const programWindowOpening = (time) => ({
+  order, originalTape, currentTape, displayedTape,
+}) => {
+  updateOrder(order);
+  const moving = time < FRAMES_TO_SWITCH_WINDOW;
+  animateProgramWindow(time, moving);
+  animateTape(currentTape, displayedTape);
+  controlView.update(() => ({ disabled: moving }));
+  return moving ? {
+    nextId: ids.main.programWindowOpening,
+    nextArgs: [time + 1],
+    stateUpdate: { currentTape: originalTape },
+  } : {
+    nextId: ids.main.programming,
+    nextArgs: [],
+  };
 };

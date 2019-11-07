@@ -6,7 +6,8 @@ import caseTapesView from './view/case/tapes';
 import caseNumbersView from './view/case/numbers';
 import programWindowView from './view/program/window';
 import controlView from './view/control/control';
-import mainPhase, { initialState } from './phase/main/index';
+import mainPhase, { initialState } from './phase/index';
+import { programWindowOpening } from './phase/main/program';
 
 const { bind } = dependencies.hyperhtml;
 
@@ -23,4 +24,4 @@ bind(document.getElementById('root'))`${
 
 const order = [...Array(10)].map(() => Math.round(Math.random()));
 const tape = [...Array(10)].map(() => Math.round(Math.random()));
-runPhase(mainPhase(initialState(order, tape)), idealTimeout);
+runPhase(mainPhase(programWindowOpening(0), initialState(order, tape)), idealTimeout);
