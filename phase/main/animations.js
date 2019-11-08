@@ -8,14 +8,14 @@ const { Date } = dependencies.globals;
 
 const TIME_LIMIT = 32;
 
-export const showTime = (startedAt) => {
+export const showTime = ({ startedAt }) => {
   const timeLeft = Math.max(TIME_LIMIT - (Date.now() - startedAt) / 1000, 0);
   numbersView.update(() => ({ timeLeft }));
 };
 
 const CHAR_DELTA = 1 / 15;
 
-export const animateTape = (currentTape, displayedTape) => {
+export const animateTape = ({ currentTape, displayedTape }) => {
   const newTape = displayedTape.map((char, index) => {
     const goal = currentTape[index];
     if (char === goal) return char;

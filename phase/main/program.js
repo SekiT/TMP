@@ -7,11 +7,11 @@ import {
   FRAMES_TO_SWITCH_WINDOW, animateProgramWindow, animateTape, showTime,
 } from './animations';
 
-export const programWindowClosing = (time) => ({ currentTape, displayedTape, startedAt }) => {
+export const programWindowClosing = (time) => (state) => {
   animateProgramWindow(time, true);
-  animateTape(currentTape, displayedTape);
+  animateTape(state);
   controlView.update(() => ({ disabled: time > 0 }));
-  showTime(startedAt);
+  showTime(state);
   return time === 0 ? {
     nextId: ids.main.programWindowClosing,
     nextArgs: [0],
@@ -21,9 +21,9 @@ export const programWindowClosing = (time) => ({ currentTape, displayedTape, sta
   };
 };
 
-export const programming = () => ({ currentTape, displayedTape, startedAt }) => {
-  animateTape(currentTape, displayedTape);
-  showTime(startedAt);
+export const programming = () => (state) => {
+  animateTape(state);
+  showTime(state);
   const signal = dequeue();
   if (signal === signals.run) {
     return {
@@ -40,15 +40,14 @@ export const programming = () => ({ currentTape, displayedTape, startedAt }) => 
   };
 };
 
-export const programWindowOpening = (time) => ({
-  order, originalTape, currentTape, displayedTape, startedAt,
-}) => {
+export const programWindowOpening = (time) => (state) => {
+  const { order, originalTape } = state;
   updateOrder(order);
   const moving = time < FRAMES_TO_SWITCH_WINDOW;
   animateProgramWindow(time, moving);
-  animateTape(currentTape, displayedTape);
+  animateTape(state);
   controlView.update(() => ({ disabled: moving }));
-  showTime(startedAt);
+  showTime(state);
   return moving ? {
     nextId: ids.main.programWindowOpening,
     nextArgs: [time + 1],
