@@ -50,10 +50,34 @@ export const programWindowClosing = (time) => (state) => {
   controlView.update(() => ({ disabled: time > 0 }));
   showTime(state);
   return time === 0 ? {
-    nextId: ids.main.programWindowClosing,
+    nextId: ids.main.running,
     nextArgs: [0],
   } : {
     nextId: ids.main.programWindowClosing,
     nextArgs: [time - 1],
+  };
+};
+
+const FRAMES_TO_EXECUTE_COMMAND = 30;
+
+const executeCommand = ({ position }) => ({ position: (position + 1) % 10 });
+
+export const running = (time) => (state) => {
+  const signal = dequeue();
+  if (signal === signals.reset) {
+    return {
+      nextId: ids.main.programWindowOpening,
+      nextArgs: [0],
+      stateUpdate: {
+        currentTape: state.originalTape,
+        position: 0,
+      },
+    };
+  }
+  animateTape(state);
+  return {
+    nextId: ids.main.running,
+    nextArgs: [(time + 1) % FRAMES_TO_EXECUTE_COMMAND],
+    stateUpdate: time === 0 ? executeCommand(state) : {},
   };
 };
