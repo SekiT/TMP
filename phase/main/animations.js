@@ -13,8 +13,18 @@ export const showTime = ({ startedAt }) => {
   numbersView.update(() => ({ timeLeft }));
 };
 
+const MOVE_RATIO = 1 / 5;
+const MINIMUM_TAPE_SPEED = 1 / 15;
+
+const newPosition = (currentPosition, desiredPosition) => {
+  const diff = desiredPosition - currentPosition;
+  const moved = diff * MOVE_RATIO;
+  return MINIMUM_TAPE_SPEED < Math.abs(moved)
+    ? currentPosition + moved
+    : currentPosition + Math.min(Math.max(-MINIMUM_TAPE_SPEED, diff), MINIMUM_TAPE_SPEED);
+};
+
 const CHAR_DELTA = 1 / 15;
-const POSITION_RATIO = 1 / 10;
 
 export const animateTape = ({
   currentTape, displayedTape, position: desiredPosition,
@@ -28,7 +38,7 @@ export const animateTape = ({
   updateTape(newTape);
   machineTapeView.update(({ position: currentPosition }) => ({
     tape: newTape,
-    position: currentPosition + (desiredPosition - currentPosition) * POSITION_RATIO,
+    position: newPosition(currentPosition, desiredPosition),
   }));
 };
 
