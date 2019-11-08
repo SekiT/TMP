@@ -14,8 +14,11 @@ export const showTime = ({ startedAt }) => {
 };
 
 const CHAR_DELTA = 1 / 15;
+const POSITION_RATIO = 1 / 10;
 
-export const animateTape = ({ currentTape, displayedTape }) => {
+export const animateTape = ({
+  currentTape, displayedTape, position: desiredPosition,
+}) => {
   const newTape = displayedTape.map((char, index) => {
     const goal = currentTape[index];
     if (char === goal) return char;
@@ -23,7 +26,10 @@ export const animateTape = ({ currentTape, displayedTape }) => {
     return Math.max(char - CHAR_DELTA, goal);
   });
   updateTape(newTape);
-  machineTapeView.update(() => ({ tape: newTape }));
+  machineTapeView.update(({ position: currentPosition }) => ({
+    tape: newTape,
+    position: currentPosition + (desiredPosition - currentPosition) * POSITION_RATIO,
+  }));
 };
 
 export const FRAMES_TO_SWITCH_WINDOW = 45;

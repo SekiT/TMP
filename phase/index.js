@@ -15,6 +15,7 @@ export const initialState = (order, originalTape) => ({
   originalTape,
   currentTape: originalTape,
   displayedTape: originalTape,
+  position: 1,
   startedAt: Date.now(),
 });
 
