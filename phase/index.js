@@ -1,6 +1,6 @@
 import dependencies from 'dependencies';
 import ids from './ids';
-import { programWindowOpening, programming, programWindowClosing } from './main/program';
+import { programWindowOpening, programming, programWindowClosing } from './main/index';
 
 const { Date } = dependencies.globals;
 
