@@ -6,6 +6,10 @@ const initialState = {
   cellWidth: 0,
 };
 
+const stateToString = (state) => (
+  'E01234A'[state + 1]
+);
+
 const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   const w16 = cellWidth / 16;
   const containerStyle = {
@@ -37,7 +41,7 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   return render`<div style=${containerStyle}>
     <div style=${armStyle}></div>
     <div style=${{ ...armStyle, left: `${cellWidth}px` }}></div>
-    <div style=${headStyle}>${state}</div>
+    <div style=${headStyle}>${stateToString(state)}</div>
   </div>`;
 });
 
