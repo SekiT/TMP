@@ -17,8 +17,8 @@ export const initialState = (order, originalTape) => ({
   order,
   originalTape,
   currentTape: originalTape,
-  displayedTape: originalTape,
   position: 0,
+  machineState: 0,
   startedAt: Date.now(),
 });
 

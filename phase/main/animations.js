@@ -1,6 +1,6 @@
 import dependencies from 'dependencies';
+import { graduallyUpdate } from 'subject/tape';
 import numbersView from 'view/case/numbers';
-import { updateTape } from 'view/case/tapes';
 import machineTapeView from 'view/machine/tape';
 import windowView from 'view/program/window';
 
@@ -24,20 +24,11 @@ const newPosition = (currentPosition, desiredPosition) => {
     : currentPosition + Math.min(Math.max(-MINIMUM_TAPE_SPEED, diff), MINIMUM_TAPE_SPEED);
 };
 
-const CHAR_DELTA = 1 / 15;
-
 export const animateTape = ({
-  currentTape, displayedTape, position: desiredPosition,
+  currentTape, position: desiredPosition,
 }) => {
-  const newTape = displayedTape.map((char, index) => {
-    const goal = currentTape[index];
-    if (char === goal) return char;
-    if (char < goal) return Math.min(char + CHAR_DELTA, goal);
-    return Math.max(char - CHAR_DELTA, goal);
-  });
-  updateTape(newTape);
+  graduallyUpdate(currentTape);
   machineTapeView.update(({ position: currentPosition }) => ({
-    tape: newTape,
     position: newPosition(currentPosition, desiredPosition),
   }));
 };
