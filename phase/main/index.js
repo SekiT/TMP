@@ -47,6 +47,7 @@ export const programming = () => (state) => {
     nextArgs: [],
     stateUpdate: signal === signals.reset ? {
       currentTape: state.originalTape,
+      machineState: 0,
       position: 0,
     } : {},
   };
