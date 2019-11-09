@@ -24,5 +24,8 @@ module.exports = {
     'import/no-unresolved': ['error', {
       ignore: ['^dependencies$', '^lib/', '^subject/', '^view/', '^phase/'],
     }],
+
+    // We want to write `(position < 0 || 10 <= position)`
+    yoda: ['error', 'never', { exceptRange: true }],
   },
 }
