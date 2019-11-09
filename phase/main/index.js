@@ -14,7 +14,6 @@ export const programWindowOpening = (time) => (state) => {
   animateProgramWindow(time, moving);
   animateTape(state);
   controlView.update(() => ({ disabled: moving }));
-  headView.update(() => ({ state: 0 }));
   showTime(state);
   return moving ? {
     nextId: ids.main.programWindowOpening,
@@ -46,6 +45,10 @@ export const programming = () => (state) => {
   return {
     nextId: ids.main.programming,
     nextArgs: [],
+    stateUpdate: signal === signals.reset ? {
+      currentTape: state.originalTape,
+      position: 0,
+    } : {},
   };
 };
 
