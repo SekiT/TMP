@@ -1,11 +1,12 @@
 import view from 'lib/view';
 import windowSize from 'subject/windowSize';
+import tapeSubject from 'subject/tape';
 import tapeGen from 'view/generator/tapeGen';
 
 const tapeView = tapeGen();
 
 const containerView = view({ position: 0 }, (render) => ({
-  position, cellWidth, ...tapeProps
+  position, cellWidth,
 }) => {
   const containerStyle = {
     position: 'absolute',
@@ -13,7 +14,7 @@ const containerView = view({ position: 0 }, (render) => ({
     left: '50%',
     transform: `translate(${cellWidth * (-0.5 - position)}px, 0)`,
   };
-  tapeView.update(() => ({ ...tapeProps, cellWidth }));
+  tapeView.update(() => ({ cellWidth }));
   return render`<div style=${containerStyle}>${tapeView.render()}</div>`;
 });
 
@@ -21,5 +22,7 @@ windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
   const cellWidth = Math.min(windowWidth * 0.15, windowHeight * 0.3);
   containerView.update(() => ({ cellWidth }));
 });
+
+tapeSubject.subscribe((tape) => tapeView.update(() => ({ tape })));
 
 export default containerView;
