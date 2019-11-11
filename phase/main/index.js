@@ -13,7 +13,7 @@ export const programWindowOpening = (time) => (state) => {
   const moving = time < FRAMES_TO_SWITCH_WINDOW;
   animateProgramWindow(time, moving);
   animateTape(state);
-  controlView.update(() => ({ disabled: moving }));
+  controlView.update(() => ({ running: false, disabled: moving }));
   showTime(state);
   return moving ? {
     nextId: ids.main.programWindowOpening,
@@ -29,6 +29,7 @@ export const programming = () => (state) => {
   showTime(state);
   const signal = dequeue();
   if (signal === signals.run) {
+    headView.update(() => ({ state: 0 }));
     return {
       nextId: ids.main.programWindowClosing,
       nextArgs: [FRAMES_TO_SWITCH_WINDOW],
@@ -56,7 +57,7 @@ export const programming = () => (state) => {
 export const programWindowClosing = (time) => (state) => {
   animateProgramWindow(time, true);
   animateTape(state);
-  controlView.update(() => ({ disabled: time > 0 }));
+  controlView.update(() => ({ running: time === 0, disabled: time > 0 }));
   showTime(state);
   return time === 0 ? {
     nextId: ids.main.running,
@@ -83,15 +84,11 @@ const FRAMES_TO_EXECUTE_COMMAND = 30;
 
 export const running = (time) => (state) => {
   const signal = dequeue();
-  if (signal === signals.reset) {
-    headView.update(() => ({ state: 0 }));
+  if (signal === signals.halt) {
+    headView.update(() => ({ state: 6 }));
     return {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
-      stateUpdate: {
-        currentTape: state.originalTape,
-        position: 0,
-      },
     };
   }
   animateTape(state);

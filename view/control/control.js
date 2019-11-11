@@ -3,6 +3,7 @@ import windowSize from 'subject/windowSize';
 import { enqueue, signals } from 'subject/inputSignal';
 
 const initialState = {
+  running: false,
   disabled: true,
   fontSize: 0,
   height: 0,
@@ -28,15 +29,16 @@ const buttonStyle = (fontSize, height) => ({
 });
 
 const onClickResetButton = () => enqueue(signals.reset);
+const onClickHaltButton = () => enqueue(signals.halt);
 const onClickPassButton = () => enqueue(signals.pass);
 
 const controlView = view(initialState, (render) => ({
-  disabled, fontSize, height,
+  running, disabled, fontSize, height,
 }) => render`<div style=${containerStyle}>
   <button
     style=${buttonStyle(fontSize, height)}
-    onclick=${onClickResetButton}
-    disabled=${disabled}>RESET</button>
+    onclick=${running ? onClickHaltButton : onClickResetButton}
+    disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
   <button
     style=${buttonStyle(fontSize, height)}
     onclick=${onClickPassButton}

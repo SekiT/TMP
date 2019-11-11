@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const stateToString = (state) => (
-  'E01234A'[state + 1]
+  'E01234AH'[state + 1]
 );
 
 const headView = view(initialState, (render) => ({ state, cellWidth }) => {

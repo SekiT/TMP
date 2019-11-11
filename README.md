@@ -73,7 +73,7 @@ At the beginning, the machine's `state` is `0`, and `head` points the first bit 
 
 If the state becomes `A`, then the machine stops.
 
-Infinite loops are not accepted or detected. `Reset` button will rescue us in that case.
+Infinite loops are not accepted or detected. `HALT` button will rescue you in that case.
 
 ## Misc: Markdown Template
 
