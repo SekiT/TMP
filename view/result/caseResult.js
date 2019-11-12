@@ -18,6 +18,7 @@ const containerStyle = (opacity) => ({
   'text-align': 'center',
   color: 'white',
   opacity,
+  filter: 'drop-shadow(0 0 0.3rem black)',
 });
 
 const titleStyle = (timeLeft, fontSize) => ({
