@@ -4,6 +4,7 @@ import { showTime, showScore } from '../case/numbers';
 
 const initialState = {
   commandsSaved: 0,
+  accepted: false,
   steps: 0,
   timeLeft: 0,
   opacity: 0,
@@ -37,22 +38,31 @@ const scoreBoardStyle = (fontSize) => ({
 
 const bonusStyle = (fontSize) => ({ fontSize });
 
-const score = (commandsSaved, steps, timeLeft) => (
-  commandsSaved * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
+const score = (commandsSaved, accepted, steps, timeLeft) => (
+  (commandsSaved + (accepted ? 1 : 0)) * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
 );
 
 export default view(initialState, (render) => ({
-  commandsSaved, steps, timeLeft, opacity, fontSize,
-}) => (
-  render`<div style=${containerStyle(opacity)}>
-    <div style=${titleStyle(timeLeft, fontSize * 1.3)}>${title(timeLeft)}</div>
-    <table style=${scoreBoardStyle(fontSize)}>
-      <tr><td>Saved + accepted</td><td /><td>Steps</td><td /><td>Time left</td></tr>
-      <tr>
-        <td>(${commandsSaved} &times; 100)</td><td>&times;</td>
-        <td>(${steps} &times; 0.1)</td><td>&times;</td>
-        <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td></tr>
-    </table>
-    <div style=${bonusStyle(fontSize)}>Score: +${showScore(score(commandsSaved, steps, timeLeft))}</div>
-  </div>`
-));
+  commandsSaved, accepted, steps, timeLeft, opacity, fontSize,
+}) => render`<div style=${containerStyle(opacity)}>
+  <div style=${titleStyle(timeLeft, fontSize * 1.3)}>${title(timeLeft)}</div>
+  <table style=${scoreBoardStyle(fontSize)}>
+    <tr>
+      <td>Saved + accepted</td>
+      <td />
+      <td>Steps</td>
+      <td />
+      <td>Time left</td>
+    </tr>
+    <tr>
+      <td>((${commandsSaved} + ${accepted ? 1 : 0}) &times; 100)</td>
+      <td>&times;</td>
+      <td>(${steps} &times; 0.1)</td>
+      <td>&times;</td>
+      <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td>
+    </tr>
+  </table>
+  <div style=${bonusStyle(fontSize)}>Score: +${
+  showScore(score(commandsSaved, accepted, steps, timeLeft))
+}</div>
+</div>`);

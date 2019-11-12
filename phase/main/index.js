@@ -99,7 +99,7 @@ export const running = (time) => (state) => {
     headView.update(() => ({ state: 6 }));
     return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
       nextId: ids.result.caseResult,
-      nextArgs: [initialResultState(0, steps, 0)],
+      nextArgs: [initialResultState(0, false, steps, 0)],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
@@ -109,9 +109,15 @@ export const running = (time) => (state) => {
   const machineStateOrError = (position < 0 || 10 <= position) ? -1 : machineState;
   if ([-1, 5].includes(machineStateOrError) && time === FRAMES_TO_EXECUTE_COMMAND) {
     headView.update(() => ({ state: machineStateOrError }));
+    if ((Date.now() - startedAt) / 1000 > TIME_LIMIT) {
+      return {
+        nextId: ids.result.caseResult,
+        nextArgs: [initialResultState(0, false, steps, 0)],
+      };
+    }
     return order.join`` === currentTape.join`` ? {
       nextId: ids.result.caseResult,
-      nextArgs: [initialResultState(5, steps, timeLeft(runAt, startedAt))],
+      nextArgs: [initialResultState(5, machineState === 5, steps, timeLeft(runAt, startedAt))],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
