@@ -50,9 +50,9 @@ export default view(initialState, (render) => ({
     <table style=${scoreBoardStyle(fontSize)}>
       <tr><td>Commands saved</td><td></td><td>Steps</td><td></td><td>Time left</td></tr>
       <tr>
-        <td>(${commandsSaved} * 1000)</td><td>*</td>
-        <td>(${steps} * 0.1)</td><td>*</td>
-        <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 * 3)</td></tr>
+        <td>(${commandsSaved} &times; 1000)</td><td>&times;</td>
+        <td>(${steps} &times; 0.1)</td><td>&times;</td>
+        <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td></tr>
     </table>
     <div style=${bonusStyle(fontSize)}>Score: +${score(commandsSaved, steps, timeLeft)}</div>
   </div>`
