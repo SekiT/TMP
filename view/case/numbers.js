@@ -33,7 +33,7 @@ export const showScore = (score) => (
   ).join``
 );
 
-export const showTime = (timeLeft) => timeLeft.toPrecision(timeLeft < 10 ? 3 : 4).padStart(5, '0');
+export const showTime = (timeLeft) => (timeLeft * 100 | 0).toString().padStart(4, '0').replace(/^(..)(..)/, '$1.$2');
 
 const numbersView = view(initialState, (render) => ({
   number, timeLeft, score, fontSize,
