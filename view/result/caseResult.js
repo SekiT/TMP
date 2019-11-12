@@ -15,7 +15,7 @@ const containerStyle = (opacity) => ({
   position: 'absolute',
   top: '20%',
   width: '100%',
-  'text-align': 'center',
+  textAlign: 'center',
   color: 'white',
   opacity,
   filter: 'drop-shadow(0 0 0.3rem black)',
@@ -23,7 +23,7 @@ const containerStyle = (opacity) => ({
 
 const titleStyle = (timeLeft, fontSize) => ({
   color: timeLeft === 0 ? '#ccf' : '#cfc',
-  'font-size': `${fontSize}px`,
+  fontSize: `${fontSize}px`,
 });
 
 const title = (timeLeft) => (timeLeft === 0 ? 'Timed out!' : 'Clear!');
@@ -31,13 +31,11 @@ const title = (timeLeft) => (timeLeft === 0 ? 'Timed out!' : 'Clear!');
 const scoreBoardStyle = (fontSize) => ({
   display: 'inline-block',
   margin: `${fontSize}px 0`,
-  'font-size': `${fontSize}px`,
+  fontSize: `${fontSize}px`,
   color: 'white',
 });
 
-const bonusStyle = (fontSize) => ({
-  'font-size': `${fontSize}px`,
-});
+const bonusStyle = (fontSize) => ({ fontSize });
 
 const score = (commandsSaved, steps, timeLeft) => (
   commandsSaved * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0

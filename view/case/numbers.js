@@ -12,18 +12,18 @@ const leftUpContainerStyle = (fontSize) => ({
   position: 'absolute',
   top: '1%',
   left: '1%',
-  'font-size': `${fontSize}px`,
+  fontSize: `${fontSize}px`,
   color: 'white',
-  'font-family': 'serif',
+  fontFamily: 'serif',
 });
 
 const leftDownConatinerStyle = (fontSize) => ({
   position: 'absolute',
   bottom: '1%',
   left: '1%',
-  'font-size': `${fontSize}px`,
+  fontSize: `${fontSize}px`,
   color: 'white',
-  'font-family': 'serif',
+  fontFamily: 'serif',
 });
 
 export const showScore = (score) => (

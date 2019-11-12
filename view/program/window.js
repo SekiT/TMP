@@ -17,31 +17,31 @@ const containerStyle = (fontSize, style) => ({
   top: '29%',
   left: '50%',
   transform: 'translate(-50%, 0)',
-  width: `${fontSize * 20}px`,
+  width: fontSize * 20,
   padding: '5px 0 10px 0',
-  'text-align': 'center',
-  'font-size': `${fontSize}px`,
-  'line-height': `${fontSize}px`,
+  textAlign: 'center',
+  fontSize: `${fontSize}px`,
+  lineHeight: `${fontSize}px`,
   border: '1px solid #999',
-  'background-color': 'rgba(51, 51, 153, 0.8)',
+  backgroundColor: 'rgba(51, 51, 153, 0.8)',
   color: 'white',
-  'font-family': 'Courier New',
+  fontFamily: 'Courier New',
   ...style,
 });
 
 const titleStyle = {
-  'margin-bottom': '10px',
+  marginBottom: '10px',
 };
 
 const runButonStyle = (fontSize) => {
   const height = `${fontSize * 1.3}px`;
   return {
     height,
-    'margin-top': '0.1em',
+    marginTop: '0.1em',
     padding: '0 1em',
-    'font-size': height,
-    'line-height': height,
-    'border-radius': `${fontSize * 0.15}px`,
+    fontSize: height,
+    lineHeight: height,
+    borderRadius: `${fontSize * 0.15}px`,
   };
 };
 

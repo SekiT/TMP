@@ -13,8 +13,8 @@ const initialState = (state0, char0) => ({
 const containerStyle = {
   display: 'inline-block',
   margin: '1% 1%',
-  'text-align': 'center',
-  'white-space': 'nowrap',
+  textAlign: 'center',
+  whiteSpace: 'nowrap',
 };
 
 const directionToString = (direction) => (direction < 0 ? 'L' : 'R');

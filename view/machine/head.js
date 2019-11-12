@@ -26,21 +26,21 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   const armStyle = {
     ...commonStyle,
     width: `${w16 * 2}px`,
-    'border-radius': `${w16}px ${w16}px 0 0`,
+    borderRadius: `${w16}px ${w16}px 0 0`,
   };
   const headStyle = {
     ...commonStyle,
     top: `${cellWidth}px`,
     width: `${cellWidth + w16 * 2}px`,
-    'border-radius': `0 0 ${w16}px ${w16}px`,
-    'font-size': `${cellWidth * 0.8}px`,
-    'line-height': `${cellWidth}px`,
-    'text-align': 'center',
+    borderRadius: `0 0 ${w16}px ${w16}px`,
+    fontSize: cellWidth * 0.8,
+    lineHeight: `${cellWidth}px`,
+    textAlign: 'center',
     color: 'white',
   };
   return render`<div style=${containerStyle}>
     <div style=${armStyle} />
-    <div style=${{ ...armStyle, left: `${cellWidth}px` }} />
+    <div style=${{ ...armStyle, left: cellWidth }} />
     <div style=${headStyle}>${stateToString(state)}</div>
   </div>`;
 });

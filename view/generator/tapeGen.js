@@ -20,10 +20,10 @@ export default () => {
           display: 'inline-block',
           width: `${cellWidth}px`,
           height: `${cellWidth}px`,
-          'line-height': `${cellWidth}px`,
-          'font-size': `${cellWidth}px`,
-          'text-align': 'center',
-          'background-color': `rgb(${background},${background},${background})`,
+          lineHeight: `${cellWidth}px`,
+          fontSize: `${cellWidth}px`,
+          textAlign: 'center',
+          backgroundColor: `rgb(${background},${background},${background})`,
           color: `rgb(${foreground},${foreground},${foreground})`,
         };
         return cellDivs[index]`<div style=${cellStyle}>${bit < 0.5 ? 0 : 1}</div>`;

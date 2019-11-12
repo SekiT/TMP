@@ -16,14 +16,14 @@ const containerStyle = {
   position: 'absolute',
   top: '3%',
   width: '100%',
-  'font-family': 'serif',
+  fontFamily: 'serif',
   color: 'white',
 };
 
 const tableStyle = (fontSize) => ({
   margin: '0 auto',
-  'font-size': `${fontSize}px`,
-  'line-height': `${fontSize}px`,
+  fontSize: `${fontSize}px`,
+  lineHeight: `${fontSize}px`,
 });
 
 const tapesView = view(initialState, (render) => ({ fontSize }) => render`<div style=${containerStyle}>

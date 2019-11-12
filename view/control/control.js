@@ -15,17 +15,17 @@ const containerStyle = {
   top: '19%',
   width: '100%',
   height: '10%',
-  'text-align': 'center',
-  'vertical-align': 'middle',
-  'font-family': 'Courier New',
+  textAlign: 'center',
+  verticalAlign: 'middle',
+  fontFamily: 'Courier New',
 };
 
 const buttonStyle = (fontSize, height) => ({
   margin: `${(height - fontSize) / 2}px 0.5em`,
   width: `${fontSize * 5}px`,
   height: `${fontSize}px`,
-  'font-size': `${fontSize}px`,
-  'border-radius': `${fontSize * 0.15}px`,
+  fontSize: `${fontSize}px`,
+  borderRadius: fontSize * 0.15,
 });
 
 const onClickResetButton = () => enqueue(signals.reset);
