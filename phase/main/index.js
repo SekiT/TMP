@@ -99,7 +99,7 @@ export const running = (time) => (state) => {
     headView.update(() => ({ state: 6 }));
     return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
       nextId: ids.result.caseResult,
-      nextArgs: [initialResultState(5, steps, timeLeft(runAt, startedAt))],
+      nextArgs: [initialResultState(0, steps, 0)],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
