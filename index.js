@@ -16,11 +16,11 @@ bind(document.getElementById('root'))`${
   [
     tapeView,
     headView,
-    caseTapesView,
-    caseNumbersView,
     programWindowView,
     controlView,
     curtainView,
+    caseTapesView,
+    caseNumbersView,
   ].map((view) => view.render())
 }`;
 
