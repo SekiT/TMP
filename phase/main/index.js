@@ -97,7 +97,7 @@ export const running = (time) => (state) => {
   const signal = dequeue();
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
-    return Date.now() - startedAt > TIME_LIMIT ? {
+    return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
       nextId: ids.result.caseResult,
       nextArgs: [initialResultState(5, steps, timeLeft(runAt, startedAt))],
     } : {
