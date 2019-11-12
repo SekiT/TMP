@@ -6,7 +6,7 @@ import windowView from 'view/program/window';
 
 const { Date } = dependencies.globals;
 
-const TIME_LIMIT = 32;
+export const TIME_LIMIT = 32;
 
 export const showTime = ({ startedAt }) => {
   const timeLeft = Math.max(TIME_LIMIT - (Date.now() - startedAt) / 1000, 0);

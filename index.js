@@ -7,6 +7,7 @@ import caseNumbersView from './view/case/numbers';
 import programWindowView from './view/program/window';
 import controlView from './view/control/control';
 import curtainView from './view/curtain/curtain';
+import caseResultView from './view/result/caseResult';
 import mainPhase, { initialState } from './phase/index';
 import { programWindowOpening } from './phase/main/index';
 
@@ -21,6 +22,7 @@ bind(document.getElementById('root'))`${
     curtainView,
     caseTapesView,
     caseNumbersView,
+    caseResultView,
   ].map((view) => view.render())
 }`;
 

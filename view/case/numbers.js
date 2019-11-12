@@ -33,17 +33,14 @@ const showScore = (score) => (
   ).join``
 );
 
+export const showTime = (timeLeft) => timeLeft.toPrecision(timeLeft < 10 ? 3 : 4).padStart(5, '0');
+
 const numbersView = view(initialState, (render) => ({
   number, timeLeft, score, fontSize,
-}) => {
-  const timeShown = timeLeft.toPrecision(timeLeft < 10 ? 3 : 4).padStart(5, '0');
-  return render`<div style=${leftUpContainerStyle(fontSize)}>
-    No.${number}<br>
-    ${timeShown}
-  </div><div style=${leftDownConatinerStyle(fontSize)}>
-    Score: ${showScore(score)}
-  </div>`;
-});
+}) => render`
+  <div style=${leftUpContainerStyle(fontSize)}>No.${number}<br>${showTime(timeLeft)}</div>
+  <div style=${leftDownConatinerStyle(fontSize)}>Score: ${showScore(score)}</div>
+`);
 
 export default numbersView;
 

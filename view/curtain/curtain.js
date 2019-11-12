@@ -11,6 +11,6 @@ const curtainStyle = (opacity) => ({
   opacity,
 });
 
-export default view(0, (render) => (opacity) => (
+export default view(1, (render) => (opacity) => (
   render`<div style=${curtainStyle(opacity)}></div>`
 ));
