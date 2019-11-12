@@ -37,6 +37,7 @@ export const programming = () => (state) => {
         currentTape: state.originalTape,
         machineState: 0,
         position: 0,
+        runAt: Date.now(),
       },
     };
   }
@@ -58,10 +59,10 @@ export const programWindowClosing = (time) => (state) => {
   animateProgramWindow(time, true);
   animateTape(state);
   controlView.update(() => ({ running: time === 0, disabled: time > 0 }));
-  showTime(state);
   return time === 0 ? {
     nextId: ids.main.running,
     nextArgs: [0],
+    stateUpdate: { steps: 0 },
   } : {
     nextId: ids.main.programWindowClosing,
     nextArgs: [time - 1],
@@ -71,12 +72,15 @@ export const programWindowClosing = (time) => (state) => {
 let program = initialState;
 programSubject.subscribe((p) => { program = p; });
 
-const executeCommand = ({ currentTape, position, machineState }) => {
+const executeCommand = ({
+  currentTape, position, machineState, steps,
+}) => {
   const { direction, nextChar, nextState } = program[(machineState << 1) | currentTape[position]];
   return {
     currentTape: [...currentTape.slice(0, position), nextChar, ...currentTape.slice(position + 1)],
     position: position + direction,
     machineState: nextState,
+    steps: steps + 1,
   };
 };
 

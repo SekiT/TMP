@@ -20,6 +20,8 @@ export const initialState = (order, originalTape) => ({
   position: 0,
   machineState: 0,
   startedAt: Date.now(),
+  runAt: null,
+  steps: 0,
 });
 
 const indexPhase = (phase, state) => () => {
