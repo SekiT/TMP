@@ -8,5 +8,7 @@ export default {
     running: {},
   },
   result: {
+    caseResult: {},
+    totalResult: {},
   },
 };

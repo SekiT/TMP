@@ -3,6 +3,7 @@ import ids from './ids';
 import {
   programWindowOpening, programming, programWindowClosing, running,
 } from './main/index';
+import { caseResult } from './result/index';
 
 const { Date } = dependencies.globals;
 
@@ -11,6 +12,7 @@ const idToPhaseGenerator = new Map([
   [ids.main.programming, programming],
   [ids.main.programWindowClosing, programWindowClosing],
   [ids.main.running, running],
+  [ids.result.caseResult, caseResult],
 ]);
 
 export const initialState = (order, originalTape) => ({

@@ -3,14 +3,15 @@ import { TIME_LIMIT } from 'phase/main/animations';
 import { showTime } from '../case/numbers';
 
 const initialState = {
-  commandsSaved: 5,
-  steps: 6,
-  timeLeft: 12.34,
-  opacity: 1,
+  commandsSaved: 0,
+  steps: 0,
+  timeLeft: 0,
+  opacity: 0,
   fontSize: 30,
 };
 
 const containerStyle = (opacity) => ({
+  display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   top: '20%',
   width: '100%',

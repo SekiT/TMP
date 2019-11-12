@@ -5,8 +5,10 @@ import controlView from 'view/control/control';
 import headView from 'view/machine/head';
 import ids from '../ids';
 import {
-  FRAMES_TO_SWITCH_WINDOW, animateProgramWindow, animateTape, showTime,
+  TIME_LIMIT, FRAMES_TO_SWITCH_WINDOW,
+  animateProgramWindow, animateTape, showTime,
 } from './animations';
+import { initialState as initialResultState } from '../result/index';
 
 export const programWindowOpening = (time) => (state) => {
   updateOrder(state.order);
@@ -86,21 +88,31 @@ const executeCommand = ({
 
 const FRAMES_TO_EXECUTE_COMMAND = 30;
 
+const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt) / 1000, 0);
+
 export const running = (time) => (state) => {
+  const {
+    position, machineState, startedAt, steps, runAt, currentTape, order,
+  } = state;
   const signal = dequeue();
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
-    return {
+    return Date.now() - startedAt > TIME_LIMIT ? {
+      nextId: ids.result.caseResult,
+      nextArgs: [initialResultState(5, steps, timeLeft(runAt, startedAt))],
+    } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
     };
   }
   animateTape(state);
-  const { position, machineState } = state;
   const machineStateOrError = (position < 0 || 10 <= position) ? -1 : machineState;
-  if ([-1, 5].includes(machineStateOrError)) {
+  if ([-1, 5].includes(machineStateOrError) && time === FRAMES_TO_EXECUTE_COMMAND) {
     headView.update(() => ({ state: machineStateOrError }));
-    return {
+    return order.join`` === currentTape.join`` ? {
+      nextId: ids.result.caseResult,
+      nextArgs: [initialResultState(5, steps, timeLeft(runAt, startedAt))],
+    } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
       stateUpdate: { machineState: machineStateOrError },
