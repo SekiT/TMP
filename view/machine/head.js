@@ -39,8 +39,8 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
     color: 'white',
   };
   return render`<div style=${containerStyle}>
-    <div style=${armStyle}></div>
-    <div style=${{ ...armStyle, left: `${cellWidth}px` }}></div>
+    <div style=${armStyle} />
+    <div style=${{ ...armStyle, left: `${cellWidth}px` }} />
     <div style=${headStyle}>${stateToString(state)}</div>
   </div>`;
 });

@@ -49,7 +49,7 @@ export default view(initialState, (render) => ({
   render`<div style=${containerStyle(opacity)}>
     <div style=${titleStyle(timeLeft, fontSize * 1.3)}>${title(timeLeft)}</div>
     <table style=${scoreBoardStyle(fontSize)}>
-      <tr><td>Saved + accepted</td><td></td><td>Steps</td><td></td><td>Time left</td></tr>
+      <tr><td>Saved + accepted</td><td /><td>Steps</td><td /><td>Time left</td></tr>
       <tr>
         <td>(${commandsSaved} &times; 100)</td><td>&times;</td>
         <td>(${steps} &times; 0.1)</td><td>&times;</td>
