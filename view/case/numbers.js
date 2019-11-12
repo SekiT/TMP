@@ -26,7 +26,7 @@ const leftDownConatinerStyle = (fontSize) => ({
   'font-family': 'serif',
 });
 
-const showScore = (score) => (
+export const showScore = (score) => (
   [...score.toString()].reduceRight(
     ([chunk, acc], char) => (chunk.length === 3 ? [char, `,${chunk}${acc}`] : [`${char}${chunk}`, acc]),
     ['', ''],

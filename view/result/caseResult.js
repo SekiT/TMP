@@ -1,6 +1,6 @@
 import view from 'lib/view';
 import { TIME_LIMIT } from 'phase/main/animations';
-import { showTime } from '../case/numbers';
+import { showTime, showScore } from '../case/numbers';
 
 const initialState = {
   commandsSaved: 0,
@@ -50,10 +50,10 @@ export default view(initialState, (render) => ({
     <table style=${scoreBoardStyle(fontSize)}>
       <tr><td>Commands saved</td><td></td><td>Steps</td><td></td><td>Time left</td></tr>
       <tr>
-        <td>(${commandsSaved} &times; 1000)</td><td>&times;</td>
+        <td>(${commandsSaved} &times; 1,000)</td><td>&times;</td>
         <td>(${steps} &times; 0.1)</td><td>&times;</td>
         <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td></tr>
     </table>
-    <div style=${bonusStyle(fontSize)}>Score: +${score(commandsSaved, steps, timeLeft)}</div>
+    <div style=${bonusStyle(fontSize)}>Score: +${showScore(score(commandsSaved, steps, timeLeft))}</div>
   </div>`
 ));
