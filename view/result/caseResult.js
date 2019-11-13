@@ -1,4 +1,5 @@
 import view from 'lib/view';
+import windowSize from 'subject/windowSize';
 import { TIME_LIMIT } from 'phase/main/animations';
 import { showTime, showScore } from '../case/numbers';
 
@@ -8,7 +9,7 @@ const initialState = {
   steps: 0,
   timeLeft: 0,
   opacity: 0,
-  fontSize: 30,
+  fontSize: 0,
 };
 
 const containerStyle = (opacity) => ({
@@ -42,7 +43,7 @@ const score = (commandsSaved, accepted, steps, timeLeft) => (
   (commandsSaved + (accepted ? 1 : 0)) * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
 );
 
-export default view(initialState, (render) => ({
+const caseResultView = view(initialState, (render) => ({
   commandsSaved, accepted, steps, timeLeft, opacity, fontSize,
 }) => render`<div style=${containerStyle(opacity)}>
   <div style=${titleStyle(timeLeft, fontSize * 1.3)}>${title(timeLeft)}</div>
@@ -66,3 +67,10 @@ export default view(initialState, (render) => ({
   showScore(score(commandsSaved, accepted, steps, timeLeft))
 }</div>
 </div>`);
+
+windowSize.subscribe(({ width, height }) => {
+  const fontSize = Math.min(width * 0.04, height * 0.06);
+  caseResultView.update(() => ({ fontSize }));
+});
+
+export default caseResultView;
