@@ -10,15 +10,16 @@ export const initialState = (commandsSaved, accepted, steps, timeLeft) => ({
   timeLeft,
 });
 
-export const caseResult = (state) => () => {
-  const {
-    time, commandsSaved, accepted, steps, timeLeft,
-  } = state;
+export const caseResult = (state) => ({ executedIndices, steps }) => {
+  const { time, accepted, timeLeft } = state;
   curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
   caseResultView.update(() => ({ opacity: Math.min(Math.max(0, (time - 10) / 30), 1) }));
   if (time === 0) {
     caseResultView.update(() => ({
-      commandsSaved, accepted, steps, timeLeft,
+      commandsSaved: 10 - executedIndices.size,
+      accepted,
+      steps,
+      timeLeft,
     }));
   }
   return {

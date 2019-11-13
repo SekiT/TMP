@@ -24,6 +24,7 @@ export const initialState = (order, originalTape) => ({
   startedAt: Date.now(),
   runAt: null,
   steps: 0,
+  executedIndices: new Set(),
 });
 
 const indexPhase = (phase, state) => () => {

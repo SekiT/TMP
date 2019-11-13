@@ -64,7 +64,10 @@ export const programWindowClosing = (time) => (state) => {
   return time === 0 ? {
     nextId: ids.main.running,
     nextArgs: [0],
-    stateUpdate: { steps: 0 },
+    stateUpdate: {
+      steps: 0,
+      executedIndices: new Set(),
+    },
   } : {
     nextId: ids.main.programWindowClosing,
     nextArgs: [time - 1],
@@ -75,14 +78,16 @@ let program = initialState;
 programSubject.subscribe((p) => { program = p; });
 
 const executeCommand = ({
-  currentTape, position, machineState, steps,
+  currentTape, position, machineState, steps, executedIndices,
 }) => {
-  const { direction, nextChar, nextState } = program[(machineState << 1) | currentTape[position]];
+  const executedIndex = (machineState << 1) | currentTape[position];
+  const { direction, nextChar, nextState } = program[executedIndex];
   return {
     currentTape: [...currentTape.slice(0, position), nextChar, ...currentTape.slice(position + 1)],
     position: position + direction,
     machineState: nextState,
     steps: steps + 1,
+    executedIndices: new Set([...executedIndices, executedIndex]),
   };
 };
 
