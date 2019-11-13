@@ -97,14 +97,14 @@ const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt)
 
 export const running = (time) => (state) => {
   const {
-    position, machineState, startedAt, steps, executedIndices, runAt, order, currentTape,
+    position, machineState, startedAt, runAt, order, currentTape,
   } = state;
   const signal = dequeue();
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
     return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
       nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(0, false, -1, 0)],
+      nextArgs: [initialResultState(false, 0)],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
@@ -115,18 +115,17 @@ export const running = (time) => (state) => {
   if ([-1, 5].includes(machineStateOrError) && time === FRAMES_TO_EXECUTE_COMMAND) {
     headView.update(() => ({ state: machineStateOrError }));
     if (order.join`` === currentTape.join``) {
-      const commandsSaved = 10 - executedIndices.size;
       const accepted = machineState === 5;
       return {
         nextId: ids.result.caseResult,
         nextArgs: [
-          initialResultState(commandsSaved, accepted, steps, timeLeft(runAt, startedAt)),
+          initialResultState(accepted, timeLeft(runAt, startedAt)),
         ],
       };
     }
     return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
       nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(0, false, -1, 0)],
+      nextArgs: [initialResultState(false, 0)],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],

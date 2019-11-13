@@ -2,11 +2,9 @@ import curtainView from 'view/curtain/curtain';
 import caseResultView from 'view/result/caseResult';
 import ids from '../ids';
 
-export const initialState = (commandsSaved, accepted, steps, timeLeft) => ({
+export const initialState = (accepted, timeLeft) => ({
   time: 0,
-  commandsSaved,
   accepted,
-  steps,
   timeLeft,
 });
 
