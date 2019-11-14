@@ -3,12 +3,15 @@ import { programSubject, initialState } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
 import controlView from 'view/control/control';
 import headView from 'view/machine/head';
+import { types as resultTypes } from 'view/result/caseResult';
 import ids from '../ids';
 import {
   TIME_LIMIT, FRAMES_TO_SWITCH_WINDOW,
   animateProgramWindow, animateTape, showTime,
 } from './animations';
 import { initialState as initialResultState } from '../result/index';
+
+const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt) / 1000, 0);
 
 export const programWindowOpening = (time) => (state) => {
   updateOrder(state.order);
@@ -45,6 +48,14 @@ export const programming = () => (state) => {
   }
   if (signal === signals.reset) {
     programSubject.next(() => initialState);
+  }
+  if (signal === signals.pass) {
+    return {
+      nextId: ids.result.caseResult,
+      nextArgs: [
+        initialResultState(resultTypes.pass, false, timeLeft(Date.now(), state.startedAt)),
+      ],
+    };
   }
   return {
     nextId: ids.main.programming,
@@ -93,8 +104,6 @@ const executeCommand = ({
 
 const FRAMES_TO_EXECUTE_COMMAND = 30;
 
-const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt) / 1000, 0);
-
 export const running = (time) => (state) => {
   const {
     position, machineState, startedAt, runAt, order, currentTape,
@@ -102,9 +111,9 @@ export const running = (time) => (state) => {
   const signal = dequeue();
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
-    return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
+    return timeLeft(Date.now(), startedAt) > 0 ? {
       nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(false, 0)],
+      nextArgs: [initialResultState(resultTypes.pass, false, 0)],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
@@ -115,21 +124,22 @@ export const running = (time) => (state) => {
   if ([-1, 5].includes(machineStateOrError) && time === FRAMES_TO_EXECUTE_COMMAND) {
     headView.update(() => ({ state: machineStateOrError }));
     if (order.join`` === currentTape.join``) {
-      const accepted = machineState === 5;
+      const left = timeLeft(runAt, startedAt);
+      const resultType = left > 0 ? resultTypes.clear : resultTypes.timeout;
       return {
         nextId: ids.result.caseResult,
         nextArgs: [
-          initialResultState(accepted, timeLeft(runAt, startedAt)),
+          initialResultState(resultType, machineStateOrError === 5, left),
         ],
       };
     }
-    return (Date.now() - startedAt) / 1000 > TIME_LIMIT ? {
-      nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(false, 0)],
-    } : {
+    return timeLeft(Date.now(), startedAt) > 0 ? {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
       stateUpdate: { machineState: machineStateOrError },
+    } : {
+      nextId: ids.result.caseResult, // TODO: jump to totalResult
+      nextArgs: [initialResultState(resultTypes.pass, false, 0)],
     };
   }
   headView.update(() => ({ state: machineState }));

@@ -3,7 +3,14 @@ import windowSize from 'subject/windowSize';
 import { TIME_LIMIT } from 'phase/main/animations';
 import { showTime, showScore } from '../case/numbers';
 
+export const types = {
+  pass: {},
+  clear: {},
+  timeout: {},
+};
+
 const initialState = {
+  type: types.pass,
   commandsSaved: 0,
   accepted: false,
   steps: 0,
@@ -23,10 +30,22 @@ const containerStyle = (opacity) => ({
   filter: 'drop-shadow(0 0 0.3rem black)',
 });
 
-const titleStyle = (successful, fontSize) => ({
-  color: successful ? '#cfc' : '#ccf',
+const titleColor = new Map([
+  [types.pass, '#ccc'],
+  [types.clear, '#cfc'],
+  [types.timeout, '#ccf'],
+]);
+
+const titleStyle = (type, fontSize) => ({
+  color: titleColor.get(type),
   fontSize: `${fontSize}px`,
 });
+
+const titleText = new Map([
+  [types.pass, 'Pass'],
+  [types.clear, 'Clear!'],
+  [types.timeout, 'Timed out.'],
+]);
 
 const scoreBoardStyle = (fontSize) => ({
   display: 'inline-block',
@@ -42,11 +61,9 @@ const score = (commandsSaved, accepted, steps, timeLeft) => (
 );
 
 const caseResultView = view(initialState, (render) => ({
-  commandsSaved, accepted, steps, timeLeft, opacity, fontSize,
+  type, commandsSaved, accepted, steps, timeLeft, opacity, fontSize,
 }) => render`<div style=${containerStyle(opacity)}>
-  <div style=${titleStyle(timeLeft > 0, fontSize * 1.3)}>
-    ${timeLeft > 0 ? 'Clear!' : 'Timed out.'}
-  </div>
+  <div style=${titleStyle(type, fontSize * 1.3)}>${titleText.get(type)}</div>
   <table style=${scoreBoardStyle(fontSize)}>
     <tr>
       <td>Saved + accepted</td>
