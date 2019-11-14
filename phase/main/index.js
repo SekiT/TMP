@@ -55,6 +55,7 @@ export const programming = () => (state) => {
       nextArgs: [
         initialResultState(resultTypes.pass, false, timeLeft(Date.now(), state.startedAt)),
       ],
+      stateUpdate: { steps: 0 },
     };
   }
   return {
