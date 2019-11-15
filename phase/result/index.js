@@ -1,5 +1,6 @@
 import curtainView from 'view/curtain/curtain';
 import caseResultView from 'view/result/caseResult';
+import totalResultView from 'view/result/totalResult';
 import ids from '../ids';
 
 export const initialState = (type, accepted, timeLeft) => ({
@@ -30,5 +31,15 @@ export const caseResult = (state) => ({ executedIndices, steps }) => {
   };
 };
 
-export const totalResult = () => () => {
+export const totalResult = (time) => ({ score, caseNumber }) => {
+  curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
+  totalResultView.update(() => ({
+    opacity: Math.min(Math.max(0, (time - 10) / 30), 1),
+    score,
+    caseNumber,
+  }));
+  return {
+    nextId: ids.result.totalResult,
+    nextArgs: [time + 1],
+  };
 };

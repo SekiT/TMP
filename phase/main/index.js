@@ -113,8 +113,8 @@ export const running = (time) => (state) => {
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
     return timeLeft(Date.now(), startedAt) > 0 ? {
-      nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(resultTypes.pass, false, 0)],
+      nextId: ids.result.totalResult,
+      nextArgs: [0],
     } : {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
@@ -139,8 +139,8 @@ export const running = (time) => (state) => {
       nextArgs: [0],
       stateUpdate: { machineState: machineStateOrError },
     } : {
-      nextId: ids.result.caseResult, // TODO: jump to totalResult
-      nextArgs: [initialResultState(resultTypes.pass, false, 0)],
+      nextId: ids.result.totalResult,
+      nextArgs: [0],
     };
   }
   headView.update(() => ({ state: machineState }));
