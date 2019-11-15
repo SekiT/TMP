@@ -6,7 +6,7 @@ import { showTime, showScore } from '../case/numbers';
 export const types = {
   pass: {},
   clear: {},
-  timeout: {},
+  timeup: {},
 };
 
 const initialState = {
@@ -33,7 +33,7 @@ const containerStyle = (opacity) => ({
 const titleColor = new Map([
   [types.pass, '#ccc'],
   [types.clear, '#cfc'],
-  [types.timeout, '#ccf'],
+  [types.timeup, '#ccf'],
 ]);
 
 const titleStyle = (type, fontSize) => ({
@@ -44,7 +44,7 @@ const titleStyle = (type, fontSize) => ({
 const titleText = new Map([
   [types.pass, 'Pass'],
   [types.clear, 'Clear!'],
-  [types.timeout, 'Timed out.'],
+  [types.timeup, "Time's up."],
 ]);
 
 const scoreBoardStyle = (fontSize) => ({
