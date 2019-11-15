@@ -22,7 +22,7 @@ const initialState = {
 const containerStyle = (opacity) => ({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
-  top: '20%',
+  top: '10%',
   width: '100%',
   textAlign: 'center',
   color: 'white',

@@ -8,6 +8,7 @@ import programWindowView from './view/program/window';
 import controlView from './view/control/control';
 import curtainView from './view/curtain/curtain';
 import caseResultView from './view/result/caseResult';
+import totalResultView from './view/result/totalResult';
 import mainPhase, { initialState } from './phase/index';
 import { programWindowOpening } from './phase/main/index';
 
@@ -15,14 +16,15 @@ const { bind } = dependencies.hyperhtml;
 
 bind(document.getElementById('root'))`${
   [
+    caseTapesView,
     tapeView,
     headView,
-    programWindowView,
     controlView,
+    programWindowView,
     curtainView,
-    caseTapesView,
     caseNumbersView,
     caseResultView,
+    totalResultView,
   ].map((view) => view.render())
 }`;
 
