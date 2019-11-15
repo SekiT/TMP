@@ -56,7 +56,7 @@ const scoreBoardStyle = (fontSize) => ({
 
 const bonusStyle = (fontSize) => ({ fontSize });
 
-const score = (commandsSaved, accepted, steps, timeLeft) => (
+export const bonus = (commandsSaved, accepted, steps, timeLeft) => (
   (commandsSaved + (accepted ? 1 : 0)) * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
 );
 
@@ -81,7 +81,7 @@ const caseResultView = view(initialState, (render) => ({
     </tr>
   </table>
   <div style=${bonusStyle(fontSize)}>Score: +${
-  showScore(score(commandsSaved, accepted, steps, timeLeft))
+  showScore(bonus(commandsSaved, accepted, steps, timeLeft))
 }</div>
 </div>`);
 

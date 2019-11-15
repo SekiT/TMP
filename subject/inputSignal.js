@@ -19,4 +19,5 @@ export const signals = {
   halt: {},
   pass: {},
   run: {},
+  goNext: {},
 };

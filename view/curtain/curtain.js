@@ -1,4 +1,5 @@
 import view from 'lib/view';
+import { signals, enqueue } from 'subject/inputSignal';
 
 const curtainStyle = (opacity) => ({
   display: opacity === 0 ? 'none' : 'block',
@@ -11,6 +12,8 @@ const curtainStyle = (opacity) => ({
   opacity,
 });
 
+const onClick = () => enqueue(signals.goNext);
+
 export default view({ opacity: 0 }, (render) => ({ opacity }) => (
-  render`<div style=${curtainStyle(opacity)}></div>`
+  render`<div style=${curtainStyle(opacity)} onclick=${onClick}></div>`
 ));
