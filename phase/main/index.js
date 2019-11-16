@@ -113,10 +113,10 @@ export const running = (time) => (state) => {
   if (signal === signals.halt) {
     headView.update(() => ({ state: 6 }));
     return timeLeft(Date.now(), startedAt) > 0 ? {
-      nextId: ids.result.totalResult,
+      nextId: ids.main.programWindowOpening,
       nextArgs: [0],
     } : {
-      nextId: ids.main.programWindowOpening,
+      nextId: ids.result.totalResult,
       nextArgs: [0],
     };
   }
