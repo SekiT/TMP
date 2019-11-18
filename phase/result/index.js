@@ -13,6 +13,10 @@ export const initialState = (type, accepted, timeLeft) => ({
   timeLeft,
 });
 
+const updateScore = (displayedScore, goal) => (
+  (displayedScore * 6 + goal) / 7 | 0
+);
+
 export const caseResult = (state) => ({
   executedIndices, steps, caseNumber, score,
 }) => {
@@ -30,6 +34,9 @@ export const caseResult = (state) => ({
       timeLeft,
     }));
   }
+  caseNumbersView.update(({ score: displayedScore }) => ({
+    score: time === 40 ? score : updateScore(displayedScore, score),
+  }));
   const signal = dequeue();
   if (time >= 40 && signal === signals.goNext) {
     const nextCaseNumber = caseNumber + 1;
@@ -48,13 +55,15 @@ export const caseResult = (state) => ({
         currentTape: nextTape,
         position: 0,
         startedAt: Date.now(),
-        score: score + bonus(10 - executedIndices.length, accepted, steps, timeLeft),
       },
     };
   }
   return {
     nextId: ids.result.caseResult,
     nextArgs: [{ ...state, time: time + 1 }],
+    stateUpdate: time === 0
+      ? { score: score + bonus(10 - executedIndices.size, accepted, steps, timeLeft) }
+      : {},
   };
 };
 

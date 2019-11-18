@@ -3,8 +3,8 @@ import windowSize from 'subject/windowSize';
 
 const initialState = {
   number: 1,
-  timeLeft: 30.2,
-  score: 1234567890,
+  timeLeft: 0,
+  score: 0,
   fontSize: 0,
 };
 
