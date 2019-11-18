@@ -1,6 +1,7 @@
 import view from 'lib/view';
 import windowSize from 'subject/windowSize';
 import tapeGen from 'view/generator/tapeGen';
+import { showScore } from 'view/case/numbers';
 
 const initialState = {
   finished: false,
@@ -47,7 +48,7 @@ const totalResult = view(initialState, (render) => ({
   return render`<div style=${containerStyle(opacity, fontSize)}>
     <div style=${titleStyle(finished, fontSize * 1.3)}>${finished ? 'Finished!' : 'Game Over'}</div>
     ${finished ? '' : orderView.render()}<br>${finished ? '' : tapeView.render()}<br>
-    <div style=${scoreStyle(fontSize)}>Total score: ${score}</div>
+    <div style=${scoreStyle(fontSize)}>Total score: ${showScore(score)}</div>
   </div>`;
 });
 
