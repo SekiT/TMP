@@ -76,7 +76,7 @@ export const caseResult = (state) => ({
 };
 
 export const totalResult = (finished, time) => ({
-  order, currentTape, score, caseNumber,
+  order, originalTape, score, caseNumber,
 }) => {
   curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
   totalResultView.update(() => ({
@@ -85,7 +85,7 @@ export const totalResult = (finished, time) => ({
     score,
     caseNumber,
     order,
-    tape: currentTape,
+    tape: originalTape,
   }));
   return {
     nextId: ids.result.totalResult,
