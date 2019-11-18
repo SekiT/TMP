@@ -1,6 +1,6 @@
 import { test } from 'tape';
 import dependencies from 'dependencies';
-import { mockPropertyGetter, mockFunctionSequence, resetAllMocks } from 'lib/shadow';
+import { mockPropertyGetter, mockFunctionSequence, resetMock } from 'lib/shadow';
 import { runPhase, idealTimeout } from 'lib/runPhase';
 
 const { globals } = dependencies;
@@ -19,7 +19,7 @@ test('runPhase runs phase with balancing timeout', (t) => {
   t.plan(cases.length * 4);
   cases.forEach(({ timeTaken, timeoutBefore, timeoutAfter }) => {
     let getTimeCount = 0;
-    mockPropertyGetter(globals, 'Date', (original, key) => {
+    mockPropertyGetter(globals.Date, (original, key) => {
       if (key !== 'now') return t.fail(`Unknown access to Date.${key}`);
       getTimeCount += 1;
       if (getTimeCount === 3) t.pass('Date.now read 3 times');
@@ -30,7 +30,7 @@ test('runPhase runs phase with balancing timeout', (t) => {
     const phase3 = () => t.fail('phase3 should not be called');
     const phase2 = () => { t.pass('phase2 called'); return phase3; };
     const phase1 = () => phase2;
-    mockFunctionSequence(globals, 'setTimeout', [
+    mockFunctionSequence(globals.setTimeout, [
       () => (fun, timeout) => {
         t.equal(timeout, timeoutBefore);
         fun();
@@ -39,5 +39,6 @@ test('runPhase runs phase with balancing timeout', (t) => {
     ]);
     runPhase(phase1, timeoutBefore);
   });
-  resetAllMocks(globals);
+  resetMock(globals.Date);
+  resetMock(globals.setTimeout);
 });

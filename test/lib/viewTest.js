@@ -9,7 +9,7 @@ test('view.render renders template', (t) => {
   t.plan(2);
   const objectProp = { display: 'block' };
   const primitiveProp = 3;
-  mockFunction(hyperhtml, 'wire', () => () => (fixedParts, ...variableParts) => {
+  mockFunction(hyperhtml.wire, () => () => (fixedParts, ...variableParts) => {
     t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
     t.deepEqual(variableParts, [objectProp, primitiveProp]);
   });
@@ -17,7 +17,7 @@ test('view.render renders template', (t) => {
     { foo: objectProp, bar: primitiveProp },
     (render) => ({ foo, bar }) => render`<div style=${foo}>${bar}</div>`,
   ).render();
-  resetMock(hyperhtml, 'wire');
+  resetMock(hyperhtml.wire);
 });
 
 test('view.update updates partial or whole props and calls render', (t) => {
@@ -27,7 +27,7 @@ test('view.update updates partial or whole props and calls render', (t) => {
   const bar1 = 'bar1';
   const bar2 = 'bar2';
   let calledCount = 0;
-  mockFunction(hyperhtml, 'wire', () => () => (fixedParts, ...variableParts) => {
+  mockFunction(hyperhtml.wire, () => () => (fixedParts, ...variableParts) => {
     t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
     calledCount += 1;
     if (calledCount === 1) t.deepEqual(variableParts, [foo2, bar1]);
@@ -47,5 +47,5 @@ test('view.update updates partial or whole props and calls render', (t) => {
     t.equal(bar, bar1);
     return { foo: foo1, bar: bar2 };
   });
-  resetMock(hyperhtml, 'wire');
+  resetMock(hyperhtml.wire);
 });
