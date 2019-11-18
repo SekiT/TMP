@@ -117,7 +117,7 @@ export const running = (time) => (state) => {
       nextArgs: [0],
     } : {
       nextId: ids.result.totalResult,
-      nextArgs: [0],
+      nextArgs: [false, 0],
     };
   }
   animateTape(state);
@@ -140,7 +140,7 @@ export const running = (time) => (state) => {
       stateUpdate: { machineState: machineStateOrError },
     } : {
       nextId: ids.result.totalResult,
-      nextArgs: [0],
+      nextArgs: [false, 0],
     };
   }
   headView.update(() => ({ state: machineState }));

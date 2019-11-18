@@ -6,6 +6,8 @@ import caseResultView, { bonus } from 'view/result/caseResult';
 import totalResultView from 'view/result/totalResult';
 import ids from '../ids';
 
+const CASES_TO_COMPLETE = 32;
+
 export const initialState = (type, accepted, timeLeft) => ({
   type,
   time: 0,
@@ -39,11 +41,17 @@ export const caseResult = (state) => ({
   }));
   const signal = dequeue();
   if (time >= 40 && signal === signals.goNext) {
+    caseResultView.update(() => ({ opacity: 0 }));
+    if (caseNumber === CASES_TO_COMPLETE) {
+      return {
+        nextId: ids.result.totalResult,
+        nextArgs: [true, 0],
+      };
+    }
     const nextCaseNumber = caseNumber + 1;
     caseNumbersView.update(() => ({ number: nextCaseNumber }));
     const nextTape = [...Array(10)].map(() => (Math.random() < 0.5 ? 1 : 0));
     curtainView.update(() => ({ opacity: 0 }));
-    caseResultView.update(() => ({ opacity: 0 }));
     programSubject.next(() => initialProgram);
     return {
       nextId: ids.main.programWindowOpening,
@@ -67,15 +75,20 @@ export const caseResult = (state) => ({
   };
 };
 
-export const totalResult = (time) => ({ score, caseNumber }) => {
+export const totalResult = (finished, time) => ({
+  order, currentTape, score, caseNumber,
+}) => {
   curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
   totalResultView.update(() => ({
     opacity: Math.min(Math.max(0, (time - 10) / 30), 1),
+    finished,
     score,
     caseNumber,
+    order,
+    tape: currentTape,
   }));
   return {
     nextId: ids.result.totalResult,
-    nextArgs: [time + 1],
+    nextArgs: [finished, time + 1],
   };
 };
