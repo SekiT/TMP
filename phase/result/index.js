@@ -80,17 +80,37 @@ export const caseResult = (state) => ({
 export const totalResult = (finished, time) => ({
   order, originalTape, score, caseNumber,
 }) => {
-  curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
-  totalResultView.update(() => ({
-    opacity: Math.min(Math.max(0, (time - 10) / 30), 1),
-    finished,
-    score,
-    caseNumber,
-    order,
-    tape: originalTape,
-  }));
+  const signal = dequeue();
+  if (time <= 40) {
+    curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
+    totalResultView.update(() => ({
+      opacity: Math.max(0, (time - 10) / 30),
+      finished,
+      score,
+      caseNumber,
+      order,
+      tape: originalTape,
+    }));
+    return {
+      nextId: ids.result.totalResult,
+      nextArgs: [finished, time + 1],
+    };
+  }
+  if (time === 41) {
+    return {
+      nextId: ids.result.totalResult,
+      nextArgs: [finished, signal === signals.goNext ? 42 : 41],
+    };
+  }
+  if (time <= 61) {
+    totalResultView.update(() => ({ opacity: (61 - time) / 20 }));
+    return {
+      nextId: ids.result.totalResult,
+      nextArgs: [finished, time + 1],
+    };
+  }
   return {
-    nextId: ids.result.totalResult,
-    nextArgs: [finished, time + 1],
+    nextId: ids.title.title,
+    nextArgs: [0],
   };
 };
