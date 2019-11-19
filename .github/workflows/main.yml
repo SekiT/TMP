@@ -17,11 +17,11 @@ jobs:
         git config --local user.name "GitHub Action"
         npm ci
         npm run build
-        git add bundle.js
-        git commit -m "[Action] npm run build"
+        if [ -n $(git diff) ]; then
+          git add bundle.js
+          git commit -m "[Action] npm run build"
+        fi
     - name: Push
       uses: ad-m/github-push-action@master
       with:
-        branch: gh-pages
-        force: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
