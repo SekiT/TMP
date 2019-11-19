@@ -122,7 +122,7 @@ export const running = (time) => (state) => {
     headView.update(() => ({ state: machineStateOrError }));
     if (order.join`` === currentTape.join``) {
       const left = timeLeft(runAt, startedAt);
-      const resultType = left > 0 ? resultTypes.clear : resultTypes.timeup;
+      const resultType = left > 0 ? resultTypes.solved : resultTypes.timeup;
       return {
         nextId: ids.result.caseResult,
         nextArgs: [
