@@ -1,5 +1,6 @@
 import dependencies from 'dependencies';
 import { signals, dequeue } from 'subject/inputSignal';
+import { programSubject, initialState as initialProgram } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
 import headView from 'view/machine/head';
 import curtainView from 'view/curtain/curtain';
@@ -52,6 +53,7 @@ export default (time = 0) => ({
   }
   titleView.update(() => ({ opacity: 0 }));
   curtainView.update(() => ({ opacity: 0 }));
+  programSubject.next(() => initialProgram);
   const tape = [...Array(10)].map(() => Math.round(Math.random()));
   return {
     nextId: ids.main.programWindowOpening,
