@@ -16,13 +16,13 @@ const { bind } = dependencies.hyperhtml;
 
 bind(document.getElementById('root'))`${
   [
+    caseNumbersView,
     caseTapesView,
     tapeView,
     headView,
     controlView,
     programWindowView,
     curtainView,
-    caseNumbersView,
     caseResultView,
     totalResultView,
   ].map((view) => view.render())
