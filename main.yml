@@ -1,0 +1,18 @@
+name: Bundler
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Bundle and commit
+      run: |
+        npm ci
+        npm run build
+        git add bundle.js
+        git commit -m "[Action] npm run build"
+        git push
