@@ -1,5 +1,6 @@
 export default {
   title: {
+    title: {},
   },
   main: {
     programWindowOpening: {},

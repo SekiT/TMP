@@ -1,5 +1,6 @@
 import dependencies from 'dependencies';
 import ids from './ids';
+import title from './title/title';
 import {
   programWindowOpening, programming, programWindowClosing, running,
 } from './main/index';
@@ -8,6 +9,7 @@ import { caseResult, totalResult } from './result/index';
 const { Date } = dependencies.globals;
 
 const idToPhaseGenerator = new Map([
+  [ids.title.title, title],
   [ids.main.programWindowOpening, programWindowOpening],
   [ids.main.programming, programming],
   [ids.main.programWindowClosing, programWindowClosing],

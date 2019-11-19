@@ -4,7 +4,11 @@ import view from 'lib/view';
 const { wire } = dependencies.hyperhtml;
 
 export default () => {
-  const initialState = { tape: Array(10).fill(0), style: {}, cellWidth: 0 };
+  const initialState = {
+    tape: [...Array(10)].map(() => Math.round(Math.random())),
+    style: {},
+    cellWidth: 0,
+  };
   const cellDivs = [...Array(10)].map(() => wire({}));
   return view(initialState, (render) => ({ tape, style, cellWidth }) => {
     const tapeStyle = {

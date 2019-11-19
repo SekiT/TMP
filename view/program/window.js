@@ -6,7 +6,7 @@ import commandView from './command';
 
 const initialState = {
   fontSize: 0,
-  style: {},
+  style: { display: 'none' },
   disabled: true,
 };
 
