@@ -66,8 +66,7 @@ const windowView = view(initialState, (({ onClickRunButton }) => (render) => ({
 }));
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const fontSize = Math.min(windowWidth * 0.04, windowHeight * 0.06);
-  windowView.update(() => ({ fontSize }));
+  windowView.update(() => ({ fontSize: Math.min(windowWidth * 0.04, windowHeight * 0.06) }));
 });
 
 programSubject.subscribe((program) => {

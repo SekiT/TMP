@@ -46,9 +46,10 @@ const controlView = view(initialState, (render) => ({
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const fontSize = Math.min(windowWidth * 0.05, windowHeight * 0.065);
-  const height = windowHeight * 0.1;
-  controlView.update(() => ({ fontSize, height }));
+  controlView.update(() => ({
+    fontSize: Math.min(windowWidth * 0.05, windowHeight * 0.065),
+    height: windowHeight * 0.1,
+  }));
 });
 
 export default controlView;

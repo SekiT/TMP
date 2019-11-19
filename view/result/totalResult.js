@@ -56,8 +56,7 @@ const totalResult = view(initialState, (render) => ({
 });
 
 windowSize.subscribe(({ width, height }) => {
-  const fontSize = Math.min(width * 0.04, height * 0.06);
-  totalResult.update(() => ({ fontSize }));
+  totalResult.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.06) }));
 });
 
 export default totalResult;

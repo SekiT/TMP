@@ -29,8 +29,7 @@ const titleView = view(initialState, (render) => ({ opacity, fontSize }) => (
 ));
 
 windowSize.subscribe(({ width, height }) => {
-  const fontSize = Math.min(width * 0.04, height * 0.6);
-  titleView.update(() => ({ fontSize }));
+  titleView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.6) }));
 });
 
 export default titleView;

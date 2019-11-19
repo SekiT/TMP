@@ -86,8 +86,7 @@ const caseResultView = view(initialState, (render) => ({
 </div>`);
 
 windowSize.subscribe(({ width, height }) => {
-  const fontSize = Math.min(width * 0.04, height * 0.06);
-  caseResultView.update(() => ({ fontSize }));
+  caseResultView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.06) }));
 });
 
 export default caseResultView;
