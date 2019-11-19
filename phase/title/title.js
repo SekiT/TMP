@@ -1,3 +1,4 @@
+import dependencies from 'dependencies';
 import { signals, dequeue } from 'subject/inputSignal';
 import { updateOrder } from 'view/case/tapes';
 import headView from 'view/machine/head';
@@ -5,6 +6,8 @@ import curtainView from 'view/curtain/curtain';
 import titleView from 'view/title/title';
 import { animateTape } from '../main/animations';
 import ids from '../ids';
+
+const { Date } = dependencies.globals;
 
 export default (time = 0) => ({
   order, currentTape, position, machineState,
@@ -59,6 +62,7 @@ export default (time = 0) => ({
       currentTape: tape,
       position: 0,
       machinState: 0,
+      startedAt: Date.now(),
     },
   };
 };
