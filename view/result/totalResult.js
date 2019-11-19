@@ -12,11 +12,13 @@ const initialState = {
   fontSize: 0,
 };
 
-const containerStyle = (opacity) => ({
+const containerStyle = (opacity, fontSize) => ({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   top: '10%',
   width: '100%',
+  fontSize: `${fontSize}px`,
+  lineHeight: `${fontSize}px`,
   textAlign: 'center',
   color: 'white',
   opacity,
@@ -41,12 +43,13 @@ const scoreStyle = (fontSize) => ({
 });
 
 const totalResult = view(initialState, (render) => ({
-  finished, order, tape, score, opacity, fontSize,
+  finished, caseNumber, order, tape, score, opacity, fontSize,
 }) => {
   orderView.update(() => ({ tape: order, cellWidth: fontSize }));
   tapeView.update(() => ({ tape, cellWidth: fontSize }));
   return render`<div style=${containerStyle(opacity, fontSize)}>
     <div style=${titleStyle(finished, fontSize * 1.3)}>${finished ? 'Finished!' : 'Game Over'}</div>
+    <div style=${{ display: finished ? 'none' : 'block' }}>${finished ? '' : `at No.${caseNumber}`}</div>
     ${finished ? '' : orderView.render()}<br>${finished ? '' : tapeView.render()}<br>
     <div style=${scoreStyle(fontSize)}>Total score: ${showScore(score)}</div>
   </div>`;
