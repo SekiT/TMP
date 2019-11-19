@@ -1,4 +1,5 @@
 import dependencies from 'dependencies';
+import { FRAMES_TO_EXECUTE_COMMAND } from 'constant';
 import { signals, dequeue } from 'subject/inputSignal';
 import { programSubject, initialState as initialProgram } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
@@ -10,7 +11,7 @@ import ids from '../ids';
 
 const { Date } = dependencies.globals;
 
-export default (time = 0) => ({
+export default (time = 0, backgroundTime = 0) => ({
   order, currentTape, position, machineState,
 }) => {
   if (time === 0) {
@@ -39,7 +40,18 @@ export default (time = 0) => ({
   if (time === 30) {
     return {
       nextId: ids.title.title,
-      nextArgs: [dequeue() === signals.goNext ? 31 : 30],
+      nextArgs: [
+        dequeue() === signals.goNext ? 31 : 30,
+        (backgroundTime + 1) % FRAMES_TO_EXECUTE_COMMAND,
+      ],
+      stateUpdate: backgroundTime === 0 ? {
+        currentTape: [
+          ...currentTape.slice(0, position),
+          Math.round(Math.random()),
+          ...currentTape.slice(position + 1, 10),
+        ],
+        position: { 0: 1, 9: 8 }[position] || position + (Math.random() < 0.5 ? -1 : 1),
+      } : {},
     };
   }
   if (time < 50) {
