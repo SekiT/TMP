@@ -117,7 +117,7 @@ export const running = (time) => (state) => {
     };
   }
   animateTape(state);
-  const machineStateOrError = (position < 0 || 10 <= position) ? -1 : machineState;
+  const machineStateOrError = (position < 0 || position >= 10) ? -1 : machineState;
   if ([-1, 5].includes(machineStateOrError) && time === FRAMES_TO_EXECUTE_COMMAND) {
     headView.update(() => ({ state: machineStateOrError }));
     if (order.join`` === currentTape.join``) {
