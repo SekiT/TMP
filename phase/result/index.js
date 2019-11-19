@@ -1,6 +1,7 @@
 import { signals, dequeue } from 'subject/inputSignal';
 import { programSubject, initialState as initialProgram } from 'subject/program';
 import caseNumbersView from 'view/case/numbers';
+import headView from 'view/machine/head';
 import curtainView from 'view/curtain/curtain';
 import caseResultView, { bonus } from 'view/result/caseResult';
 import totalResultView from 'view/result/totalResult';
@@ -53,6 +54,7 @@ export const caseResult = (state) => ({
     const nextTape = [...Array(10)].map(() => (Math.random() < 0.5 ? 1 : 0));
     curtainView.update(() => ({ opacity: 0 }));
     programSubject.next(() => initialProgram);
+    headView.update(() => ({ state: 0 }));
     return {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
@@ -62,6 +64,7 @@ export const caseResult = (state) => ({
         originalTape: nextTape,
         currentTape: nextTape,
         position: 0,
+        machineState: 0,
         startedAt: Date.now(),
       },
     };
