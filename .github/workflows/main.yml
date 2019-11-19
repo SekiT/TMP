@@ -17,5 +17,5 @@ jobs:
         npm run build
         git checkout -b origin/gh-pages
         git add bundle.js
-        git commit -m "[Action] npm run build"
-        git push -u origin origin/gh-pages
+        git commit --author="Takaaki Seki <ormscrongers@gmail.com>" -m "[Action] npm run build"
+        git push -f -u origin origin/gh-pages
