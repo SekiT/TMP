@@ -3,7 +3,7 @@ import windowSize from 'subject/windowSize';
 
 const initialState = {
   opacity: 0,
-  fontsize: 0,
+  fontSize: 0,
 };
 
 const containerStyle = (opacity, fontSize) => ({
