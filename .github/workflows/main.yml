@@ -13,9 +13,15 @@ jobs:
     - uses: actions/checkout@v1
     - name: Bundle and commit
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         npm ci
         npm run build
-        git checkout -b origin/gh-pages
         git add bundle.js
-        git commit --author="Takaaki Seki <ormscrongers@gmail.com>" -m "[Action] npm run build"
-        git push -f -u origin origin/gh-pages
+        git commit -m "[Action] npm run build"
+    - name: Push
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
