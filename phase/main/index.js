@@ -1,3 +1,4 @@
+import { TIME_LIMIT, FRAMES_TO_SWITCH_WINDOW, FRAMES_TO_EXECUTE_COMMAND } from 'constant';
 import { dequeue, signals } from 'subject/inputSignal';
 import { programSubject, initialState } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
@@ -5,10 +6,7 @@ import controlView from 'view/control/control';
 import headView from 'view/machine/head';
 import { types as resultTypes } from 'view/result/caseResult';
 import ids from '../ids';
-import {
-  TIME_LIMIT, FRAMES_TO_SWITCH_WINDOW,
-  animateProgramWindow, animateTape, showTime,
-} from './animations';
+import { animateProgramWindow, animateTape, showTime } from './animations';
 import { initialState as initialResultState } from '../result/index';
 
 const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt) / 1000, 0);
@@ -102,8 +100,6 @@ const executeCommand = ({
     executedIndices: new Set([...executedIndices, executedIndex]),
   };
 };
-
-const FRAMES_TO_EXECUTE_COMMAND = 30;
 
 export const running = (time) => (state) => {
   const {

@@ -1,10 +1,9 @@
+import { CHAR_DELTA } from 'constant';
 import subject from 'lib/subject';
 
 const tapeSubject = subject(Array(10).fill(0));
 
 export default tapeSubject;
-
-const CHAR_DELTA = 1 / 15;
 
 export const graduallyUpdate = (desiredTape) => {
   tapeSubject.next((currentTape) => (

@@ -22,7 +22,7 @@ module.exports = {
 
     // We need sopmething like eslint-plugin-resolve-rollup to resolve aliases...
     'import/no-unresolved': ['error', {
-      ignore: ['^dependencies$', '^lib/', '^subject/', '^view/', '^phase/'],
+      ignore: ['^dependencies$', '^lib/', '^constant$', '^subject/', '^view/', '^phase/'],
     }],
 
     // We want to write `(position < 0 || 10 <= position)`

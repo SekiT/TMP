@@ -1,3 +1,4 @@
+import { CASES_TO_COMPLETE } from 'constant';
 import { signals, dequeue } from 'subject/inputSignal';
 import { programSubject, initialState as initialProgram } from 'subject/program';
 import caseNumbersView from 'view/case/numbers';
@@ -6,8 +7,6 @@ import curtainView from 'view/curtain/curtain';
 import caseResultView, { bonus } from 'view/result/caseResult';
 import totalResultView from 'view/result/totalResult';
 import ids from '../ids';
-
-const CASES_TO_COMPLETE = 32;
 
 export const initialState = (type, accepted, timeLeft) => ({
   type,
