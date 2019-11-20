@@ -1,6 +1,7 @@
 import dependencies from 'dependencies';
 import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from 'constant';
 import { signals, dequeue } from 'subject/inputSignal';
+import { randomTape } from 'subject/tape';
 import { programSubject, initialState as initialProgram } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
 import numbersView from 'view/case/numbers';
@@ -16,7 +17,7 @@ export default (time = 0, backgroundTime = 0) => ({
   currentTape, position, machineState,
 }) => {
   if (time === 0) {
-    const order = [...Array(10)].map(() => Math.round(Math.random()));
+    const order = randomTape();
     updateOrder(order);
     numbersView.update(() => ({ number: 1, timeLeft: TIME_LIMIT, score: 0 }));
     curtainView.update(() => ({ opacity: 1 }));
@@ -27,7 +28,7 @@ export default (time = 0, backgroundTime = 0) => ({
         position: 0,
         machineState: 0,
         order,
-        currentTape: [...Array(10)].map(() => Math.round(Math.random())),
+        currentTape: randomTape(),
       },
     };
   }
@@ -70,14 +71,14 @@ export default (time = 0, backgroundTime = 0) => ({
   titleView.update(() => ({ opacity: 0 }));
   curtainView.update(() => ({ opacity: 0 }));
   programSubject.next(() => initialProgram);
-  const tape = [...Array(10)].map(() => Math.round(Math.random()));
+  const tape = randomTape();
   return {
     nextId: ids.main.programWindowOpening,
     nextArgs: [0],
     stateUpdate: {
       caseNumber: 1,
       score: 0,
-      order: [...Array(10)].map(() => Math.round(Math.random())),
+      order: randomTape(),
       originalTape: tape,
       currentTape: tape,
       position: 0,

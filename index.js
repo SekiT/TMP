@@ -1,5 +1,6 @@
 import dependencies from './dependencies';
 import { runPhase, idealTimeout } from './lib/runPhase';
+import { randomTape } from './subject/tape';
 import tapeView from './view/machine/tape';
 import headView from './view/machine/head';
 import caseTapesView from './view/case/tapes';
@@ -10,7 +11,7 @@ import curtainView from './view/curtain/curtain';
 import caseResultView from './view/result/caseResult';
 import totalResultView from './view/result/totalResult';
 import titleView from './view/title/title';
-import mainPhase, { initialState } from './phase/index';
+import indexPhase, { initialState } from './phase/index';
 import titlePhase from './phase/title/title';
 
 const { bind } = dependencies.hyperhtml;
@@ -30,6 +31,4 @@ bind(document.getElementById('root'))`${
   ].map((view) => view.render())
 }`;
 
-const order = [...Array(10)].map(() => Math.round(Math.random()));
-const tape = [...Array(10)].map(() => Math.round(Math.random()));
-runPhase(mainPhase(titlePhase(0), initialState(order, tape)), idealTimeout);
+runPhase(indexPhase(titlePhase(0), initialState(randomTape(), randomTape())), idealTimeout);

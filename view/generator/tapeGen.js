@@ -1,15 +1,16 @@
 import dependencies from 'dependencies';
 import view from 'lib/view';
+import { randomTape } from 'subject/tape';
 
 const { wire } = dependencies.hyperhtml;
 
 export default () => {
   const initialState = {
-    tape: [...Array(10)].map(() => Math.round(Math.random())),
+    tape: randomTape(),
     style: {},
     cellWidth: 0,
   };
-  const cellDivs = [...Array(10)].map(() => wire({}));
+  const cellDivs = initialState.tape.map(() => wire({}));
   return view(initialState, (render) => ({ tape, style, cellWidth }) => {
     const tapeStyle = {
       width: `${cellWidth * 10}px`,

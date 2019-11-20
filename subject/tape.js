@@ -1,7 +1,12 @@
+import dependencies from 'dependencies';
 import { CHAR_DELTA } from 'constant';
 import subject from 'lib/subject';
 
-const tapeSubject = subject(Array(10).fill(0));
+const { random } = dependencies.globals;
+
+export const randomTape = () => [...Array(10)].map(() => Math.round(random()));
+
+const tapeSubject = subject(randomTape());
 
 export default tapeSubject;
 

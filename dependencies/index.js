@@ -6,5 +6,6 @@ export default {
     Date,
     window,
     setTimeout,
+    random: Math.random,
   },
 };

@@ -13,5 +13,6 @@ export default {
       innerHeight: 0,
       addEventListener: () => {},
     }),
+    random: shadow(Math.random),
   },
 };
