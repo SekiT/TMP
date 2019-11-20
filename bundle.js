@@ -36,7 +36,7 @@ function(t){return t.join(X).replace(ut,ft).replace(ct,pt)})(e),r=t.transform;r&
   <button
     style=${J(r,i)}
     onclick=${X}
-    disabled=${n}>PASS</button>
+    disabled=${n||e}>PASS</button>
 </div>`);v.subscribe(({width:t,height:e})=>{Y.update(()=>({fontSize:Math.min(.05*t,.065*e),height:.1*e}))});const tt=()=>R(H);var et=p({opacity:0},t=>({opacity:e})=>t`<div style=${(t=>({display:0===t?"none":"block",position:"absolute",top:0,left:0,width:"100%",height:"100%",backgroundColor:"rgba(0, 0, 0, 0.6)",opacity:t}))(e)} onclick=${tt}></div>`);const nt={pass:{},solved:{},timeup:{}},rt={type:nt.pass,commandsSaved:0,accepted:!1,steps:0,timeLeft:0,opacity:0,fontSize:0},it=new Map([[nt.pass,"#ccc"],[nt.solved,"#cfc"],[nt.timeup,"#ccf"]]),at=new Map([[nt.pass,"Pass"],[nt.solved,"Solved!"],[nt.timeup,"Time's up."]]),ot=(t,e,n,r)=>100*(t+(e?1:0))*n*.1*(r/32)*3|0,st=p(rt,t=>({type:e,commandsSaved:n,accepted:r,steps:i,timeLeft:a,opacity:o,fontSize:s})=>t`<div style=${(t=>({display:0===t?"none":"block",position:"absolute",top:"10%",width:"100%",textAlign:"center",color:"white",opacity:t,filter:"drop-shadow(0 0 0.3rem black)"}))(o)}>
   <div style=${((t,e)=>({color:it.get(t),fontSize:`${e}px`}))(e,1.3*s)}>${at.get(e)}</div>
   <table style=${(t=>({display:"inline-block",margin:`${t}px 0`,fontSize:`${t}px`,color:"white"}))(s)}>
