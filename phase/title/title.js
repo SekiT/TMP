@@ -11,7 +11,7 @@ import titleView from 'view/title/title';
 import { animateTape } from '../main/animations';
 import ids from '../ids';
 
-const { Date } = dependencies.globals;
+const { Date, random } = dependencies.globals;
 
 export default (time = 0, backgroundTime = 0) => ({
   currentTape, position, machineState,
@@ -51,11 +51,11 @@ export default (time = 0, backgroundTime = 0) => ({
       stateUpdate: backgroundTime === 0 ? {
         currentTape: [
           ...currentTape.slice(0, position),
-          Math.round(Math.random()),
+          Math.round(random()),
           ...currentTape.slice(position + 1, 10),
         ],
-        position: { 0: 1, 9: 8 }[position] || position + (Math.random() < 0.5 ? -1 : 1),
-        machineState: Math.floor(Math.random() * 5),
+        position: { 0: 1, 9: 8 }[position] || position + (random() < 0.5 ? -1 : 1),
+        machineState: Math.floor(random() * 5),
       } : {},
     };
   }

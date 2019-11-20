@@ -1,6 +1,7 @@
 import { CASES_TO_COMPLETE } from 'constant';
 import { signals, dequeue } from 'subject/inputSignal';
 import { programSubject, initialState as initialProgram } from 'subject/program';
+import { randomTape } from 'subject/tape';
 import caseNumbersView from 'view/case/numbers';
 import headView from 'view/machine/head';
 import curtainView from 'view/curtain/curtain';
@@ -50,7 +51,7 @@ export const caseResult = (state) => ({
     }
     const nextCaseNumber = caseNumber + 1;
     caseNumbersView.update(() => ({ number: nextCaseNumber }));
-    const nextTape = [...Array(10)].map(() => (Math.random() < 0.5 ? 1 : 0));
+    const nextTape = randomTape();
     curtainView.update(() => ({ opacity: 0 }));
     programSubject.next(() => initialProgram);
     headView.update(() => ({ state: 0 }));
@@ -59,7 +60,7 @@ export const caseResult = (state) => ({
       nextArgs: [0],
       stateUpdate: {
         caseNumber: nextCaseNumber,
-        order: [...Array(10)].map(() => (Math.random() < 0.5 ? 1 : 0)),
+        order: randomTape(),
         originalTape: nextTape,
         currentTape: nextTape,
         position: 0,
