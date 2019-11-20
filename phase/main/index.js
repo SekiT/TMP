@@ -105,8 +105,7 @@ export const running = (time) => (state) => {
   const {
     position, machineState, startedAt, runAt, order, currentTape,
   } = state;
-  const signal = dequeue();
-  if (signal === signals.halt) {
+  if (dequeue() === signals.halt) {
     headView.update(() => ({ state: 6 }));
     return timeLeft(Date.now(), startedAt) > 0 ? {
       nextId: ids.main.programWindowOpening,
