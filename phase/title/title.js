@@ -1,8 +1,9 @@
 import dependencies from 'dependencies';
-import { FRAMES_TO_EXECUTE_COMMAND } from 'constant';
+import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from 'constant';
 import { signals, dequeue } from 'subject/inputSignal';
 import { programSubject, initialState as initialProgram } from 'subject/program';
 import { updateOrder } from 'view/case/tapes';
+import numbersView from 'view/case/numbers';
 import headView from 'view/machine/head';
 import curtainView from 'view/curtain/curtain';
 import titleView from 'view/title/title';
@@ -12,10 +13,12 @@ import ids from '../ids';
 const { Date } = dependencies.globals;
 
 export default (time = 0, backgroundTime = 0) => ({
-  order, currentTape, position, machineState,
+  currentTape, position, machineState,
 }) => {
   if (time === 0) {
+    const order = [...Array(10)].map(() => Math.round(Math.random()));
     updateOrder(order);
+    numbersView.update(() => ({ number: 1, timeLeft: TIME_LIMIT, score: 0 }));
     curtainView.update(() => ({ opacity: 1 }));
     return {
       nextId: ids.title.title,
@@ -23,7 +26,7 @@ export default (time = 0, backgroundTime = 0) => ({
       stateUpdate: {
         position: 0,
         machineState: 0,
-        order: [...Array(10)].map(() => Math.round(Math.random())),
+        order,
         currentTape: [...Array(10)].map(() => Math.round(Math.random())),
       },
     };
@@ -72,11 +75,14 @@ export default (time = 0, backgroundTime = 0) => ({
     nextId: ids.main.programWindowOpening,
     nextArgs: [0],
     stateUpdate: {
+      caseNumber: 1,
+      score: 0,
       order: [...Array(10)].map(() => Math.round(Math.random())),
       originalTape: tape,
       currentTape: tape,
       position: 0,
       machinState: 0,
+      executedIndices: new Map(),
       startedAt: Date.now(),
     },
   };

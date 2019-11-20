@@ -64,6 +64,7 @@ export const caseResult = (state) => ({
         currentTape: nextTape,
         position: 0,
         machineState: 0,
+        executedIndices: new Map(),
         startedAt: Date.now(),
       },
     };
