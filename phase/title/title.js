@@ -51,6 +51,7 @@ export default (time = 0, backgroundTime = 0) => ({
           ...currentTape.slice(position + 1, 10),
         ],
         position: { 0: 1, 9: 8 }[position] || position + (Math.random() < 0.5 ? -1 : 1),
+        machineState: Math.floor(Math.random() * 5),
       } : {},
     };
   }
