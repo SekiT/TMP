@@ -11,7 +11,7 @@ import titleView from 'view/title/title';
 import { animateTape } from '../main/animations';
 import ids from '../ids';
 
-const { Date, random } = dependencies.globals;
+const { now, random } = dependencies.globals;
 
 export default (time = 0, backgroundTime = 0) => ({
   currentTape, position, machineState,
@@ -84,7 +84,7 @@ export default (time = 0, backgroundTime = 0) => ({
       position: 0,
       machinState: 0,
       executedIndices: new Map(),
-      startedAt: Date.now(),
+      startedAt: now(),
     },
   };
 };

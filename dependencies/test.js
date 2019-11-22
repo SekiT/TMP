@@ -6,7 +6,7 @@ export default {
     wire: shadow(() => {}),
   },
   globals: {
-    Date: shadow(Date),
+    now: shadow(Date.now),
     setTimeout: shadow(setTimeout),
     window: shadow({
       innerWidth: 0,

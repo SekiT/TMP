@@ -6,7 +6,7 @@ import {
 } from './main/index';
 import { caseResult, totalResult } from './result/index';
 
-const { Date } = dependencies.globals;
+const { now } = dependencies.globals;
 
 const idToPhaseGenerator = new Map([
   [ids.title.title, title],
@@ -26,7 +26,7 @@ export const initialState = (order, originalTape) => ({
   currentTape: originalTape,
   position: 0,
   machineState: 0,
-  startedAt: Date.now(),
+  startedAt: now(),
   runAt: null,
   steps: 0,
   executedIndices: new Set(),

@@ -3,7 +3,7 @@ import { bind, wire } from 'hyperhtml/esm';
 export default {
   hyperhtml: { bind, wire },
   globals: {
-    Date,
+    now: Date.now,
     window,
     setTimeout,
     random: Math.random,

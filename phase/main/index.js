@@ -1,3 +1,4 @@
+import dependencies from 'dependencies';
 import { TIME_LIMIT, FRAMES_TO_SWITCH_WINDOW, FRAMES_TO_EXECUTE_COMMAND } from 'constant';
 import { dequeue, signals } from 'subject/inputSignal';
 import { programSubject, initialState } from 'subject/program';
@@ -8,6 +9,8 @@ import { types as resultTypes } from 'view/result/caseResult';
 import ids from '../ids';
 import { animateProgramWindow, animateTape, showTime } from './animations';
 import { initialState as initialResultState } from '../result/index';
+
+const { now } = dependencies.globals;
 
 const timeLeft = (runAt, startedAt) => Math.max(TIME_LIMIT - (runAt - startedAt) / 1000, 0);
 
@@ -40,7 +43,7 @@ export const programming = () => (state) => {
         currentTape: state.originalTape,
         machineState: 0,
         position: 0,
-        runAt: Date.now(),
+        runAt: now(),
       },
     };
   }
@@ -51,7 +54,7 @@ export const programming = () => (state) => {
     return {
       nextId: ids.result.caseResult,
       nextArgs: [
-        initialResultState(resultTypes.pass, false, timeLeft(Date.now(), state.startedAt)),
+        initialResultState(resultTypes.pass, false, timeLeft(now(), state.startedAt)),
       ],
       stateUpdate: { steps: 0 },
     };
@@ -107,7 +110,7 @@ export const running = (time) => (state) => {
   } = state;
   if (dequeue() === signals.halt) {
     headView.update(() => ({ state: 6 }));
-    return timeLeft(Date.now(), startedAt) > 0 ? {
+    return timeLeft(now(), startedAt) > 0 ? {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
     } : {
@@ -129,7 +132,7 @@ export const running = (time) => (state) => {
         ],
       };
     }
-    return timeLeft(Date.now(), startedAt) > 0 ? {
+    return timeLeft(now(), startedAt) > 0 ? {
       nextId: ids.main.programWindowOpening,
       nextArgs: [0],
       stateUpdate: { machineState: machineStateOrError },

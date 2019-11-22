@@ -5,10 +5,10 @@ import numbersView from 'view/case/numbers';
 import machineTapeView from 'view/machine/tape';
 import windowView from 'view/program/window';
 
-const { Date } = dependencies.globals;
+const { now } = dependencies.globals;
 
 export const showTime = ({ startedAt }) => {
-  const timeLeft = Math.max(TIME_LIMIT - (Date.now() - startedAt) / 1000, 0);
+  const timeLeft = Math.max(TIME_LIMIT - (now() - startedAt) / 1000, 0);
   numbersView.update(() => ({ timeLeft }));
 };
 
