@@ -44,6 +44,6 @@ const numbersView = view(initialState, (render) => ({
 
 export default numbersView;
 
-windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  numbersView.update(() => ({ fontSize: Math.min(windowWidth * 0.05, windowHeight * 0.07) * 0.6 }));
+windowSize.subscribe(({ width, height }) => {
+  numbersView.update(() => ({ fontSize: Math.min(width * 0.05, height * 0.07) * 0.6 }));
 });
