@@ -12,7 +12,7 @@ const commonPlugins = [
 const envDependentPlugins = process.env.PRODUCTION ? [
   terser(),
 ] : [
-  serve(),
+  serve('build'),
   livereload(),
 ];
 
