@@ -6,12 +6,11 @@ const initialState = {
   fontSize: 0,
 };
 
-const containerStyle = (opacity, fontSize) => ({
+const containerStyle = (opacity) => ({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   width: '100%',
   top: '30%',
-  fontSize: `${fontSize}px`,
   textAlign: 'center',
   color: 'white',
   opacity,
@@ -23,13 +22,13 @@ const titleStyle = (fontSize) => ({
 });
 
 const titleView = view(initialState, (render) => ({ opacity, fontSize }) => (
-  render`<div style=${containerStyle(opacity, fontSize)}>
-    <div style=${titleStyle(fontSize * 2)}>TMP</div>
+  render`<div style=${containerStyle(opacity)}>
+    <div style=${titleStyle(fontSize)}>TMP</div>
   </div>`
 ));
 
 windowSize.subscribe(({ width, height }) => {
-  titleView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.6) }));
+  titleView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.6) * 3 }));
 });
 
 export default titleView;
