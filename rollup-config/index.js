@@ -22,7 +22,7 @@ export default {
   context: 'null',
   moduleContext: 'null',
   output: {
-    file: 'bundle.js',
+    file: 'build/bundle.js',
     format: 'iife',
   },
 };
