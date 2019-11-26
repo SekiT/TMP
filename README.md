@@ -57,7 +57,7 @@ A program consists of 10 commands, as follows:
 <4, 0, 0, R, 4> <4, 1, 0, L, A>
 ```
 
-Player can edit `c'`, `d`, `s` (last three parts) of each command `<s, c, c', d, s'>`.
+Player can edit `c'`, `d`, `s'` (last three parts) of each command `<s, c, c', d, s'>`.
 
 - `c'` can be `0` or `1`
 - `d` can be `R` or `L`
