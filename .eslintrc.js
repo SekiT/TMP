@@ -7,12 +7,8 @@ module.exports = {
     // Resolve aliased imports
     'import/resolver': {
       alias: [
-        ['dependencies', './dependencies'],
-        ['constant', './constant'],
-        ['lib', './lib'],
-        ['view', './view'],
-        ['subject', './subject'],
-        ['phase', './phase'],
+        ['@', './'],
+        ['dependencies', './dependencies']
       ],
     },
   },

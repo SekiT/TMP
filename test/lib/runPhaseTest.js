@@ -1,7 +1,7 @@
 import { test } from 'tape';
 import dependencies from 'dependencies';
-import { mockFunctionSequence, resetMock } from 'lib/shadow';
-import { runPhase, idealTimeout } from 'lib/runPhase';
+import { mockFunctionSequence, resetMock } from '@/lib/shadow';
+import { runPhase, idealTimeout } from '@/lib/runPhase';
 
 const { globals } = dependencies;
 

@@ -1,5 +1,5 @@
 import dependencies from 'dependencies';
-import subject from 'lib/subject';
+import subject from '@/lib/subject';
 
 const { window } = dependencies.globals;
 

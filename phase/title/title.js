@@ -1,13 +1,13 @@
 import dependencies from 'dependencies';
-import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from 'constant';
-import { signals, dequeue } from 'subject/inputSignal';
-import { randomTape } from 'subject/tape';
-import { programSubject, initialState as initialProgram } from 'subject/program';
-import { updateOrder } from 'view/case/tapes';
-import numbersView from 'view/case/numbers';
-import headView from 'view/machine/head';
-import curtainView from 'view/curtain/curtain';
-import titleView from 'view/title/title';
+import { signals, dequeue } from '@/subject/inputSignal';
+import { randomTape } from '@/subject/tape';
+import { programSubject, initialState as initialProgram } from '@/subject/program';
+import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from '@/constant';
+import { updateOrder } from '@/view/case/tapes';
+import numbersView from '@/view/case/numbers';
+import headView from '@/view/machine/head';
+import curtainView from '@/view/curtain/curtain';
+import titleView from '@/view/title/title';
 import { animateTape } from '../main/animations';
 import ids from '../ids';
 

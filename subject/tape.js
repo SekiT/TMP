@@ -1,6 +1,6 @@
 import dependencies from 'dependencies';
-import { CHAR_DELTA } from 'constant';
-import subject from 'lib/subject';
+import { CHAR_DELTA } from '@/constant';
+import subject from '@/lib/subject';
 
 const { random } = dependencies.globals;
 

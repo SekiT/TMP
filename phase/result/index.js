@@ -1,13 +1,13 @@
 import dependencies from 'dependencies';
-import { CASES_TO_COMPLETE } from 'constant';
-import { signals, dequeue } from 'subject/inputSignal';
-import { programSubject, initialState as initialProgram } from 'subject/program';
-import { randomTape } from 'subject/tape';
-import caseNumbersView from 'view/case/numbers';
-import headView from 'view/machine/head';
-import curtainView from 'view/curtain/curtain';
-import caseResultView, { bonus } from 'view/result/caseResult';
-import totalResultView from 'view/result/totalResult';
+import { signals, dequeue } from '@/subject/inputSignal';
+import { programSubject, initialState as initialProgram } from '@/subject/program';
+import { randomTape } from '@/subject/tape';
+import { CASES_TO_COMPLETE } from '@/constant';
+import caseNumbersView from '@/view/case/numbers';
+import headView from '@/view/machine/head';
+import curtainView from '@/view/curtain/curtain';
+import caseResultView, { bonus } from '@/view/result/caseResult';
+import totalResultView from '@/view/result/totalResult';
 import ids from '../ids';
 
 const { now } = dependencies.globals;

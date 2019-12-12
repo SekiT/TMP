@@ -6,11 +6,7 @@ const cwd = process.cwd();
 
 export default (dependenciesFileName) => alias({
   entries: {
-    lib: path.join(cwd, 'lib'),
-    constant: path.join(cwd, 'constant'),
-    subject: path.join(cwd, 'subject'),
-    view: path.join(cwd, 'view'),
-    phase: path.join(cwd, 'phase'),
+    '@': cwd,
     dependencies: path.join(cwd, 'dependencies', dependenciesFileName),
   },
 });

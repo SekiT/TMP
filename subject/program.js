@@ -1,4 +1,4 @@
-import subject from 'lib/subject';
+import subject from '@/lib/subject';
 
 export const initialState = [...Array(10)].map((_, index) => ({
   direction: 1,

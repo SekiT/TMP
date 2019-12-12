@@ -1,6 +1,6 @@
-import { TIME_LIMIT } from 'constant';
-import view from 'lib/view';
-import windowSize from 'subject/windowSize';
+import windowSize from '@/subject/windowSize';
+import { TIME_LIMIT } from '@/constant';
+import view from '@/lib/view';
 import { showTime, showScore } from '../case/numbers';
 
 export const types = {

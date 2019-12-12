@@ -1,5 +1,5 @@
-import view from 'lib/view';
-import { signals, enqueue } from 'subject/inputSignal';
+import { signals, enqueue } from '@/subject/inputSignal';
+import view from '@/lib/view';
 
 const curtainStyle = (opacity) => ({
   display: opacity === 0 ? 'none' : 'block',

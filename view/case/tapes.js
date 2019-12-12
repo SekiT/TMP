@@ -1,7 +1,7 @@
-import view from 'lib/view';
-import windowSize from 'subject/windowSize';
-import tapeSubject from 'subject/tape';
-import tapeGen from 'view/generator/tapeGen';
+import windowSize from '@/subject/windowSize';
+import tapeSubject from '@/subject/tape';
+import view from '@/lib/view';
+import tapeGen from '@/view/generator/tapeGen';
 
 const orderView = tapeGen();
 const tapeView = tapeGen();

@@ -1,6 +1,6 @@
 import dependencies from 'dependencies';
-import view from 'lib/view';
-import { randomTape } from 'subject/tape';
+import { randomTape } from '@/subject/tape';
+import view from '@/lib/view';
 
 const { wire } = dependencies.hyperhtml;
 

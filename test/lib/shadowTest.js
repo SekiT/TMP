@@ -3,7 +3,7 @@ import {
   shadow,
   mockFunction, mockFunctionSequence, mockConstructor, mockPropertyGetter,
   resetMock,
-} from 'lib/shadow';
+} from '@/lib/shadow';
 
 const originalObjects = (originalArgument, originalReturned) => ({
   fun1: (x) => x === originalArgument && originalReturned,

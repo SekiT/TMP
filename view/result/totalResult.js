@@ -1,7 +1,7 @@
-import view from 'lib/view';
-import windowSize from 'subject/windowSize';
-import tapeGen from 'view/generator/tapeGen';
-import { showScore } from 'view/case/numbers';
+import windowSize from '@/subject/windowSize';
+import view from '@/lib/view';
+import tapeGen from '@/view/generator/tapeGen';
+import { showScore } from '@/view/case/numbers';
 
 const initialState = {
   finished: false,
