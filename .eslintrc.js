@@ -3,6 +3,19 @@ module.exports = {
   env: {
     browser: true,
   },
+  settings: {
+    // Resolve aliased imports
+    'import/resolver': {
+      alias: [
+        ['dependencies', './dependencies'],
+        ['constant', './constant'],
+        ['lib', './lib'],
+        ['view', './view'],
+        ['subject', './subject'],
+        ['phase', './phase'],
+      ],
+    },
+  },
   rules: {
     // We should allow hyperHTML.bind at index.js
     'no-unused-expressions': ['error', { allowTaggedTemplates: true }],
@@ -18,11 +31,6 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: ['test/**', 'rollup-config/**'],
       optionalDependencies: false,
-    }],
-
-    // We need sopmething like eslint-plugin-resolve-rollup to resolve aliases...
-    'import/no-unresolved': ['error', {
-      ignore: ['^dependencies$', '^lib/', '^constant$', '^subject/', '^view/', '^phase/'],
     }],
   },
 }
