@@ -25,7 +25,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.20.1",
-    "rollup": "^1.31.0",
+    "rollup": "^1.32.0",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-multi-entry": "^2.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -34,6 +34,6 @@
     "tape": "^4.13.0"
   },
   "dependencies": {
-    "hyperhtml": "^2.31.6"
+    "hyperhtml": "^2.32.0"
   }
 }
