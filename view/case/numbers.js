@@ -1,4 +1,5 @@
 import windowSize from '@/subject/windowSize';
+import { CASES_TO_COMPLETE } from '@/constant';
 import view from '@/lib/view';
 
 const initialState = {
@@ -15,6 +16,10 @@ const leftUpContainerStyle = (fontSize) => ({
   fontSize: `${fontSize}px`,
   color: 'white',
   fontFamily: 'serif',
+});
+
+const totalCasesStyle = (fontSize) => ({
+  fontSize: `${fontSize * 0.7}px`,
 });
 
 const leftDownConatinerStyle = (fontSize) => ({
@@ -38,7 +43,10 @@ export const showTime = (timeLeft) => (timeLeft * 100 | 0).toString().padStart(4
 const numbersView = view(initialState, (render) => ({
   number, timeLeft, score, fontSize,
 }) => render`
-  <div style=${leftUpContainerStyle(fontSize)}>No.${number}<br>${showTime(timeLeft)}</div>
+  <div style=${leftUpContainerStyle(fontSize)}>
+    No.${number}<span style=${totalCasesStyle(fontSize)}>/${CASES_TO_COMPLETE}</span><br>
+    ${showTime(timeLeft)}
+  </div>
   <div style=${leftDownConatinerStyle(fontSize)}>Score: ${showScore(score)}</div>
 `);
 
