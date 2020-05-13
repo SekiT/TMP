@@ -8,7 +8,7 @@ module.exports = {
     'import/resolver': {
       alias: [
         ['@', './'],
-        ['dependencies', './dependencies']
+        ['dependencies', './dependencies'],
       ],
     },
   },
@@ -29,4 +29,4 @@ module.exports = {
       optionalDependencies: false,
     }],
   },
-}
+};
