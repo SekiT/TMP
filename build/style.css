@@ -22,6 +22,10 @@ button {
   opacity: 0.8;
 }
 
+button:focus {
+  outline: none;
+}
+
 button:hover {
   opacity: 1;
 }
