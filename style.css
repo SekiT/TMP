@@ -17,8 +17,13 @@ button {
   text-align: center;
   background: radial-gradient(#666, #000);
   color: white;
+  border: 1px outset #ccc;
   font-family: inherit;
   opacity: 0.8;
+}
+
+button:focus {
+  outline: none;
 }
 
 button:hover {
