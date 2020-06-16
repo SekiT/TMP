@@ -3,6 +3,7 @@ import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import alias from './alias';
+import unbreak from './unbreakTemplate';
 
 const commonPlugins = [
   resolve(),
@@ -11,6 +12,7 @@ const commonPlugins = [
 
 const envDependentPlugins = process.env.PRODUCTION ? [
   terser(),
+  unbreak(),
 ] : [
   serve('build'),
   livereload(),
