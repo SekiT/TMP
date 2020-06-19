@@ -1,0 +1,26 @@
+name: Update packages
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  schedule:
+    - cron: '0 0 */7 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Update and test
+      run: |
+        npx npm-check-updates -u
+        npm i
+        npm test
+
+    - name: Commit and push
+      run: |
+        git add .
+        git commit -m "ncu -u"
+        git push
