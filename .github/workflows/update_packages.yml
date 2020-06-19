@@ -2,7 +2,7 @@ name: Update packages
 
 on:
   schedule:
-    - cron: '0 0 */7 * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   build:
@@ -10,6 +10,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
     - name: Update and test
       run: |
@@ -17,8 +20,13 @@ jobs:
         npm i
         npm test
 
-    - name: Commit and push
+    - name: Commit files
       run: |
-        git add .
-        git commit -m "ncu -u"
-        git push
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "ncu -u" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
