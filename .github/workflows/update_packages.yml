@@ -2,7 +2,7 @@ name: Update packages
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 */7 * *'
 
 jobs:
   build:
@@ -19,6 +19,7 @@ jobs:
         npx npm-check-updates -u
         npm i
         npm test
+        npm run lint
 
     - name: Commit files
       run: |
