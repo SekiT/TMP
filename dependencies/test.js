@@ -5,6 +5,10 @@ export default {
     bind: shadow(() => {}),
     wire: shadow(() => {}),
   },
+  uhtml: {
+    render: shadow(() => {}),
+    html: shadow(() => {}),
+  },
   globals: {
     now: shadow(Date.now),
     setTimeout: shadow(setTimeout),
