@@ -14,9 +14,9 @@ import titleView from './view/title/title';
 import indexPhase, { initialState } from './phase/index';
 import titlePhase from './phase/title/title';
 
-const { bind } = dependencies.hyperhtml;
+const { render, html } = dependencies.uhtml;
 
-bind(document.getElementById('root'))`${
+render(document.getElementById('root'), html`${
   [
     caseNumbersView,
     caseTapesView,
@@ -29,6 +29,6 @@ bind(document.getElementById('root'))`${
     totalResultView,
     titleView,
   ].map((view) => view.render())
-}`;
+}`);
 
 runPhase(indexPhase(titlePhase(0), initialState(randomTape(), randomTape())), idealTimeout);
