@@ -38,11 +38,11 @@ const controlView = view(initialState, (render) => ({
   <button
     style=${buttonStyle(fontSize, height)}
     onclick=${running ? onClickHaltButton : onClickResetButton}
-    disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
+    .disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
   <button
     style=${buttonStyle(fontSize, height)}
     onclick=${onClickPassButton}
-    disabled=${disabled || running}>PASS</button>
+    .disabled=${disabled || running}>PASS</button>
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {

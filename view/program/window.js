@@ -55,7 +55,7 @@ const windowView = view(initialState, (({ onClickRunButton }) => (render) => ({
     <div>${commandViews.map((v) => v.render())}</div>
     <button
       style=${runButonStyle(fontSize)}
-      disabled=${disabled}
+      .disabled=${disabled}
       onclick=${onClickRunButton}>RUN</button>
   </div>`;
 })({
