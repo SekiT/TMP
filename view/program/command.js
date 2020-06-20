@@ -1,4 +1,4 @@
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 import { updateCommand } from '@/subject/program';
 
 const initialState = (state0, char0) => ({
@@ -10,12 +10,12 @@ const initialState = (state0, char0) => ({
   disabled: false,
 });
 
-const containerStyle = {
+const containerStyle = toCssText({
   display: 'inline-block',
   margin: '1% 1%',
   textAlign: 'center',
   whiteSpace: 'nowrap',
-};
+});
 
 const directionToString = (direction) => (direction < 0 ? 'L' : 'R');
 const stateStrings = ['0', '1', '2', '3', '4', 'A'];

@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import tapeSubject from '@/subject/tape';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 
 const tapeView = tapeGen();
@@ -8,12 +8,12 @@ const tapeView = tapeGen();
 const containerView = view({ position: 0 }, (render) => ({
   position, cellWidth,
 }) => {
-  const containerStyle = {
+  const containerStyle = toCssText({
     position: 'absolute',
     top: '30%',
     left: '50%',
     transform: `translate(${cellWidth * (-0.5 - position)}px, 0)`,
-  };
+  });
   tapeView.update(() => ({ cellWidth }));
   return render`<div style=${containerStyle}>${tapeView.render()}</div>`;
 });

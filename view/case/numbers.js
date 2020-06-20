@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import { CASES_TO_COMPLETE } from '@/constant';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   number: 1,
@@ -9,7 +9,7 @@ const initialState = {
   fontSize: 0,
 };
 
-const leftUpContainerStyle = (fontSize) => ({
+const leftUpContainerStyle = (fontSize) => toCssText({
   position: 'absolute',
   top: '1%',
   left: '1%',
@@ -18,11 +18,11 @@ const leftUpContainerStyle = (fontSize) => ({
   fontFamily: 'serif',
 });
 
-const totalCasesStyle = (fontSize) => ({
+const totalCasesStyle = (fontSize) => toCssText({
   fontSize: `${fontSize * 0.7}px`,
 });
 
-const leftDownConatinerStyle = (fontSize) => ({
+const leftDownConatinerStyle = (fontSize) => toCssText({
   position: 'absolute',
   bottom: '1%',
   left: '1%',

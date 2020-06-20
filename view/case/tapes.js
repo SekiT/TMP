@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import tapeSubject from '@/subject/tape';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 
 const orderView = tapeGen();
@@ -12,15 +12,15 @@ const initialState = {
   fontSize: 10,
 };
 
-const containerStyle = {
+const containerStyle = toCssText({
   position: 'absolute',
   top: '3%',
   width: '100%',
   fontFamily: 'serif',
   color: 'white',
-};
+});
 
-const tableStyle = (fontSize) => ({
+const tableStyle = (fontSize) => toCssText({
   margin: '0 auto',
   fontSize: `${fontSize}px`,
   lineHeight: `${fontSize}px`,

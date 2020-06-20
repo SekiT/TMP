@@ -1,6 +1,6 @@
 import dependencies from 'dependencies';
 import { randomTape } from '@/subject/tape';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const { wire } = dependencies.hyperhtml;
 
@@ -12,16 +12,16 @@ export default () => {
   };
   const cellDivs = initialState.tape.map(() => wire({}));
   return view(initialState, (render) => ({ tape, style, cellWidth }) => {
-    const tapeStyle = {
+    const tapeStyle = toCssText({
       width: `${cellWidth * 10}px`,
       height: `${cellWidth}px`,
       ...style,
-    };
+    });
     return render`<div style=${tapeStyle}>${
       tape.map((bit, index) => {
         const background = 255 * bit;
         const foreground = 255 - background;
-        const cellStyle = {
+        const cellStyle = toCssText({
           display: 'inline-block',
           width: `${cellWidth}px`,
           height: `${cellWidth}px`,
@@ -30,7 +30,7 @@ export default () => {
           textAlign: 'center',
           backgroundColor: `rgb(${background},${background},${background})`,
           color: `rgb(${foreground},${foreground},${foreground})`,
-        };
+        });
         return cellDivs[index]`<div style=${cellStyle}>${bit < 0.5 ? 0 : 1}</div>`;
       })
     }</div>`;

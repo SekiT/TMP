@@ -1,5 +1,5 @@
 import windowSize from '@/subject/windowSize';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   state: 0,
@@ -12,12 +12,12 @@ const stateToString = (state) => (
 
 const headView = view(initialState, (render) => ({ state, cellWidth }) => {
   const w16 = cellWidth / 16;
-  const containerStyle = {
+  const containerStyle = toCssText({
     position: 'absolute',
     top: '30%',
     left: '50%',
     transform: `translate(-${cellWidth / 2 + w16}px, 0)`,
-  };
+  });
   const commonStyle = {
     position: 'absolute',
     height: `${cellWidth}px`,
@@ -28,19 +28,19 @@ const headView = view(initialState, (render) => ({ state, cellWidth }) => {
     width: `${w16 * 2}px`,
     borderRadius: `${w16}px ${w16}px 0 0`,
   };
-  const headStyle = {
+  const headStyle = toCssText({
     ...commonStyle,
     top: `${cellWidth}px`,
     width: `${cellWidth + w16 * 2}px`,
     borderRadius: `0 0 ${w16}px ${w16}px`,
-    fontSize: cellWidth * 0.8,
+    fontSize: `${cellWidth * 0.8}px`,
     lineHeight: `${cellWidth}px`,
     textAlign: 'center',
     color: 'white',
-  };
+  });
   return render`<div style=${containerStyle}>
-    <div style=${armStyle} />
-    <div style=${{ ...armStyle, left: cellWidth }} />
+    <div style=${toCssText(armStyle)} />
+    <div style=${toCssText({ ...armStyle, left: `${cellWidth}px` })} />
     <div style=${headStyle}>${stateToString(state)}</div>
   </div>`;
 });

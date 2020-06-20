@@ -1,7 +1,7 @@
 import windowSize from '@/subject/windowSize';
 import { programSubject } from '@/subject/program';
 import { enqueue, signals } from '@/subject/inputSignal';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 import commandView from './command';
 
 const initialState = {
@@ -12,12 +12,12 @@ const initialState = {
 
 const commandViews = [...Array(10)].map((_, index) => commandView(index));
 
-const containerStyle = (fontSize, style) => ({
+const containerStyle = (fontSize, style) => toCssText({
   position: 'absolute',
   top: '29%',
   left: '50%',
   transform: 'translate(-50%, 0)',
-  width: fontSize * 20,
+  width: `${fontSize * 20}px`,
   padding: '5px 0 10px 0',
   textAlign: 'center',
   fontSize: `${fontSize}px`,
@@ -29,20 +29,20 @@ const containerStyle = (fontSize, style) => ({
   ...style,
 });
 
-const titleStyle = {
+const titleStyle = toCssText({
   marginBottom: '10px',
-};
+});
 
 const runButonStyle = (fontSize) => {
   const height = `${fontSize * 1.3}px`;
-  return {
+  return toCssText({
     height,
     marginTop: '0.1em',
     padding: '0 1em',
     fontSize: height,
     lineHeight: height,
     borderRadius: `${fontSize * 0.15}px`,
-  };
+  });
 };
 
 // Taking onClickRunButton as argument to go around `no-use-before-defined`

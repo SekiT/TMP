@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import { TIME_LIMIT } from '@/constant';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 import { showTime, showScore } from '../case/numbers';
 
 export const types = {
@@ -19,7 +19,7 @@ const initialState = {
   fontSize: 0,
 };
 
-const containerStyle = (opacity) => ({
+const containerStyle = (opacity) => toCssText({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   top: '10%',
@@ -36,7 +36,7 @@ const titleColor = new Map([
   [types.timeup, '#ccf'],
 ]);
 
-const titleStyle = (type, fontSize) => ({
+const titleStyle = (type, fontSize) => toCssText({
   color: titleColor.get(type),
   fontSize: `${fontSize}px`,
 });
@@ -47,14 +47,16 @@ const titleText = new Map([
   [types.timeup, "Time's up."],
 ]);
 
-const scoreBoardStyle = (fontSize) => ({
+const scoreBoardStyle = (fontSize) => toCssText({
   display: 'inline-block',
   margin: `${fontSize}px 0`,
   fontSize: `${fontSize}px`,
   color: 'white',
 });
 
-const bonusStyle = (fontSize) => ({ fontSize });
+const bonusStyle = (fontSize) => toCssText({
+  fontSize: `${fontSize}px`,
+});
 
 export const bonus = (commandsSaved, accepted, steps, timeLeft) => (
   (commandsSaved + (accepted ? 1 : 0)) * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
