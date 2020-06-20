@@ -1,10 +1,6 @@
 import { shadow } from '@/lib/shadow';
 
 export default {
-  hyperhtml: {
-    bind: shadow(() => {}),
-    wire: shadow(() => {}),
-  },
   uhtml: {
     render: shadow(() => {}),
     html: shadow(() => {}),
