@@ -1,9 +1,9 @@
 import { shadow } from '@/lib/shadow';
 
 export default {
-  hyperhtml: {
-    bind: shadow(() => {}),
-    wire: shadow(() => {}),
+  uhtml: {
+    render: shadow(() => {}),
+    html: shadow(() => {}),
   },
   globals: {
     now: shadow(Date.now),
@@ -14,5 +14,6 @@ export default {
       addEventListener: () => {},
     }),
     random: shadow(Math.random),
+    DocumentFragment: shadow(() => {}),
   },
 };

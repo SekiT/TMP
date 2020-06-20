@@ -1,38 +1,68 @@
 import { test } from 'tape';
 import dependencies from 'dependencies';
-import { mockFunction, resetMock } from '@/lib/shadow';
-import view from '@/lib/view';
+import { mockFunction, mockFunctionSequence, resetMock } from '@/lib/shadow';
+import { view, toCssText } from '@/lib/view';
 
-const { hyperhtml } = dependencies;
+const { uhtml, globals: { DocumentFragment } } = dependencies;
 
 test('view.render renders template', (t) => {
-  t.plan(2);
-  const objectProp = { display: 'block' };
-  const primitiveProp = 3;
-  mockFunction(hyperhtml.wire, () => () => (fixedParts, ...variableParts) => {
-    t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
-    t.deepEqual(variableParts, [objectProp, primitiveProp]);
+  t.plan(4);
+  const fragment = {};
+  const stringProp = 'hello';
+  const booleanProp = false;
+  const numberProp = 3;
+  const renderedHtml = '<div id="hello" .disabled="false">3</div>';
+  mockFunction(DocumentFragment, () => () => fragment);
+  mockFunction(uhtml.html, () => (fixedParts, ...variableParts) => {
+    t.deepEqual(fixedParts, ['<div id=', ' .disabled=', '>', '</div>']);
+    t.deepEqual(variableParts, [stringProp, booleanProp, numberProp]);
+    return renderedHtml;
+  });
+  mockFunction(uhtml.render, () => (where, what) => {
+    t.equal(where, fragment);
+    t.equal(what, renderedHtml);
   });
   view(
-    { foo: objectProp, bar: primitiveProp },
-    (render) => ({ foo, bar }) => render`<div style=${foo}>${bar}</div>`,
+    { foo: stringProp, bar: booleanProp, baz: numberProp },
+    (render) => ({ foo, bar, baz }) => render`<div id=${foo} .disabled=${bar}>${baz}</div>`,
   ).render();
-  resetMock(hyperhtml.wire);
+  resetMock(DocumentFragment);
+  resetMock(uhtml.html);
+  resetMock(uhtml.render);
 });
 
 test('view.update updates partial or whole props and calls render', (t) => {
-  t.plan(8);
-  const foo1 = { display: 'none' };
-  const foo2 = { display: 'block' };
+  t.plan(12);
+  const fragment = {};
+  const foo1 = 'display:none';
+  const foo2 = 'display:block';
   const bar1 = 'bar1';
   const bar2 = 'bar2';
-  let calledCount = 0;
-  mockFunction(hyperhtml.wire, () => () => (fixedParts, ...variableParts) => {
-    t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
-    calledCount += 1;
-    if (calledCount === 1) t.deepEqual(variableParts, [foo2, bar1]);
-    if (calledCount === 2) t.deepEqual(variableParts, [foo1, bar2]);
-  });
+  const html1 = '<div style="display:none">bar1</div>';
+  const html2 = '<div style="display:block">bar2</div>';
+  mockFunction(DocumentFragment, () => () => fragment);
+  mockFunctionSequence(uhtml.html, [
+    () => (fixedParts, ...variableParts) => {
+      t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
+      t.deepEqual(variableParts, [foo2, bar1]);
+      return html1;
+    },
+    () => (fixedParts, ...variableParts) => {
+      t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);
+      t.deepEqual(variableParts, [foo1, bar2]);
+      return html2;
+    },
+  ]);
+  mockFunctionSequence(uhtml.render, [
+    () => (where, what) => {
+      t.equal(where, fragment);
+      t.equal(what, html1);
+    },
+    () => (where, what) => {
+      t.equal(where, fragment);
+      t.equal(what, html2);
+    },
+  ]);
   const dummyView = view(
     { foo: foo1, bar: bar1 },
     (render) => ({ foo, bar }) => render`<div style=${foo}>${bar}</div>`,
@@ -47,5 +77,19 @@ test('view.update updates partial or whole props and calls render', (t) => {
     t.equal(bar, bar1);
     return { foo: foo1, bar: bar2 };
   });
-  resetMock(hyperhtml.wire);
+  resetMock(DocumentFragment);
+  resetMock(uhtml.html);
+  resetMock(uhtml.render);
+});
+
+test('toCssText converts object into cssText', (t) => {
+  const styleObject = {
+    fontSize: '10px',
+    color: 'white',
+    fontFamily: 'serif',
+    border: '2px solid black',
+  };
+  const cssText = 'font-size:10px;color:white;font-family:serif;border:2px solid black;';
+  t.equal(toCssText(styleObject), cssText);
+  t.end();
 });

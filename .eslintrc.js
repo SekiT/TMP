@@ -13,9 +13,6 @@ module.exports = {
     },
   },
   rules: {
-    // We should allow hyperHTML.bind at index.js
-    'no-unused-expressions': ['error', { allowTaggedTemplates: true }],
-
     // We use bitwise operators in this project
     'no-bitwise': ['error', { allow: ['&', '|', '>>', '<<'] }],
 

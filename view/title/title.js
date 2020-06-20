@@ -1,12 +1,12 @@
 import windowSize from '@/subject/windowSize';
-import view from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   opacity: 0,
   fontSize: 0,
 };
 
-const containerStyle = (opacity) => ({
+const containerStyle = (opacity) => toCssText({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   width: '100%',
@@ -16,7 +16,7 @@ const containerStyle = (opacity) => ({
   opacity,
 });
 
-const titleStyle = (fontSize) => ({
+const titleStyle = (fontSize) => toCssText({
   fontSize: `${fontSize}px`,
   color: 'orange',
 });

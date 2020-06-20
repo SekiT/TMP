@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import { enqueue, signals } from '@/subject/inputSignal';
-import view from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   running: false,
@@ -9,7 +9,7 @@ const initialState = {
   height: 0,
 };
 
-const containerStyle = {
+const containerStyle = toCssText({
   display: 'table-cell',
   position: 'absolute',
   top: '19%',
@@ -18,9 +18,9 @@ const containerStyle = {
   textAlign: 'center',
   verticalAlign: 'middle',
   fontFamily: 'Courier New',
-};
+});
 
-const buttonStyle = (fontSize, height) => ({
+const buttonStyle = (fontSize, height) => toCssText({
   margin: `${(height - fontSize) / 2}px 0.5em`,
   width: `${fontSize * 5}px`,
   height: `${fontSize}px`,
@@ -38,11 +38,11 @@ const controlView = view(initialState, (render) => ({
   <button
     style=${buttonStyle(fontSize, height)}
     onclick=${running ? onClickHaltButton : onClickResetButton}
-    disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
+    .disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
   <button
     style=${buttonStyle(fontSize, height)}
     onclick=${onClickPassButton}
-    disabled=${disabled || running}>PASS</button>
+    .disabled=${disabled || running}>PASS</button>
 </div>`);
 
 windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {

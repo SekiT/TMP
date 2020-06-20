@@ -1,7 +1,7 @@
 import { signals, enqueue } from '@/subject/inputSignal';
-import view from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
-const curtainStyle = (opacity) => ({
+const curtainStyle = (opacity) => toCssText({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   top: 0,

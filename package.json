@@ -34,6 +34,6 @@
     "tape": "^5.0.1"
   },
   "dependencies": {
-    "hyperhtml": "^2.32.2"
+    "uhtml": "^2.0.0"
   }
 }
