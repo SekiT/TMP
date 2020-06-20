@@ -1,7 +1,7 @@
 import { test } from 'tape';
 import dependencies from 'dependencies';
 import { mockFunction, mockFunctionSequence, resetMock } from '@/lib/shadow';
-import { view } from '@/lib/view';
+import { view, toCssText } from '@/lib/view';
 
 const { uhtml, globals: { DocumentFragment } } = dependencies;
 
@@ -79,4 +79,16 @@ test('view.update updates partial or whole props and calls render', (t) => {
   resetMock(DocumentFragment);
   resetMock(uhtml.html);
   resetMock(uhtml.render);
+});
+
+test('toCssText converts object into cssText', (t) => {
+  const styleObject = {
+    fontSize: '10px',
+    color: 'white',
+    fontFamily: 'serif',
+    border: '2px solid black',
+  };
+  const cssText = 'font-size:10px;color:white;font-family:serif;border:2px solid black;';
+  t.equal(toCssText(styleObject), cssText);
+  t.end();
 });
