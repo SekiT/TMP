@@ -9,12 +9,13 @@ test('view.render renders template', (t) => {
   t.plan(4);
   const fragment = {};
   const stringProp = 'hello';
+  const booleanProp = false;
   const numberProp = 3;
-  const renderedHtml = '<div id="hello">3</div>';
+  const renderedHtml = '<div id="hello" disabled="false">3</div>';
   mockFunction(DocumentFragment, () => () => fragment);
   mockFunction(uhtml.html, () => (fixedParts, ...variableParts) => {
-    t.deepEqual(fixedParts, ['<div id=', '>', '</div>']);
-    t.deepEqual(variableParts, [stringProp, numberProp]);
+    t.deepEqual(fixedParts, ['<div id=', ' disabled=', '>', '</div>']);
+    t.deepEqual(variableParts, [stringProp, booleanProp, numberProp]);
     return renderedHtml;
   });
   mockFunction(uhtml.render, () => (where, what) => {
@@ -22,8 +23,8 @@ test('view.render renders template', (t) => {
     t.equal(what, renderedHtml);
   });
   view(
-    { foo: stringProp, bar: numberProp },
-    (render) => ({ foo, bar }) => render`<div id=${foo}>${bar}</div>`,
+    { foo: stringProp, bar: booleanProp, baz: numberProp },
+    (render) => ({ foo, bar, baz }) => render`<div id=${foo} disabled=${bar}>${baz}</div>`,
   ).render();
   resetMock(DocumentFragment);
   resetMock(uhtml.html);
