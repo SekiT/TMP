@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import { enqueue, signals } from '@/subject/inputSignal';
-import view from '@/lib/view';
+import { view } from '@/lib/view';
 
 const initialState = {
   running: false,

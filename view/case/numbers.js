@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import { CASES_TO_COMPLETE } from '@/constant';
-import view from '@/lib/view';
+import { view } from '@/lib/view';
 
 const initialState = {
   number: 1,

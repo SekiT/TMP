@@ -1,7 +1,7 @@
 import windowSize from '@/subject/windowSize';
 import { programSubject } from '@/subject/program';
 import { enqueue, signals } from '@/subject/inputSignal';
-import view from '@/lib/view';
+import { view } from '@/lib/view';
 import commandView from './command';
 
 const initialState = {

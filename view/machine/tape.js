@@ -1,6 +1,6 @@
 import windowSize from '@/subject/windowSize';
 import tapeSubject from '@/subject/tape';
-import view from '@/lib/view';
+import { view } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 
 const tapeView = tapeGen();

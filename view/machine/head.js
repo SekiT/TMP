@@ -1,5 +1,5 @@
 import windowSize from '@/subject/windowSize';
-import view from '@/lib/view';
+import { view } from '@/lib/view';
 
 const initialState = {
   state: 0,
