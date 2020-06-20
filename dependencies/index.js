@@ -9,5 +9,6 @@ export default {
     window,
     setTimeout,
     random: Math.random,
+    DocumentFragment: () => new DocumentFragment(),
   },
 };
