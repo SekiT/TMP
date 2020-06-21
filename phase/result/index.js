@@ -4,6 +4,7 @@ import { programSubject, initialState as initialProgram } from '@/subject/progra
 import { randomTape } from '@/subject/tape';
 import { CASES_TO_COMPLETE } from '@/constant';
 import caseNumbersView from '@/view/case/numbers';
+import windowView from '@/view/program/window';
 import headView from '@/view/machine/head';
 import curtainView from '@/view/curtain/curtain';
 import caseResultView, { bonus } from '@/view/result/caseResult';
@@ -39,6 +40,7 @@ export const caseResult = (state) => ({
       steps,
       timeLeft,
     }));
+    windowView.update(() => ({ disabled: true }));
   }
   caseNumbersView.update(({ score: displayedScore }) => ({
     score: time === 40 ? score : updateScore(displayedScore, score),
