@@ -14,7 +14,7 @@ const envDependentPlugins = process.env.PRODUCTION ? [
   terser(),
   unbreak(),
 ] : [
-  serve('build'),
+  serve({ contentBase: 'build', open: true }),
   livereload(),
 ];
 
