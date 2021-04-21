@@ -1,19 +1,17 @@
 import { randomTape } from '@/subject/tape';
 import { view, toCssText } from '@/lib/view';
 
-const size = (vw, vh) => `min(${vw}vw, ${vh}vh)`;
-
-const cellViewGen = (initialBit, sizeString) => view(
+const cellViewGen = (initialBit, cellWidth) => view(
   { bit: initialBit },
   (render) => ({ bit }) => {
     const background = 255 * bit;
     const foreground = 255 - background;
     const cellStyle = toCssText({
       display: 'inline-block',
-      width: sizeString,
-      height: sizeString,
-      lineHeight: sizeString,
-      fontSize: sizeString,
+      width: cellWidth,
+      height: cellWidth,
+      lineHeight: cellWidth,
+      fontSize: cellWidth,
       textAlign: 'center',
       backgroundColor: `rgb(${background},${background},${background})`,
       color: `rgb(${foreground},${foreground},${foreground})`,
@@ -27,12 +25,12 @@ export default (vw, vh) => {
     tape: randomTape(),
     style: {},
   };
-  const cellSizeString = size(vw, vh);
-  const cellViews = initialState.tape.map((bit) => cellViewGen(bit, cellSizeString));
+  const cellWidth = `min(${vw}vw, ${vh}vh)`;
+  const cellViews = initialState.tape.map((bit) => cellViewGen(bit, cellWidth));
   return view(initialState, (render) => ({ tape, style }) => {
     const tapeStyle = toCssText({
-      width: size(vw * 10, vh * 10),
-      height: cellSizeString,
+      width: `calc(${cellWidth} * 10)`,
+      height: cellWidth,
       ...style,
     });
     cellViews.forEach((v, index) => v.update(() => ({ bit: tape[index] })));

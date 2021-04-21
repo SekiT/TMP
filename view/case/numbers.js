@@ -5,27 +5,28 @@ const initialState = {
   number: 1,
   timeLeft: 0,
   score: 0,
-  fontSize: 0,
 };
+
+const fontSize = 'min(3vw, 4.2vh)';
 
 const leftUpContainerStyle = toCssText({
   position: 'absolute',
   top: '1%',
   left: '1%',
-  fontSize: 'min(3vw, 4.2vh)',
+  fontSize,
   color: 'white',
   fontFamily: 'serif',
 });
 
 const totalCasesStyle = toCssText({
-  fontSize: 'min(2.1vw, 2.94vh)',
+  fontSize: `calc(${fontSize} * 0.7)`,
 });
 
 const leftDownConatinerStyle = toCssText({
   position: 'absolute',
   bottom: '1%',
   left: '1%',
-  fontSize: 'min(3vw, 4.2vh)',
+  fontSize,
   color: 'white',
   fontFamily: 'serif',
 });

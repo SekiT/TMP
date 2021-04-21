@@ -21,10 +21,10 @@ const fontSize = 'min(5vw, 6.5vh)';
 
 const buttonStyle = toCssText({
   margin: `calc(5vh - ${fontSize} / 2) 0.5em`,
-  width: 'min(25vw, 32.5vh)', // fontSize * 5
+  width: `calc(${fontSize} * 5)`,
   height: fontSize,
   fontSize,
-  borderRadius: 'min(0.75vw, 0.975vh)', // fontSize * 0.15
+  borderRadius: `calc(${fontSize} * 0.15)`,
 });
 
 const onClickResetButton = () => enqueue(signals.reset);
