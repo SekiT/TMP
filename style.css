@@ -4,9 +4,7 @@ body {
   overflow: hidden;
   background-color: #345;
   font-family: serif;
-  height: 100vh;
   user-select: none;
-  width: 100vw;
 }
 
 button {
