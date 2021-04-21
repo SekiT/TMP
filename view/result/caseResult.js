@@ -1,4 +1,3 @@
-import windowSize from '@/subject/windowSize';
 import { TIME_LIMIT } from '@/constant';
 import { view, toCssText } from '@/lib/view';
 import { showTime, showScore } from '../case/numbers';
@@ -16,7 +15,6 @@ const initialState = {
   steps: 0,
   timeLeft: 0,
   opacity: 0,
-  fontSize: 0,
 };
 
 const containerStyle = (opacity) => toCssText({
@@ -36,9 +34,11 @@ const titleColor = new Map([
   [types.timeup, '#ccf'],
 ]);
 
-const titleStyle = (type, fontSize) => toCssText({
+const fontSize = 'min(4vw, 6vh)';
+
+const titleStyle = (type) => toCssText({
   color: titleColor.get(type),
-  fontSize: `${fontSize}px`,
+  fontSize: `calc(${fontSize} * 1.3)`,
 });
 
 const titleText = new Map([
@@ -47,48 +47,44 @@ const titleText = new Map([
   [types.timeup, "Time's up."],
 ]);
 
-const scoreBoardStyle = (fontSize) => toCssText({
+const scoreBoardStyle = toCssText({
   display: 'inline-block',
-  margin: `${fontSize}px 0`,
-  fontSize: `${fontSize}px`,
+  margin: `${fontSize} 0`,
+  fontSize,
   color: 'white',
 });
 
-const bonusStyle = (fontSize) => toCssText({
-  fontSize: `${fontSize}px`,
-});
+const bonusStyle = toCssText({ fontSize });
 
 export const bonus = (commandsSaved, accepted, steps, timeLeft) => (
   (commandsSaved + (accepted ? 1 : 0)) * 100 * steps * 0.1 * (timeLeft / TIME_LIMIT) * 3 | 0
 );
 
 const caseResultView = view(initialState, (render) => ({
-  type, commandsSaved, accepted, steps, timeLeft, opacity, fontSize,
-}) => render`<div style=${containerStyle(opacity)}>
-  <div style=${titleStyle(type, fontSize * 1.3)}>${titleText.get(type)}</div>
-  <table style=${scoreBoardStyle(fontSize)}>
-    <tr>
-      <td>Saved + accepted</td>
-      <td />
-      <td>Steps</td>
-      <td />
-      <td>Time left</td>
-    </tr>
-    <tr>
-      <td>((${commandsSaved} + ${accepted ? 1 : 0}) &times; 100)</td>
-      <td>&times;</td>
-      <td>(${steps} &times; 0.1)</td>
-      <td>&times;</td>
-      <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td>
-    </tr>
-  </table>
-  <div style=${bonusStyle(fontSize)}>Score: +${
-  showScore(bonus(commandsSaved, accepted, steps, timeLeft))
-}</div>
-</div>`);
-
-windowSize.subscribe(({ width, height }) => {
-  caseResultView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.06) }));
-});
+  type, commandsSaved, accepted, steps, timeLeft, opacity,
+}) => (
+  render`<div style=${containerStyle(opacity)}>
+    <div style=${titleStyle(type)}>${titleText.get(type)}</div>
+    <table style=${scoreBoardStyle}>
+      <tr>
+        <td>Saved + accepted</td>
+        <td />
+        <td>Steps</td>
+        <td />
+        <td>Time left</td>
+      </tr>
+      <tr>
+        <td>((${commandsSaved} + ${accepted ? 1 : 0}) &times; 100)</td>
+        <td>&times;</td>
+        <td>(${steps} &times; 0.1)</td>
+        <td>&times;</td>
+        <td>(${showTime(timeLeft)} / ${TIME_LIMIT}.00 &times; 3)</td>
+      </tr>
+    </table>
+    <div style=${bonusStyle}>Score: +${
+    showScore(bonus(commandsSaved, accepted, steps, timeLeft))
+  }</div>
+  </div>`
+));
 
 export default caseResultView;
