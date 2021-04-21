@@ -31,8 +31,8 @@ const titleStyle = (finished, fontSize) => toCssText({
   color: finished ? '#fc9' : '#c99',
 });
 
-const orderView = tapeGen();
-const tapeView = tapeGen();
+const orderView = tapeGen(4, 6);
+const tapeView = tapeGen(4, 6);
 
 const tapeStyle = { display: 'inline-block' };
 [orderView, tapeView].forEach((v) => v.update(() => ({ style: tapeStyle })));
@@ -45,8 +45,8 @@ const scoreStyle = (fontSize) => toCssText({
 const totalResult = view(initialState, (render) => ({
   finished, caseNumber, order, tape, score, opacity, fontSize,
 }) => {
-  orderView.update(() => ({ tape: order, cellWidth: fontSize }));
-  tapeView.update(() => ({ tape, cellWidth: fontSize }));
+  orderView.update(() => ({ tape: order }));
+  tapeView.update(() => ({ tape }));
   return render`<div style=${containerStyle(opacity, fontSize)}>
     <div style=${titleStyle(finished, fontSize * 1.3)}>${finished ? 'Finished!' : 'Game Over'}</div>
     <div style=${`display:${finished ? 'none' : 'block'}`}>${finished ? '' : `at No.${caseNumber}`}</div>
