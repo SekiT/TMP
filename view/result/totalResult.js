@@ -1,4 +1,3 @@
-import windowSize from '@/subject/windowSize';
 import { view, toCssText } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 import { showScore } from '@/view/case/numbers';
@@ -9,7 +8,6 @@ const initialState = {
   tape: Array(10).fill(0),
   score: 0,
   opacity: 0,
-  fontSize: 0,
 };
 
 const containerStyle = (opacity, fontSize) => toCssText({
@@ -25,9 +23,11 @@ const containerStyle = (opacity, fontSize) => toCssText({
   filter: 'drop-shadow(0 0 0.3rem black)',
 });
 
-const titleStyle = (finished, fontSize) => toCssText({
-  marginBottom: `${fontSize}px`,
-  fontSize: `${fontSize}px`,
+const fontSize = 'min(4vw, 6vh)';
+
+const titleStyle = (finished) => toCssText({
+  marginBottom: fontSize,
+  fontSize: `calc(${fontSize} * 1.3)`,
   color: finished ? '#fc9' : '#c99',
 });
 
@@ -37,26 +37,22 @@ const tapeView = tapeGen(4, 6);
 const tapeStyle = { display: 'inline-block' };
 [orderView, tapeView].forEach((v) => v.update(() => ({ style: tapeStyle })));
 
-const scoreStyle = (fontSize) => toCssText({
-  fontSize: `${fontSize}px`,
-  marginTop: `${fontSize}px`,
+const scoreStyle = toCssText({
+  fontSize,
+  marginTop: fontSize,
 });
 
 const totalResult = view(initialState, (render) => ({
-  finished, caseNumber, order, tape, score, opacity, fontSize,
+  finished, caseNumber, order, tape, score, opacity,
 }) => {
   orderView.update(() => ({ tape: order }));
   tapeView.update(() => ({ tape }));
-  return render`<div style=${containerStyle(opacity, fontSize)}>
-    <div style=${titleStyle(finished, fontSize * 1.3)}>${finished ? 'Finished!' : 'Game Over'}</div>
+  return render`<div style=${containerStyle(opacity)}>
+    <div style=${titleStyle(finished)}>${finished ? 'Finished!' : 'Game Over'}</div>
     <div style=${`display:${finished ? 'none' : 'block'}`}>${finished ? '' : `at No.${caseNumber}`}</div>
     ${finished ? '' : orderView.render()}<br>${finished ? '' : tapeView.render()}<br>
-    <div style=${scoreStyle(fontSize)}>Total score: ${showScore(score)}</div>
+    <div style=${scoreStyle}>Total score: ${showScore(score)}</div>
   </div>`;
-});
-
-windowSize.subscribe(({ width, height }) => {
-  totalResult.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.06) }));
 });
 
 export default totalResult;
