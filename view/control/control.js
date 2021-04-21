@@ -1,12 +1,9 @@
-import windowSize from '@/subject/windowSize';
 import { enqueue, signals } from '@/subject/inputSignal';
 import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   running: false,
   disabled: true,
-  fontSize: 0,
-  height: 0,
 };
 
 const containerStyle = toCssText({
@@ -20,36 +17,31 @@ const containerStyle = toCssText({
   fontFamily: 'Courier New',
 });
 
-const buttonStyle = (fontSize, height) => toCssText({
-  margin: `${(height - fontSize) / 2}px 0.5em`,
-  width: `${fontSize * 5}px`,
-  height: `${fontSize}px`,
-  fontSize: `${fontSize}px`,
-  borderRadius: fontSize * 0.15,
+const fontSize = 'min(5vw, 6.5vh)';
+
+const buttonStyle = toCssText({
+  margin: `calc(5vh - ${fontSize} / 2) 0.5em`,
+  width: 'min(25vw, 32.5vh)', // fontSize * 5
+  height: fontSize,
+  fontSize,
+  borderRadius: 'min(0.75vw, 0.975vh)', // fontSize * 0.15
 });
 
 const onClickResetButton = () => enqueue(signals.reset);
 const onClickHaltButton = () => enqueue(signals.halt);
 const onClickPassButton = () => enqueue(signals.pass);
 
-const controlView = view(initialState, (render) => ({
-  running, disabled, fontSize, height,
-}) => render`<div style=${containerStyle}>
-  <button
-    style=${buttonStyle(fontSize, height)}
-    onclick=${running ? onClickHaltButton : onClickResetButton}
-    .disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
-  <button
-    style=${buttonStyle(fontSize, height)}
-    onclick=${onClickPassButton}
-    .disabled=${disabled || running}>PASS</button>
-</div>`);
-
-windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  controlView.update(() => ({
-    fontSize: Math.min(windowWidth * 0.05, windowHeight * 0.065),
-    height: windowHeight * 0.1,
-  }));
-});
+const controlView = view(initialState, (render) => ({ running, disabled }) => (
+  render`<div style=${containerStyle}>
+    <button
+      style=${buttonStyle}
+      onclick=${running ? onClickHaltButton : onClickResetButton}
+      .disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
+    <button
+      style=${buttonStyle}
+      onclick=${onClickPassButton}
+      .disabled=${disabled || running}>PASS</button>
+  </div>`
+));
 
 export default controlView;
