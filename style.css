@@ -4,8 +4,9 @@ body {
   overflow: hidden;
   background-color: #345;
   font-family: serif;
+  height: 100vh;
   user-select: none;
-  clip: rect(0, 0, 0, 0);
+  width: 100vw;
 }
 
 button {
