@@ -20,6 +20,7 @@ button {
   border: 1px outset #ccc;
   font-family: inherit;
   opacity: 0.8;
+  overflow: hidden;
 }
 
 button:focus {
