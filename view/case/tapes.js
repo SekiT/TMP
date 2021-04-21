@@ -1,16 +1,11 @@
-import windowSize from '@/subject/windowSize';
 import tapeSubject from '@/subject/tape';
 import { view, toCssText } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 
-const orderView = tapeGen();
-const tapeView = tapeGen();
+const orderView = tapeGen(5, 7);
+const tapeView = tapeGen(5, 7);
 
 export const updateOrder = (tape) => orderView.update(() => ({ tape }));
-
-const initialState = {
-  fontSize: 10,
-};
 
 const containerStyle = toCssText({
   position: 'absolute',
@@ -20,25 +15,18 @@ const containerStyle = toCssText({
   color: 'white',
 });
 
-const tableStyle = (fontSize) => toCssText({
+const tableStyle = toCssText({
   margin: '0 auto',
-  fontSize: `${fontSize}px`,
-  lineHeight: `${fontSize}px`,
+  fontSize: 'min(3vw, 4.2vh)',
+  lineHeight: 'min(3vw, 4.2vh)',
 });
 
-const tapesView = view(initialState, (render) => ({ fontSize }) => render`<div style=${containerStyle}>
-  <table style=${tableStyle(fontSize)}>
+const tapesView = view({}, (render) => () => render`<div style=${containerStyle}>
+  <table style=${tableStyle}>
     <tr><td>ORDER:</td><td>${orderView.render()}</td></tr>
     <tr><td>TAPE:</td><td>${tapeView.render()}</td></tr>
   </table>
 </div>`);
-
-windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const cellWidth = Math.min(windowWidth * 0.05, windowHeight * 0.07);
-  tapesView.update(() => ({ fontSize: cellWidth * 0.6 }));
-  orderView.update(() => ({ cellWidth }));
-  tapeView.update(() => ({ cellWidth }));
-});
 
 tapeSubject.subscribe((tape) => tapeView.update(() => ({ tape })));
 

@@ -1,53 +1,50 @@
-import windowSize from '@/subject/windowSize';
 import { view, toCssText } from '@/lib/view';
 
-const initialState = {
-  state: 0,
-  cellWidth: 0,
+const initialState = { state: 0 };
+
+const stateToString = (state) => 'E01234AH'[state + 1];
+
+const cellWidth = 'min(15vw, 30vh)';
+const w16 = `calc(${cellWidth} / 16)`;
+
+const containerStyle = toCssText({
+  position: 'absolute',
+  top: '30%',
+  left: `calc(50% - ${cellWidth} * 9 / 16)`,
+});
+
+const commonStyle = {
+  position: 'absolute',
+  height: cellWidth,
+  background: 'radial-gradient(#aaa, #666)',
 };
 
-const stateToString = (state) => (
-  'E01234AH'[state + 1]
-);
+const armStyle = {
+  ...commonStyle,
+  width: `calc(${cellWidth} / 8)`,
+  borderRadius: `${w16} ${w16} 0 0`,
+};
 
-const headView = view(initialState, (render) => ({ state, cellWidth }) => {
-  const w16 = cellWidth / 16;
-  const containerStyle = toCssText({
-    position: 'absolute',
-    top: '30%',
-    left: '50%',
-    transform: `translate(-${cellWidth / 2 + w16}px, 0)`,
-  });
-  const commonStyle = {
-    position: 'absolute',
-    height: `${cellWidth}px`,
-    background: 'radial-gradient(#aaa, #666)',
-  };
-  const armStyle = {
-    ...commonStyle,
-    width: `${w16 * 2}px`,
-    borderRadius: `${w16}px ${w16}px 0 0`,
-  };
-  const headStyle = toCssText({
-    ...commonStyle,
-    top: `${cellWidth}px`,
-    width: `${cellWidth + w16 * 2}px`,
-    borderRadius: `0 0 ${w16}px ${w16}px`,
-    fontSize: `${cellWidth * 0.8}px`,
-    lineHeight: `${cellWidth}px`,
-    textAlign: 'center',
-    color: 'white',
-  });
-  return render`<div style=${containerStyle}>
-    <div style=${toCssText(armStyle)} />
-    <div style=${toCssText({ ...armStyle, left: `${cellWidth}px` })} />
+const leftArmStyle = toCssText(armStyle);
+const rightArmStyle = toCssText({ ...armStyle, left: cellWidth });
+
+const headStyle = toCssText({
+  ...commonStyle,
+  top: cellWidth,
+  width: `calc(${cellWidth} * 9 / 8)`,
+  borderRadius: `0 0 ${w16} ${w16}`,
+  fontSize: `calc(${cellWidth} * 0.8)`,
+  lineHeight: cellWidth,
+  textAlign: 'center',
+  color: 'white',
+});
+
+const headView = view(initialState, (render) => ({ state }) => (
+  render`<div style=${containerStyle}>
+    <div style=${leftArmStyle} />
+    <div style=${rightArmStyle} />
     <div style=${headStyle}>${stateToString(state)}</div>
-  </div>`;
-});
-
-windowSize.subscribe(({ width: windowWidth, height: windowHeight }) => {
-  const cellWidth = Math.min(windowWidth * 0.15, windowHeight * 0.3);
-  headView.update(() => ({ cellWidth }));
-});
+  </div>`
+));
 
 export default headView;

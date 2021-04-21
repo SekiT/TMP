@@ -1,10 +1,6 @@
-import windowSize from '@/subject/windowSize';
 import { view, toCssText } from '@/lib/view';
 
-const initialState = {
-  opacity: 0,
-  fontSize: 0,
-};
+const initialState = { opacity: 0 };
 
 const containerStyle = (opacity) => toCssText({
   display: opacity === 0 ? 'none' : 'block',
@@ -16,19 +12,15 @@ const containerStyle = (opacity) => toCssText({
   opacity,
 });
 
-const titleStyle = (fontSize) => toCssText({
-  fontSize: `${fontSize}px`,
+const titleStyle = toCssText({
+  fontSize: 'min(12vw, 18vh)',
   color: 'orange',
 });
 
-const titleView = view(initialState, (render) => ({ opacity, fontSize }) => (
+const titleView = view(initialState, (render) => ({ opacity }) => (
   render`<div style=${containerStyle(opacity)}>
-    <div style=${titleStyle(fontSize)}>TMP</div>
+    <div style=${titleStyle}>TMP</div>
   </div>`
 ));
-
-windowSize.subscribe(({ width, height }) => {
-  titleView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.6) * 3 }));
-});
 
 export default titleView;

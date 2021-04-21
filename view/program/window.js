@@ -1,27 +1,27 @@
-import windowSize from '@/subject/windowSize';
 import { programSubject } from '@/subject/program';
 import { enqueue, signals } from '@/subject/inputSignal';
 import { view, toCssText } from '@/lib/view';
 import commandView from './command';
 
 const initialState = {
-  fontSize: 0,
   style: { display: 'none' },
   disabled: true,
 };
 
 const commandViews = [...Array(10)].map((_, index) => commandView(index));
 
-const containerStyle = (fontSize, style) => toCssText({
+const fontSize = 'min(4vw, 6vh)';
+
+const containerStyle = (style) => toCssText({
   position: 'absolute',
   top: '29%',
   left: '50%',
   transform: 'translate(-50%, 0)',
-  width: `${fontSize * 20}px`,
+  width: `calc(${fontSize} * 20)`,
   padding: '5px 0 10px 0',
   textAlign: 'center',
-  fontSize: `${fontSize}px`,
-  lineHeight: `${fontSize}px`,
+  fontSize,
+  lineHeight: fontSize,
   border: '1px solid #999',
   backgroundColor: 'rgba(51, 51, 153, 0.8)',
   color: 'white',
@@ -33,28 +33,27 @@ const titleStyle = toCssText({
   marginBottom: '10px',
 });
 
-const runButonStyle = (fontSize) => {
-  const height = `${fontSize * 1.3}px`;
-  return toCssText({
-    height,
-    marginTop: '0.1em',
-    padding: '0 1em',
-    fontSize: height,
-    lineHeight: height,
-    borderRadius: `${fontSize * 0.15}px`,
-  });
-};
+const buttonHeight = `calc(${fontSize} * 1.3)`;
+
+const runButonStyle = toCssText({
+  height: buttonHeight,
+  marginTop: '0.1em',
+  padding: '0 1em',
+  fontSize: buttonHeight,
+  lineHeight: buttonHeight,
+  borderRadius: `calc(${fontSize} * 0.15)`,
+});
 
 // Taking onClickRunButton as argument to go around `no-use-before-defined`
 const windowView = view(initialState, (({ onClickRunButton }) => (render) => ({
-  fontSize, style, disabled,
+  style, disabled,
 }) => {
   commandViews.forEach((v) => v.update(() => ({ disabled })));
-  return render`<div style=${containerStyle(fontSize, style)}>
+  return render`<div style=${containerStyle(style)}>
     <span style=${titleStyle}>Program</span>
     <div>${commandViews.map((v) => v.render())}</div>
     <button
-      style=${runButonStyle(fontSize)}
+      style=${runButonStyle}
       .disabled=${disabled}
       onclick=${onClickRunButton}>RUN</button>
   </div>`;
@@ -64,10 +63,6 @@ const windowView = view(initialState, (({ onClickRunButton }) => (render) => ({
     windowView.update(() => ({ disabled: true }));
   },
 }));
-
-windowSize.subscribe(({ width, height }) => {
-  windowView.update(() => ({ fontSize: Math.min(width * 0.04, height * 0.06) }));
-});
 
 programSubject.subscribe((program) => {
   program.forEach(({ direction, nextChar, nextState }, index) => commandViews[index].update(() => ({
