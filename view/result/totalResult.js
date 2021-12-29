@@ -10,20 +10,20 @@ const initialState = {
   opacity: 0,
 };
 
-const containerStyle = (opacity, fontSize) => toCssText({
+const fontSize = 'min(4vw, 6vh)';
+
+const containerStyle = (opacity) => toCssText({
   display: opacity === 0 ? 'none' : 'block',
   position: 'absolute',
   top: '10%',
   width: '100%',
-  fontSize: `${fontSize}px`,
-  lineHeight: `${fontSize}px`,
+  fontSize,
+  lineHeight: fontSize,
   textAlign: 'center',
   color: 'white',
   opacity,
   filter: 'drop-shadow(0 0 0.3rem black)',
 });
-
-const fontSize = 'min(4vw, 6vh)';
 
 const titleStyle = (finished) => toCssText({
   marginBottom: fontSize,
