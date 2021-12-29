@@ -47,9 +47,10 @@ const totalResult = view(initialState, (render) => ({
 }) => {
   orderView.update(() => ({ tape: order }));
   tapeView.update(() => ({ tape }));
+  const style = `display:${finished ? 'none' : 'block'}`;
   return render`<div style=${containerStyle(opacity)}>
     <div style=${titleStyle(finished)}>${finished ? 'Finished!' : 'Game Over'}</div>
-    <div style=${`display:${finished ? 'none' : 'block'}`}>${finished ? '' : `at No.${caseNumber}`}</div>
+    <div style=${style}>${finished ? '' : `at No.${caseNumber}`}</div>
     ${finished ? '' : orderView.render()}<br>${finished ? '' : tapeView.render()}<br>
     <div style=${scoreStyle}>Total score: ${showScore(score)}</div>
   </div>`;
