@@ -33,9 +33,10 @@ export const animateProgramWindow = (time, disabled) => {
   const left = Math.max((1 - time / 20) * 50, 0);
   const right = Math.min((1 + time / 20) * 50, 100);
   const bottom = Math.min(Math.max((time - 30) / 10, 0) * 87 + 13, 100);
-  const clipPath = `polygon(${left}% 0, ${right}% 0, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
   windowView.update(() => ({
-    style: { clipPath },
+    style: {
+      clipPath: `polygon(${left}% 0, ${right}% 0, ${right}% ${bottom}%, ${left}% ${bottom}%)`,
+    },
     disabled,
   }));
 };
