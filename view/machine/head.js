@@ -41,7 +41,7 @@ const headView = view(initialState, (render) => ({ state }) => (
   render`<div class=${cx(commonStyle, container)}>
     <div class=${cx(commonStyle, arm)} />
     <div class=${cx(commonStyle, arm, rightArm)} />
-    <div class=${head}>${stateToString(state)}</div>
+    <div class=${cx(commonStyle, head)}>${stateToString(state)}</div>
   </div>`
 ));
 
