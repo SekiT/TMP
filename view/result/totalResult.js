@@ -31,11 +31,8 @@ const titleStyle = (finished) => toCssText({
   color: finished ? '#fc9' : '#c99',
 });
 
-const orderView = tapeGen(4, 6);
-const tapeView = tapeGen(4, 6);
-
-const tapeStyle = { display: 'inline-block' };
-[orderView, tapeView].forEach((v) => v.update(() => ({ style: tapeStyle })));
+const orderView = tapeGen(4, 6, true);
+const tapeView = tapeGen(4, 6, true);
 
 const scoreStyle = toCssText({
   fontSize,
