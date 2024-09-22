@@ -1,19 +1,25 @@
+import { css } from '@linaria/core';
 import { signals, enqueue } from '@/subject/inputSignal';
-import { view, toCssText } from '@/lib/view';
+import { view } from '@/lib/view';
 
-const curtainStyle = (opacity) => toCssText({
-  display: opacity === 0 ? 'none' : 'block',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.6)',
-  opacity,
-});
+const curtain = css`
+  display: var(--display);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: var(--opacity);
+`;
+
+const curtainStyle = (opacity) => `
+--display:${opacity ? 'block' : 'none'};
+--opacity:${opacity};
+`;
 
 const onClick = () => enqueue(signals.goNext);
 
 export default view({ opacity: 0 }, (render) => ({ opacity }) => (
-  render`<div style=${curtainStyle(opacity)} onclick=${onClick}></div>`
+  render`<div class=${curtain} style=${curtainStyle(opacity)} onclick=${onClick}></div>`
 ));
