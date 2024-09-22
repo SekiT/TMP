@@ -92,7 +92,7 @@ const caseResultView = view(initialState, (render) => ({
       </tr>
     </table>
     <div class=${bonusClass}>Score: +${showScore(bonus(commandsSaved, accepted, steps, timeLeft))
-    }</div>
+  }</div>
   </div>`
 ));
 
