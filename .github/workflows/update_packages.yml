@@ -13,10 +13,10 @@ jobs:
 
     - name: Update and test
       run: |
-        npx npm-check-updates -u
-        npm i
-        npm test
-        npm run lint
+        pnpm up
+        pnpm install
+        pnpm test
+        pnpm run lint
 
     - name: Commit files
       run: |
