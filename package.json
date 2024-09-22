@@ -20,7 +20,6 @@
   },
   "homepage": "https://sekit.github.io/TMP/",
   "devDependencies": {
-    "@linaria/core": "^6.2.0",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-multi-entry": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -38,6 +37,7 @@
     "tape": "^5.9.0"
   },
   "dependencies": {
+    "@linaria/core": "^6.2.0",
     "uhtml": "^4.5.11"
   }
 }

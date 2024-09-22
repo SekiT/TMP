@@ -8,13 +8,13 @@ importers:
 
   .:
     dependencies:
+      '@linaria/core':
+        specifier: ^6.2.0
+        version: 6.2.0
       uhtml:
         specifier: ^4.5.11
         version: 4.5.11
     devDependencies:
-      '@linaria/core':
-        specifier: ^6.2.0
-        version: 6.2.0
       '@rollup/plugin-alias':
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.22.4)
