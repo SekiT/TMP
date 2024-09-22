@@ -20,7 +20,7 @@ const container = css`
 
 const fontSize = 'min(5vw, 6.5vh)';
 
-const buttonStyle = css`
+const button = css`
   margin: calc(5vh - ${fontSize} / 2) 0.5em;
   width: calc(${fontSize} * 5);
   height: ${fontSize};
@@ -35,11 +35,11 @@ const onClickPassButton = () => enqueue(signals.pass);
 const controlView = view(initialState, (render) => ({ running, disabled }) => (
   render`<div class=${container}>
     <button
-      style=${buttonStyle}
+      class=${button}
       onclick=${running ? onClickHaltButton : onClickResetButton}
       .disabled=${disabled}>${running ? 'HALT' : 'RESET'}</button>
     <button
-      style=${buttonStyle}
+      class=${button}
       onclick=${onClickPassButton}
       .disabled=${disabled || running}>PASS</button>
   </div>`
