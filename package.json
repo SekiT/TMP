@@ -28,13 +28,13 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.31.0",
-    "rollup": "^4.27.3",
+    "rollup": "^4.27.4",
     "rollup-plugin-esbuild": "^6.1.1",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^3.0.0",
     "tape": "^5.9.0"
   },
   "dependencies": {
-    "uhtml": "^4.5.11"
+    "uhtml": "^4.7.0"
   }
 }
