@@ -243,8 +243,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@preact/signals-core@1.8.0':
-    resolution: {integrity: sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==}
+  '@preact/signals-core@1.9.0':
+    resolution: {integrity: sha512-uUgFHJLWxb33rfCtb1g+1e3Rg7Jl5EALhGTHlQ5Y0w37OF+fdidYdYEE6crbpUOYDOjlmelIWf0ulXr1ggfUkg==}
 
   '@rollup/plugin-alias@5.1.1':
     resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
@@ -1579,7 +1579,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@preact/signals-core@1.8.0':
+  '@preact/signals-core@1.9.0':
     optional: true
 
   '@rollup/plugin-alias@5.1.1(rollup@4.41.1)':
@@ -2982,7 +2982,7 @@ snapshots:
       htmlparser2: 9.1.0
       udomdiff: 1.1.2
     optionalDependencies:
-      '@preact/signals-core': 1.8.0
+      '@preact/signals-core': 1.9.0
       '@webreflection/signal': 2.1.2
 
   unbox-primitive@1.1.0:
