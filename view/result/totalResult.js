@@ -52,7 +52,8 @@ const totalResultView = view(initialState, (render) => ({
   return render`<div style=${containerStyle(opacity)}>
     <div style=${titleStyle(finished)}>${finished ? 'Finished!' : 'Game Over'}</div>
     <div style=${numberStyle}>${numberTitle}</div>
-    ${finished ? '' : orderView.render()}<br>${finished ? '' : tapeView.render()}<br>
+    <div ?hidden=${finished}>${orderView.render()}</div><br>
+    <div ?hidden=${finished}>${tapeView.render()}</div><br>
     <div style=${scoreStyle}>Total score: ${showScore(score)}</div>
   </div>`;
 });
