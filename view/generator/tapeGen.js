@@ -1,5 +1,5 @@
+import { toCssText, view } from '@/lib/view';
 import { randomTape } from '@/subject/tape';
-import { view, toCssText } from '@/lib/view';
 
 const cellViewGen = (initialBit, cellWidth) => view(
   { bit: initialBit },

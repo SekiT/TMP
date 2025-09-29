@@ -1,4 +1,5 @@
 import dependencies from 'dependencies';
+
 import { CHAR_DELTA } from '@/constant';
 import subject from '@/lib/subject';
 

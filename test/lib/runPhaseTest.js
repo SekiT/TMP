@@ -1,7 +1,8 @@
-import { test } from 'tape';
 import dependencies from 'dependencies';
+import { test } from 'tape';
+
+import { idealTimeout, runPhase } from '@/lib/runPhase';
 import { mockFunctionSequence, resetMock } from '@/lib/shadow';
-import { runPhase, idealTimeout } from '@/lib/runPhase';
 
 const { globals } = dependencies;
 
@@ -22,7 +23,10 @@ test('runPhase runs phase with balancing timeout', (t) => {
       mockedNow
     )));
     const phase3 = () => t.fail('phase3 should not be called');
-    const phase2 = () => { t.pass('phase2 called'); return phase3; };
+    const phase2 = () => {
+      t.pass('phase2 called');
+      return phase3;
+    };
     const phase1 = () => phase2;
     mockFunctionSequence(globals.setTimeout, [
       () => (fun, timeout) => {

@@ -1,6 +1,7 @@
 import dependencies from 'dependencies';
+
+import { MINIMUM_TAPE_SPEED, TAPE_MOVE_RATIO, TIME_LIMIT } from '@/constant';
 import { graduallyUpdate } from '@/subject/tape';
-import { TIME_LIMIT, TAPE_MOVE_RATIO, MINIMUM_TAPE_SPEED } from '@/constant';
 import numbersView from '@/view/case/numbers';
 import machineTapeView from '@/view/machine/tape';
 import windowView from '@/view/program/window';

@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup pnpm
-      uses: pnpm/action-setup@v4.0.0
+      uses: pnpm/action-setup@v4.1.0
       with:
         version: latest
 
@@ -27,7 +27,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "ncu -u" -a --allow-empty
+        git commit -m "pnpm up" -a --allow-empty
 
     - name: Push changes
       uses: ad-m/github-push-action@master

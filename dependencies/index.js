@@ -1,4 +1,4 @@
-import { render, html } from 'uhtml';
+import { html, render } from 'uhtml';
 
 export default {
   uhtml: { render, html },

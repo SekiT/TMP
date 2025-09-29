@@ -1,10 +1,12 @@
 import dependencies from 'dependencies';
+
 import ids from './ids';
-import title from './title/title';
 import {
-  programWindowOpening, programming, programWindowClosing, running,
-} from './main/index';
-import { caseResult, totalResult } from './result/index';
+  programming, programWindowClosing,
+  programWindowOpening, running,
+} from './main';
+import { caseResult, totalResult } from './result';
+import title from './title/title';
 
 const { now } = dependencies.globals;
 

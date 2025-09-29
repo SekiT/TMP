@@ -1,15 +1,17 @@
 import dependencies from 'dependencies';
-import { signals, dequeue } from '@/subject/inputSignal';
-import { randomTape } from '@/subject/tape';
-import { programSubject, initialState as initialProgram } from '@/subject/program';
-import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from '@/constant';
-import { updateOrder } from '@/view/case/tapes';
-import numbersView from '@/view/case/numbers';
-import headView from '@/view/machine/head';
-import curtainView from '@/view/curtain/curtain';
-import titleView from '@/view/title/title';
-import { animateTape } from '../main/animations';
+
 import ids from '../ids';
+import { animateTape } from '../main/animations';
+
+import { FRAMES_TO_EXECUTE_COMMAND, TIME_LIMIT } from '@/constant';
+import { dequeue, signals } from '@/subject/inputSignal';
+import { initialState as initialProgram, programSubject } from '@/subject/program';
+import { randomTape } from '@/subject/tape';
+import numbersView from '@/view/case/numbers';
+import { updateOrder } from '@/view/case/tapes';
+import curtainView from '@/view/curtain/curtain';
+import headView from '@/view/machine/head';
+import titleView from '@/view/title/title';
 
 const { now, random } = dependencies.globals;
 
