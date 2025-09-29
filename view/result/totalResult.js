@@ -42,7 +42,7 @@ const scoreStyle = toCssText({
   marginTop: fontSize,
 });
 
-const totalResult = view(initialState, (render) => ({
+const totalResultView = view(initialState, (render) => ({
   finished, caseNumber, order, tape, score, opacity,
 }) => {
   orderView.update(() => ({ tape: order }));
@@ -57,4 +57,4 @@ const totalResult = view(initialState, (render) => ({
   </div>`;
 });
 
-export default totalResult;
+export default totalResultView;
