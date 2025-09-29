@@ -1,4 +1,4 @@
-import { view, toCssText } from '@/lib/view';
+import { toCssText, view } from '@/lib/view';
 
 const initialState = { opacity: 0 };
 

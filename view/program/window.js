@@ -1,7 +1,8 @@
-import { programSubject } from '@/subject/program';
-import { enqueue, signals } from '@/subject/inputSignal';
-import { view, toCssText } from '@/lib/view';
 import commandView from './command';
+
+import { toCssText, view } from '@/lib/view';
+import { enqueue, signals } from '@/subject/inputSignal';
+import { programSubject } from '@/subject/program';
 
 const initialState = {
   style: { display: 'none' },

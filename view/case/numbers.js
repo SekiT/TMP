@@ -1,5 +1,5 @@
 import { CASES_TO_COMPLETE } from '@/constant';
-import { view, toCssText } from '@/lib/view';
+import { toCssText, view } from '@/lib/view';
 
 const initialState = {
   number: 1,

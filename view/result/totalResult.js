@@ -1,6 +1,6 @@
-import { view, toCssText } from '@/lib/view';
-import tapeGen from '@/view/generator/tapeGen';
+import { toCssText, view } from '@/lib/view';
 import { showScore } from '@/view/case/numbers';
+import tapeGen from '@/view/generator/tapeGen';
 
 const initialState = {
   finished: false,

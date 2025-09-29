@@ -1,5 +1,5 @@
+import { toCssText, view } from '@/lib/view';
 import tapeSubject from '@/subject/tape';
-import { view, toCssText } from '@/lib/view';
 import tapeGen from '@/view/generator/tapeGen';
 
 const tapeView = tapeGen(15, 30);

@@ -1,4 +1,4 @@
-import { view, toCssText } from '@/lib/view';
+import { toCssText, view } from '@/lib/view';
 import { updateCommand } from '@/subject/program';
 
 const initialState = (state0, char0) => ({

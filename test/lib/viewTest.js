@@ -1,9 +1,10 @@
-import { test } from 'tape';
 import dependencies from 'dependencies';
+import { test } from 'tape';
+
 import {
   mockConstructor, mockFunction, mockFunctionSequence, resetMock,
 } from '@/lib/shadow';
-import { view, toCssText } from '@/lib/view';
+import { toCssText, view } from '@/lib/view';
 
 const { uhtml, globals: { DocumentFragment } } = dependencies;
 
@@ -14,7 +15,9 @@ test('view.render renders template', (t) => {
   const booleanProp = false;
   const numberProp = 3;
   const renderedHtml = '<div id="hello" .disabled="false">3</div>';
-  mockConstructor(DocumentFragment, () => function C() { return fragment; });
+  mockConstructor(DocumentFragment, () => function C() {
+    return fragment;
+  });
   mockFunction(uhtml.html, () => (fixedParts, ...variableParts) => {
     t.deepEqual(fixedParts, ['<div id=', ' .disabled=', '>', '</div>']);
     t.deepEqual(variableParts, [stringProp, booleanProp, numberProp]);
@@ -42,7 +45,9 @@ test('view.update updates partial or whole props and calls render', (t) => {
   const bar2 = 'bar2';
   const html1 = '<div style="display:none">bar1</div>';
   const html2 = '<div style="display:block">bar2</div>';
-  mockConstructor(DocumentFragment, () => function C() { return fragment; });
+  mockConstructor(DocumentFragment, () => function C() {
+    return fragment;
+  });
   mockFunctionSequence(uhtml.html, [
     () => (fixedParts, ...variableParts) => {
       t.deepEqual(fixedParts, ['<div style=', '>', '</div>']);

@@ -1,5 +1,5 @@
+import { toCssText, view } from '@/lib/view';
 import { enqueue, signals } from '@/subject/inputSignal';
-import { view, toCssText } from '@/lib/view';
 
 const initialState = {
   running: false,

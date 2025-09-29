@@ -1,6 +1,7 @@
+import { showScore, showTime } from '../case/numbers';
+
 import { TIME_LIMIT } from '@/constant';
-import { view, toCssText } from '@/lib/view';
-import { showTime, showScore } from '../case/numbers';
+import { toCssText, view } from '@/lib/view';
 
 export const types = {
   pass: {},

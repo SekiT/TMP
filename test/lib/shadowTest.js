@@ -1,8 +1,10 @@
 import { test } from 'tape';
+
 import {
-  shadow,
-  mockFunction, mockFunctionSequence, mockConstructor, mockPropertyGetter,
+  mockConstructor,
+  mockFunction, mockFunctionSequence, mockPropertyGetter,
   resetMock,
+  shadow,
 } from '@/lib/shadow';
 
 const originalObjects = (originalArgument, originalReturned) => ({
