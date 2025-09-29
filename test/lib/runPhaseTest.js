@@ -24,7 +24,8 @@ test('runPhase runs phase with balancing timeout', (t) => {
     )));
     const phase3 = () => t.fail('phase3 should not be called');
     const phase2 = () => {
-      t.pass('phase2 called'); return phase3;
+      t.pass('phase2 called');
+      return phase3;
     };
     const phase1 = () => phase2;
     mockFunctionSequence(globals.setTimeout, [
