@@ -40,6 +40,6 @@
     "tape": "^5.9.0"
   },
   "dependencies": {
-    "uhtml": "^5.0.9"
+    "uhtml": "^4.7.1"
   }
 }
