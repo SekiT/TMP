@@ -19,7 +19,7 @@ jobs:
     - name: Update and test
       run: |
         pnpm up
-        pnpm install
+        pnpm install --allow-build=esbuild
         pnpm test
         pnpm run lint
 

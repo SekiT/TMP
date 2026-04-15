@@ -19,7 +19,7 @@ jobs:
 
     - name: Bundle
       run: |
-        pnpm install --frozen-lockfile
+        pnpm install --frozen-lockfile --allow-build=esbuild
         pnpm run build
 
     - name: Deploy to GitHub Pages
