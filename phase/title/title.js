@@ -15,8 +15,11 @@ import titleView from '@/view/title/title';
 
 const { now, random } = dependencies.globals;
 
-export default (time = 0, backgroundTime = 0) => ({
-  currentTape, position, machineState,
+export default (time = 0, backgroundTime = 0) =>
+({
+  currentTape,
+  position,
+  machineState,
 }) => {
   if (time === 0) {
     const order = randomTape();
@@ -50,15 +53,17 @@ export default (time = 0, backgroundTime = 0) => ({
         dequeue() === signals.goNext ? 31 : 30,
         (backgroundTime + 1) % FRAMES_TO_EXECUTE_COMMAND,
       ],
-      stateUpdate: backgroundTime === 0 ? {
-        currentTape: [
-          ...currentTape.slice(0, position),
-          Math.round(random()),
-          ...currentTape.slice(position + 1, 10),
-        ],
-        position: { 0: 1, 9: 8 }[position] || position + (random() < 0.5 ? -1 : 1),
-        machineState: Math.floor(random() * 5),
-      } : {},
+      stateUpdate: backgroundTime === 0 ?
+        {
+          currentTape: [
+            ...currentTape.slice(0, position),
+            Math.round(random()),
+            ...currentTape.slice(position + 1, 10),
+          ],
+          position: { 0: 1, 9: 8 }[position] || position + (random() < 0.5 ? -1 : 1),
+          machineState: Math.floor(random() * 5),
+        } :
+        {},
     };
   }
   if (time < 50) {

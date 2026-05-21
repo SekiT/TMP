@@ -2,15 +2,16 @@ import { toCssText, view } from '@/lib/view';
 
 const initialState = { opacity: 0 };
 
-const containerStyle = (opacity) => toCssText({
-  display: opacity === 0 ? 'none' : 'block',
-  position: 'absolute',
-  width: '100%',
-  top: '30%',
-  textAlign: 'center',
-  color: 'white',
-  opacity,
-});
+const containerStyle = (opacity) =>
+  toCssText({
+    display: opacity === 0 ? 'none' : 'block',
+    position: 'absolute',
+    width: '100%',
+    top: '30%',
+    textAlign: 'center',
+    color: 'white',
+    opacity,
+  });
 
 const titleStyle = toCssText({
   fontSize: 'min(12vw, 18vh)',

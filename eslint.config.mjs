@@ -9,13 +9,14 @@ const gitignorePath = path.resolve('.', '.gitignore');
 
 // Formatting is delegated to dprint, so strip all @stylistic/* rules
 // that airbnb-extended's recommended configs would otherwise enable.
-const stripStylisticRules = (cfgs) => cfgs.map((c) => {
-  if (!c.rules) return c;
-  const filteredRules = Object.fromEntries(
-    Object.entries(c.rules).filter(([key]) => !key.startsWith('@stylistic/')),
-  );
-  return { ...c, rules: filteredRules };
-});
+const stripStylisticRules = (cfgs) =>
+  cfgs.map((c) => {
+    if (!c.rules) return c;
+    const filteredRules = Object.fromEntries(
+      Object.entries(c.rules).filter(([key]) => !key.startsWith('@stylistic/')),
+    );
+    return { ...c, rules: filteredRules };
+  });
 
 const jsConfig = [
   {

@@ -26,11 +26,18 @@ const updateScore = (displayedScore, goal) => (
   (displayedScore * 6 + goal) / 7 | 0
 );
 
-export const caseResult = (state) => ({
-  executedIndices, steps, caseNumber, score,
+export const caseResult = (state) =>
+({
+  executedIndices,
+  steps,
+  caseNumber,
+  score,
 }) => {
   const {
-    time, type, accepted, timeLeft,
+    time,
+    type,
+    accepted,
+    timeLeft,
   } = state;
   curtainView.update(() => ({ opacity: Math.min(time / 10, 1) }));
   caseResultView.update(() => ({ opacity: Math.min(Math.max(0, (time - 10) / 30), 1) }));
@@ -80,14 +87,18 @@ export const caseResult = (state) => ({
   return {
     nextId: ids.result.caseResult,
     nextArgs: [{ ...state, time: time + 1 }],
-    stateUpdate: time === 0
-      ? { score: score + bonus(10 - executedIndices.size, accepted, steps, timeLeft) }
-      : {},
+    stateUpdate: time === 0 ?
+      { score: score + bonus(10 - executedIndices.size, accepted, steps, timeLeft) } :
+      {},
   };
 };
 
-export const totalResult = (finished, time) => ({
-  order, originalTape, score, caseNumber,
+export const totalResult = (finished, time) =>
+({
+  order,
+  originalTape,
+  score,
+  caseNumber,
 }) => {
   const signal = dequeue();
   if (time <= 40) {

@@ -1,8 +1,8 @@
 import dependencies from 'dependencies';
 
 import ids from '../ids';
-import { animateProgramWindow, animateTape, showTime } from './animations';
 import { initialState as initialResultState } from '../result';
+import { animateProgramWindow, animateTape, showTime } from './animations';
 
 import { FRAMES_TO_EXECUTE_COMMAND, FRAMES_TO_SWITCH_WINDOW, TIME_LIMIT } from '@/constant';
 import { dequeue, signals } from '@/subject/inputSignal';
@@ -23,13 +23,15 @@ export const programWindowOpening = (time) => (state) => {
   animateTape(state);
   controlView.update(() => ({ running: false, disabled: moving }));
   showTime(state);
-  return moving ? {
-    nextId: ids.main.programWindowOpening,
-    nextArgs: [time + 1],
-  } : {
-    nextId: ids.main.programming,
-    nextArgs: [],
-  };
+  return moving ?
+    {
+      nextId: ids.main.programWindowOpening,
+      nextArgs: [time + 1],
+    } :
+    {
+      nextId: ids.main.programming,
+      nextArgs: [],
+    };
 };
 
 export const programming = () => (state) => {
@@ -64,11 +66,13 @@ export const programming = () => (state) => {
   return {
     nextId: ids.main.programming,
     nextArgs: [],
-    stateUpdate: signal === signals.reset ? {
-      currentTape: state.originalTape,
-      machineState: 0,
-      position: 0,
-    } : {},
+    stateUpdate: signal === signals.reset ?
+      {
+        currentTape: state.originalTape,
+        machineState: 0,
+        position: 0,
+      } :
+      {},
   };
 };
 
@@ -76,17 +80,19 @@ export const programWindowClosing = (time) => (state) => {
   animateProgramWindow(time, true);
   animateTape(state);
   controlView.update(() => ({ running: time === 0, disabled: time > 0 }));
-  return time === 0 ? {
-    nextId: ids.main.running,
-    nextArgs: [0],
-    stateUpdate: {
-      steps: 0,
-      executedIndices: new Set(),
-    },
-  } : {
-    nextId: ids.main.programWindowClosing,
-    nextArgs: [time - 1],
-  };
+  return time === 0 ?
+    {
+      nextId: ids.main.running,
+      nextArgs: [0],
+      stateUpdate: {
+        steps: 0,
+        executedIndices: new Set(),
+      },
+    } :
+    {
+      nextId: ids.main.programWindowClosing,
+      nextArgs: [time - 1],
+    };
 };
 
 let program = initialState;
@@ -95,7 +101,11 @@ programSubject.subscribe((p) => {
 });
 
 const executeCommand = ({
-  currentTape, position, machineState, steps, executedIndices,
+  currentTape,
+  position,
+  machineState,
+  steps,
+  executedIndices,
 }) => {
   const executedIndex = (machineState << 1) | currentTape[position];
   const { direction, nextChar, nextState } = program[executedIndex];
@@ -110,17 +120,24 @@ const executeCommand = ({
 
 export const running = (time) => (state) => {
   const {
-    position, machineState, startedAt, runAt, order, currentTape,
+    position,
+    machineState,
+    startedAt,
+    runAt,
+    order,
+    currentTape,
   } = state;
   if (dequeue() === signals.halt) {
     headView.update(() => ({ state: 6 }));
-    return timeLeft(now(), startedAt) > 0 ? {
-      nextId: ids.main.programWindowOpening,
-      nextArgs: [0],
-    } : {
-      nextId: ids.result.totalResult,
-      nextArgs: [false, 0],
-    };
+    return timeLeft(now(), startedAt) > 0 ?
+      {
+        nextId: ids.main.programWindowOpening,
+        nextArgs: [0],
+      } :
+      {
+        nextId: ids.result.totalResult,
+        nextArgs: [false, 0],
+      };
   }
   animateTape(state);
   const machineStateOrError = (position < 0 || position >= 10) ? -1 : machineState;
@@ -136,14 +153,16 @@ export const running = (time) => (state) => {
         ],
       };
     }
-    return timeLeft(now(), startedAt) > 0 ? {
-      nextId: ids.main.programWindowOpening,
-      nextArgs: [0],
-      stateUpdate: { machineState: machineStateOrError },
-    } : {
-      nextId: ids.result.totalResult,
-      nextArgs: [false, 0],
-    };
+    return timeLeft(now(), startedAt) > 0 ?
+      {
+        nextId: ids.main.programWindowOpening,
+        nextArgs: [0],
+        stateUpdate: { machineState: machineStateOrError },
+      } :
+      {
+        nextId: ids.result.totalResult,
+        nextArgs: [false, 0],
+      };
   }
   headView.update(() => ({ state: machineState }));
   return {

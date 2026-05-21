@@ -16,18 +16,22 @@ import titleView from './view/title/title';
 
 const { render, html } = dependencies.uhtml;
 
-render(document.getElementById('root'), html`${[
-  numbersView,
-  tapesView,
-  tapeView,
-  headView,
-  controlView,
-  windowView,
-  curtainView,
-  caseResultView,
-  totalResultView,
-  titleView,
-].map((view) => view.render())
-}`);
+render(
+  document.getElementById('root'),
+  html`${
+    [
+      numbersView,
+      tapesView,
+      tapeView,
+      headView,
+      controlView,
+      windowView,
+      curtainView,
+      caseResultView,
+      totalResultView,
+      titleView,
+    ].map((view) => view.render())
+  }`,
+);
 
 runPhase(indexPhase(titlePhase(0), initialState(randomTape(), randomTape())), idealTimeout);

@@ -19,9 +19,10 @@ test('runPhase runs phase with balancing timeout', (t) => {
   ];
   t.plan(cases.length * 3);
   cases.forEach(({ timeTaken, timeoutBefore, timeoutAfter }) => {
-    mockFunctionSequence(globals.now, [0, timeTaken, timeTaken].map((mockedNow) => () => () => (
-      mockedNow
-    )));
+    mockFunctionSequence(
+      globals.now,
+      [0, timeTaken, timeTaken].map((mockedNow) => () => () => mockedNow),
+    );
     const phase3 = () => t.fail('phase3 should not be called');
     const phase2 = () => {
       t.pass('phase2 called');

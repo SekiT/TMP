@@ -21,7 +21,8 @@ const tableStyle = toCssText({
   lineHeight: 'min(3vw, 4.2vh)',
 });
 
-const tapesView = view({}, (render) => () => render`<div style=${containerStyle}>
+const tapesView = view({}, (render) => () =>
+  render`<div style=${containerStyle}>
   <table style=${tableStyle}>
     <tr><td>ORDER:</td><td>${orderView.render()}</td></tr>
     <tr><td>TAPE:</td><td>${tapeView.render()}</td></tr>

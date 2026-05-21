@@ -30,14 +30,21 @@ const updateState1 = (index, state1) => () => {
   updateCommand(index, (command) => ({ ...command, nextState: (state1 + 1) % 6 }));
 };
 
-export default (index) => view(initialState(index >> 1, index & 0), (render) => ({
-  state0, char0, direction, char1, state1, disabled,
-}) => (
-  render`<div style=${containerStyle}>${`<${state0},${char0},`
-  }<button onclick=${updateDir(index, direction)} .disabled=${disabled}>${dirToString(direction)
-  }</button>${','
-  }<button onclick=${updateChar1(index, char1)} .disabled=${disabled}>${char1}</button>${','
-  }<button onclick=${updateState1(index, state1)} .disabled=${disabled}>${stateStrings[state1]
-  }</button>${'>'
-  }</div>`
-));
+export default (index) =>
+  view(initialState(index >> 1, index & 0), (render) =>
+  ({
+    state0,
+    char0,
+    direction,
+    char1,
+    state1,
+    disabled,
+  }) => (
+    render`<div style=${containerStyle}>${`<${state0},${char0},`}<button onclick=${
+      updateDir(index, direction)
+    } .disabled=${disabled}>${dirToString(direction)}</button>${','}<button onclick=${
+      updateChar1(index, char1)
+    } .disabled=${disabled}>${char1}</button>${','}<button onclick=${
+      updateState1(index, state1)
+    } .disabled=${disabled}>${stateStrings[state1]}</button>${'>'}</div>`
+  ));

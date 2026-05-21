@@ -14,6 +14,6 @@ export default {
       addEventListener: () => {},
     }),
     random: shadow(Math.random),
-    DocumentFragment: shadow({ C: function () {} }.C),
+    DocumentFragment: shadow({ C: function() {} }.C),
   },
 };

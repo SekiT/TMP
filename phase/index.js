@@ -2,8 +2,10 @@ import dependencies from 'dependencies';
 
 import ids from './ids';
 import {
-  programming, programWindowClosing,
-  programWindowOpening, running,
+  programming,
+  programWindowClosing,
+  programWindowOpening,
+  running,
 } from './main';
 import { caseResult, totalResult } from './result';
 import title from './title/title';
