@@ -31,7 +31,7 @@ const updateState1 = (index, state1) => () => {
 };
 
 export default (index) =>
-  view(initialState(index >> 1, index & 0), (render) =>
+  view(initialState(index >> 1, index & 1), (render) =>
   ({
     state0,
     char0,
