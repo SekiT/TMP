@@ -18,7 +18,7 @@ The turing machine has `head` and `state`:
 The situation can be described as a table:
 
 | order | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
-| -     | - | - | - | - | - | - | - | - | - | - |
+| ----- | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | head  | ↑ |   |   |   |   |   |   |   |   |   |
 | state | 0 |   |   |   |   |   |   |   |   |   |
@@ -30,7 +30,7 @@ The situation can be described as a table:
 For example, if the situation is:
 
 | order | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
-| -     | - | - | - | - | - | - | - | - | - | - |
+| ----- | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | head  |   |   |   | ↑ |   |   |   |   |   |   |
 | state |   |   |   | 2 |   |   |   |   |   |   |
@@ -40,7 +40,7 @@ then the command starting with `<2, 0,` is executed.
 If the command is `<2, 0, 1, R, 3>`, the next situation will be:
 
 | order | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
-| -     | - | - | - | - | - | - | - | - | - | - |
+| ----- | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
 | head  |   |   |   |   | ↑ |   |   |   |   |   |
 | state |   |   |   |   | 3 |   |   |   |   |   |
@@ -79,7 +79,7 @@ Infinite loops are not accepted or detected. `HALT` button will rescue you in th
 
 ```md
 | order | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| -     | - | - | - | - | - | - | - | - | - | - |
+| ----- | - | - | - | - | - | - | - | - | - | - |
 | tape  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | head  | ↑ |   |   |   |   |   |   |   |   |   |
 | state | 0 |   |   |   |   |   |   |   |   |   |

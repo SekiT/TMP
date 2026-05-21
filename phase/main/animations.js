@@ -16,13 +16,14 @@ export const showTime = ({ startedAt }) => {
 const newPosition = (currentPosition, desiredPosition) => {
   const diff = desiredPosition - currentPosition;
   const moved = diff * TAPE_MOVE_RATIO;
-  return MINIMUM_TAPE_SPEED < Math.abs(moved)
-    ? currentPosition + moved
-    : currentPosition + Math.min(Math.max(-MINIMUM_TAPE_SPEED, diff), MINIMUM_TAPE_SPEED);
+  return MINIMUM_TAPE_SPEED < Math.abs(moved) ?
+    currentPosition + moved :
+    currentPosition + Math.min(Math.max(-MINIMUM_TAPE_SPEED, diff), MINIMUM_TAPE_SPEED);
 };
 
 export const animateTape = ({
-  currentTape, position: desiredPosition,
+  currentTape,
+  position: desiredPosition,
 }) => {
   graduallyUpdate(currentTape);
   machineTapeView.update(({ position: currentPosition }) => ({

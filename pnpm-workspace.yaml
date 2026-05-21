@@ -1,4 +1,5 @@
-minimumReleaseAgeminimumReleaseAge: 10080
 allowBuilds:
+  dprint: true
   esbuild: true
   unrs-resolver: true
+minimumReleaseAge: 10080

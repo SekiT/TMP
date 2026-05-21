@@ -8,8 +8,9 @@ export const initialState = [...Array(10)].map((_, index) => ({
 
 export const programSubject = subject(initialState);
 
-export const updateCommand = (index, commandUpdateFunction) => programSubject.next((program) => [
-  ...program.slice(0, index),
-  commandUpdateFunction(program[index]),
-  ...program.slice(index + 1),
-]);
+export const updateCommand = (index, commandUpdateFunction) =>
+  programSubject.next((program) => [
+    ...program.slice(0, index),
+    commandUpdateFunction(program[index]),
+    ...program.slice(index + 1),
+  ]);

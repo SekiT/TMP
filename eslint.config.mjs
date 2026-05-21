@@ -2,17 +2,27 @@ import path from 'node:path';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
-import { configs, plugins, rules } from 'eslint-config-airbnb-extended';
+import { configs as airbnbConfigs, plugins, rules } from 'eslint-config-airbnb-extended';
 import globals from 'globals';
 
 const gitignorePath = path.resolve('.', '.gitignore');
+
+// Formatting is delegated to dprint, so strip all @stylistic/* rules
+// that airbnb-extended's recommended configs would otherwise enable.
+const stripStylisticRules = (configs) =>
+  configs.map((config) => {
+    if (!config.rules) return config;
+    const filteredRules = Object.fromEntries(
+      Object.entries(config.rules).filter(([key]) => !key.startsWith('@stylistic/')),
+    );
+    return { ...config, rules: filteredRules };
+  });
 
 const jsConfig = [
   {
     name: 'js/config',
     ...js.configs.recommended,
   },
-  plugins.stylistic,
   {
     ...plugins.importX,
     settings: {
@@ -24,19 +34,19 @@ const jsConfig = [
       },
     },
   },
-  ...configs.base.recommended,
+  ...airbnbConfigs.base.recommended,
   rules.base.importsStrict,
 ];
 
 const nodeConfig = [
   plugins.node,
-  ...configs.node.recommended,
+  ...airbnbConfigs.node.recommended,
 ];
 
 export default [
   includeIgnoreFile(gitignorePath),
-  ...jsConfig,
-  ...nodeConfig,
+  ...stripStylisticRules(jsConfig),
+  ...stripStylisticRules(nodeConfig),
   {
     name: 'project/settings',
     languageOptions: {

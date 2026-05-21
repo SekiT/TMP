@@ -12,24 +12,26 @@ const initialState = {
 
 const fontSize = 'min(4vw, 6vh)';
 
-const containerStyle = (opacity) => toCssText({
-  display: opacity === 0 ? 'none' : 'block',
-  position: 'absolute',
-  top: '10%',
-  width: '100%',
-  fontSize,
-  lineHeight: fontSize,
-  textAlign: 'center',
-  color: 'white',
-  opacity,
-  filter: 'drop-shadow(0 0 0.3rem black)',
-});
+const containerStyle = (opacity) =>
+  toCssText({
+    display: opacity === 0 ? 'none' : 'block',
+    position: 'absolute',
+    top: '10%',
+    width: '100%',
+    fontSize,
+    lineHeight: fontSize,
+    textAlign: 'center',
+    color: 'white',
+    opacity,
+    filter: 'drop-shadow(0 0 0.3rem black)',
+  });
 
-const titleStyle = (finished) => toCssText({
-  marginBottom: fontSize,
-  fontSize: `calc(${fontSize} * 1.3)`,
-  color: finished ? '#fc9' : '#c99',
-});
+const titleStyle = (finished) =>
+  toCssText({
+    marginBottom: fontSize,
+    fontSize: `calc(${fontSize} * 1.3)`,
+    color: finished ? '#fc9' : '#c99',
+  });
 
 const orderView = tapeGen(4, 6);
 const tapeView = tapeGen(4, 6);
@@ -42,8 +44,14 @@ const scoreStyle = toCssText({
   marginTop: fontSize,
 });
 
-const totalResultView = view(initialState, (render) => ({
-  finished, caseNumber, order, tape, score, opacity,
+const totalResultView = view(initialState, (render) =>
+({
+  finished,
+  caseNumber,
+  order,
+  tape,
+  score,
+  opacity,
 }) => {
   orderView.update(() => ({ tape: order }));
   tapeView.update(() => ({ tape }));
