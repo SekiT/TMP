@@ -19,8 +19,8 @@ importers:
         specifier: ^3.3.7
         version: 3.3.7(supports-color@7.2.0)
       '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@9.39.5(supports-color@7.2.0))
+        specifier: ^9.36.0
+        version: 9.36.0
       '@rollup/plugin-alias':
         specifier: ^6.0.0
         version: 6.0.0(rollup@4.63.4)
@@ -34,8 +34,8 @@ importers:
         specifier: ^0.50.2
         version: 0.50.2
       esbuild:
-        specifier: ^0.28.2
-        version: 0.28.2
+        specifier: ^0.28.1
+        version: 0.28.1
       eslint-config-airbnb-extended:
         specifier: ^3.2.0
         version: 3.2.0(@typescript-eslint/parser@8.70.1(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(@typescript-eslint/utils@8.70.1(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint-import-resolver-node@0.3.10(supports-color@7.2.0))(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(ts-declaration-location@1.0.7(typescript@6.0.3))(typescript@6.0.3)
@@ -405,8 +405,8 @@ packages:
       eslint:
         optional: true
 
-  '@eslint/js@9.39.5':
-    resolution: {integrity: sha512-QywQuszQh77pIXCsq998c8hbhSTI/azTty1Z6N53dmAudKHhy573j3yvRLsX2BSp8YpLtoCEG8E9DJe+8zUh4A==}
+  '@eslint/js@9.36.0':
+    resolution: {integrity: sha512-uhCbYtYynH30iZErszX78U+nR3pJU3RHGQ57NXy5QupD4SBVwDeU8TNBy+MjMngc1UyIW9noKqsRqfjQTBU2dw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.7':
@@ -2540,11 +2540,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@10.0.1(eslint@9.39.5(supports-color@7.2.0))':
+  '@eslint/js@10.0.1(eslint@9.36.0)':
     optionalDependencies:
-      eslint: 9.39.5(supports-color@7.2.0)
+      eslint: 9.36.0
 
-  '@eslint/js@9.39.5': {}
+  '@eslint/js@9.36.0': {}
 
   '@eslint/object-schema@2.1.7': {}
 
